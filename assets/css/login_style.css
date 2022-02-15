@@ -1,5 +1,5 @@
 body{
-    background:#F24019 !important;
+    background:#EF2020 !important;
     font-family: 'Muli', sans-serif;
     
   }
@@ -12,26 +12,26 @@ body{
     color: #333;
   }
   a:hover{
-    color: #F24019;
+    color: #EF2020;
     text-decoration: none;
   }
   .form-control:focus {
   
       color: #000;
       background-color: #fff;
-      border:2px solid #F24019;
+      border:2px solid #EF2020;
       outline: 0;
       box-shadow: none;
   
   }
   /*buttons */
   .btn{
-    background: #F24019;
-    border: #F24019;
+    background: #EF2020;
+    border: #EF2020;
   }
   .btn:hover {
-    background: #F24019;
-    border: #F24019;
+    background: #EF2020;
+    border: #EF2020;
   }
   .logo{
     position: absolute;

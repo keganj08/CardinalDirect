@@ -1,0 +1,46 @@
+/*Styles for the Scheduler*/
+body{
+	font-family: Arial, sans-serif;
+	background-color: red;
+	color: white;
+	text-align: center;
+}
+
+section{
+	background-color: white;
+	color: red;
+	padding: 10px;
+}
+
+img{
+	height: 25%;
+	width: auto;
+}
+
+input{
+	padding: 10px;
+	margin: 10px;
+	border: 3px solid red;
+	outline: none;
+	border-radius: 8px;
+}
+
+button{
+	font-size: 18px;
+	background-color: red;
+	color: white;
+	border: none;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 8px;
+}
+
+table{
+	width: 75%;
+	margin: auto;
+}
+
+table td, th{
+	border: 1px solid red;
+}
+

@@ -19,19 +19,19 @@ body{
   
       color: #000;
       background-color: #fff;
-      border:2px solid #F24019;
+      border:2px solid red;
       outline: 0;
       box-shadow: none;
   
   }
   /*buttons */
   .btn{
-    background: #F24019;
-    border: #F24019;
+    background: red;
+    border: red;
   }
   .btn:hover {
-    background: #F24019;
-    border: #F24019;
+    background: red;
+    border: red;
   }
   .logo{
     position: absolute;

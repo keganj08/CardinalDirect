@@ -1,14 +1,14 @@
 /*Styles for the Scheduler*/
 body{
 	font-family: Arial, sans-serif;
-	background-color: red;
+	background-color: #ef4048;
 	color: white;
 	text-align: center;
 }
 
 section{
 	background-color: white;
-	color: red;
+	color: #ef4048;
 	padding: 10px;
 }
 
@@ -20,14 +20,14 @@ img{
 input{
 	padding: 10px;
 	margin: 10px;
-	border: 3px solid red;
+	border: 3px solid #ef4048;
 	outline: none;
 	border-radius: 8px;
 }
 
 button{
 	font-size: 18px;
-	background-color: red;
+	background-color: #ef4048;
 	color: white;
 	border: none;
 	margin: 10px;
@@ -41,6 +41,6 @@ table{
 }
 
 table td, th{
-	border: 1px solid red;
+	border: 1px solid #ef4048;
 }
 

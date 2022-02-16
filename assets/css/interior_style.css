@@ -1,0 +1,65 @@
+/*Styles for the Scheduler*/
+body{
+	font-family: Arial, sans-serif;
+	background-color: #ef4048;
+	color: white;
+	text-align: center;
+}
+
+img{
+	height: 25%;
+	width: auto;
+}
+
+input{
+	padding: 10px;
+	margin: 10px;
+	border: 3px solid #ef4048;
+	outline: none;
+	border-radius: 8px;
+}
+
+button{
+	font-size: 18px;
+	background-color: #ef4048;
+	color: white;
+	border: none;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 8px;
+}
+
+table{
+	width: 75%;
+	margin: auto;
+}
+
+table th{
+	border: 1px solid #ef4048;
+    background-color: white;
+}
+table td{
+    background-color: #ef4048;
+    padding: 10px;
+}
+
+
+.buttonAlt{
+	font-size: 12px;
+	background-color: #ef4048;
+	color: white;
+	border: none;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 8px;
+}
+
+.buffer{
+    padding: 60px;
+}
+
+p{
+    font-size: 18px;
+    color:black
+}
+

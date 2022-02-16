@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--Page for users to add a class-->
+<html>
+<head>
+	<link rel="icon" href="assets/images/browserIcon.jpg">
+	<meta charset = "utf-8">
+	<meta name="author" content="CSIndustries">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<link href="assets/css/interior_style.css" rel="stylesheet" type="text/css">
+	<title>Interior Routing/Exploration</title>
+</head>
+<body>
+	<header>
+		<img src="assets/images/cardinaldirect_logo.jpg" alt="CardinalDirect Logo"/>
+		<h2>Interior Routing/Exploration</h2>
+	</header>
+
+<!-- divided page into table of 3 parts (1 th, 1 td, 1 th)-->
+<table>
+	<!--Form for desired classroom destination-->
+    <th>
+		<form method="GET" target="_self">
+			<input name="className" type="text" placeholder="i.e., room 101" required><br>
+			<button name="confirmDestination" type="button">Create Route</button>
+            <button type="button">Remove Route</button>
+		</form>	
+
+        <div class="buffer"></div>
+
+        <p name="currentInstruction">instructions will appear here</p>
+    </th>
+   
+    <!-- image overlay-->
+    <td>
+        <image src="assets/images/building interiors/CarnegieEntry-example.jpg" style="width:800px;">
+    </td>
+
+    <!-- movement controls-->
+    <!-- will likely replace text buttons for image buttons-->
+    <th>
+        <button class="buttonAlt" name="up" type="button">Go Up Stairs</button>
+        <button class="buttonAlt" name="down" type="button">Go Down Stairs</button>
+        <div class="buffer"></div>
+        <button name="Forward" type="button">Forward</button><br>
+        <button name="Left" type="button">Left</button>
+        <button name="Right" type="button">Right</button><br>
+        <button name="Backward" type="button">Backward</button>
+    </th>
+</table>
+
+</body>
+</html>

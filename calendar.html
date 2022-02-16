@@ -17,7 +17,12 @@
 	</header>
 	<section>
 		<div>
-			<p id="calendarmonth">January 2022</p>
+			<button id="left_cal_button" type="button">Prev</button>
+			<h3 id="calendarmonth">January 2022</h3>
+			<button id="right_cal_button" type="button">Next</button>
+		</div>
+		<div>
+			<!-- Table representing days of month -->
 			<table>
 				<tr>
 					<th>S</th>
@@ -73,12 +78,23 @@
 					<td></td>
 					<td></td>
 				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 			</table>
 		</div>
 		<div>
 			<button type="button">Back</button>
 		</div>
 	</section>
-	<script type = "text/javascript" src = "assets/js/scheduler.js"></script>
+	<script defer type = "text/javascript" src = "assets/js/scheduler_view.js"></script>
+	<script defer type = "text/javascript" src = "assets/js/scheduler.js"></script>
+	<script defer type = "text/javascript" src = "assets/js/scheduler_listeners.js"></script>
 </body>
 </html>

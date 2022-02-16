@@ -22,11 +22,13 @@
 		<!--Note: Will need to add "action"-->
 		<form method="GET" target="_self">
 			<input name="classname" type="text" placeholder="i.e., CARD 101 First-Year Seminar - Writing" required><br>
+			<!-- Area for user to choose which days of the week the class is held -->
 			<button name="M" type="button">M</button>
 			<button name="T" type="button">T</button>
 			<button name="W" type="button">W</button>
 			<button name="Th" type="button">Th</button>
 			<button name="F" type="button">F</button><br>
+			<!-- Area for user to choose starting hour -->
 			Start
 			<select name="starthr" required>
 				<option value="1">1</option>
@@ -42,6 +44,7 @@
 				<option value="11">11</option>
 				<option value="12">12</option>
 			</select>:
+			<!-- Area for user to choose starting minutes -->
 			<select name="startmin" required>
 				<option value="00">00</option>
 				<option value="05">05</option>
@@ -56,10 +59,12 @@
 				<option value="50">50</option>
 				<option value="55">55</option>
 			</select>
+			<!-- Area for user to choose if starting time is AM or PM -->
 			<select name="startampm" required>
 				<option value="am">AM</option>
 				<option value="pm">PM</option>
 			</select><br>
+			<!-- Area for user to choose ending hour -->
 			End
 			<select name="endhr" required>
 				<option value="1">1</option>
@@ -75,6 +80,7 @@
 				<option value="11">11</option>
 				<option value="12">12</option>
 			</select>:
+			<!-- Area for user to choose ending minutes -->
 			<select name="endmin" required>
 				<option value="00">00</option>
 				<option value="05">05</option>
@@ -89,6 +95,7 @@
 				<option value="50">50</option>
 				<option value="55">55</option>
 			</select>
+			<!-- Area for user to choose if ending time is AM or PM -->
 			<select name="endampm" required>
 				<option value="am">AM</option>
 				<option value="pm">PM</option>

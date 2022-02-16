@@ -3,7 +3,7 @@ body{
 	font-family: Arial, sans-serif;
 	background-color: #ef4048;
 	color: white;
-	text-align: center;
+	text-align: center; /*centers elements*/
 }
 
 section{
@@ -22,7 +22,7 @@ input{
 	margin: 10px;
 	border: 3px solid #ef4048;
 	outline: none;
-	border-radius: 8px;
+	border-radius: 8px; /*curves corners of buttons*/
 }
 
 button{
@@ -32,7 +32,7 @@ button{
 	border: none;
 	margin: 10px;
 	padding: 10px;
-	border-radius: 8px;
+	border-radius: 8px; /*curves corners of buttons*/
 }
 
 table{
@@ -42,5 +42,9 @@ table{
 
 table td, th{
 	border: 1px solid #ef4048;
+}
+
+#calendarmonth{
+	display: inline-block; /*keeps buttons in-line with header*/
 }
 

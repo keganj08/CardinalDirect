@@ -1,12 +1,14 @@
 body{
     background:#EF2020 !important;
     font-family: 'Muli', sans-serif;
+
     
   }
   h1{
     color: #fff;
     padding-bottom: 2rem;
     font-weight: bold;
+    
   }
   a{
     color: #333;
@@ -22,6 +24,7 @@ body{
       border:2px solid #EF2020;
       outline: 0;
       box-shadow: none;
+    
   
   }
   /*buttons */

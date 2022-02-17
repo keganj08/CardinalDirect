@@ -1,5 +1,5 @@
 body{
-    background:#EF2020 !important;
+    background:#ef4048 !important;
     font-family: 'Muli', sans-serif;
 
     
@@ -14,14 +14,14 @@ body{
     color: #333;
   }
   a:hover{
-    color: #EF2020;
+    color:#ef4048;
     text-decoration: none;
   }
   .form-control:focus {
   
       color: #000;
       background-color: #fff;
-      border:2px solid #EF2020;
+      border:2px solid #ef4048;
       outline: 0;
       box-shadow: none;
     
@@ -29,12 +29,12 @@ body{
   }
   /*buttons */
   .btn{
-    background: #EF2020;
-    border: #EF2020;
+    background: #ef4048;
+    border: #ef4048;
   }
   .btn:hover {
-    background: #EF2020;
-    border: #EF2020;
+    background: #ef4048;
+    border: #ef4048;
   }
   .logo{
     position: absolute;

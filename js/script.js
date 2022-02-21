@@ -3,6 +3,7 @@ const password = document.getElementById('password')
 const form = document.getElementById('submitForm')
 const errorElement = document.getElementById('error')
 
+//NOT WORKING FOR SOME REASON
 //check for errors before allowing user to submit
 form.addEventListener('submit', (e) => {
     let messages = []

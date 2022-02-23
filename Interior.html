@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- TODO responsive landscape layout change for mobile aspect ratio-->
 <!--Page for building interior routing/exploration-->
 <html>
 <head>
@@ -20,15 +21,21 @@
 <table>
 	<!--Form for desired classroom destination-->
     <th>
-		<form method="GET" target="_self">
-			<input name="className" type="text" placeholder="i.e., room 101" required><br>
-			<button name="confirmDestination" type="button">Create Route</button>
-            <button type="button">Remove Route</button>
-		</form>	
 
+        <button class="exitButton" name="exit" type="button" onclick = "window.location.href = 'main_landing.html';">Exit to Homepage</button>
+		
         <div class="buffer"></div>
 
         <p name="currentInstruction">instructions will appear here</p>
+
+        <div class="buffer"></div>
+
+        <form method="GET" target="_self">
+			<input class="className" name="className" type="text" placeholder="i.e., room 101" required><br>
+			<button name="confirmDestination" type="button">Create Route</button>
+            <button type="button">Remove Route</button>
+		</form>	
+        
     </th>
    
     <!-- image overlay-->

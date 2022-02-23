@@ -58,6 +58,15 @@ table td{
     padding: 60px;
 }
 
+.exitButton{
+	float:left;
+	margin-top: 0%;
+}
+
+.className{
+	margin-top: 25%;
+}
+
 p{
     font-size: 18px;
     color:black

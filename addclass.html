@@ -20,7 +20,7 @@
 		<!--Form for Class Information-->
 		<!--Note: Will need to change method to POST or PUT-->
 		<!--Note: Will need to add "action"-->
-		<form method="GET" target="_self">
+		<form method="GET" action="class_view.html" target="_self">
 			<input name="classname" type="text" placeholder="i.e., CARD 101 First-Year Seminar - Writing" required><br>
 			<!-- Area for user to choose which days of the week the class is held -->
 			<button name="M" type="button">M</button>
@@ -105,7 +105,7 @@
 			<button type="submit">Add</button>
 		</form>
 		<div>
-			<button type="button">Back</button>
+			<button type="button" onclick = "window.location.href = 'class_view.html';">Back</button>
 		</div>
 	</section>
 </body>

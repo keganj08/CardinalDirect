@@ -1,58 +1,53 @@
 body{
-    background:#ef4048 !important;
-    font-family: 'Muli', sans-serif;
+  background:#ef4048;
+  font-family: Arial, sans-serif;
 
-    
-  }
-  /*Header at top*/
-  h1{
-    color: #fff;
-    padding-bottom: 2rem;
-    font-weight: bold;
-    
-  }
-  /*form box border color*/
-  a{
-    color: #333;
-  }
-  /*changes color of button above form box when hovered*/
-  a:hover{
-    color:#ef4048;
-    text-decoration: none;
-  }
-  /*white background of box*/
-  .form-control:focus {
+}
+/*Header at top*/
+h1{
+  color: #fff;
+  padding-bottom: 2rem;
+  font-weight: bold;
   
-      color: #000;
-      background-color: #fff;
-      border:2px solid #ef4048;
-      outline: 0;
-      box-shadow: none;
-    
-  
-  }
-  /*buttons */
-  .btn{
-    background: #ef4048;
-    border: #ef4048;
-  }
-  /*Changes color of button when hovered over*/
-  .btn:hover {
-    background: #ef4048;
-    border: #ef4048;
-  }
-  .logo{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top:0px;
-    margin-left: -200px;
+}
+/*form box border color*/
+a{
+  color: #333;
+}
+/*changes color of button above form box when hovered*/
+a:hover{
+  color:#ef4048;
+  text-decoration: none;
+}
+/*white background of box*/
+.form-control:focus {
 
-  }
-  /*bottom div containing logo*/
- .inside {
-        width:100%;
-        position: relative;
-        bottom:0;
-    
+    color: #000;
+    background-color: #fff;
+    border:2px solid #ef4048;
+    outline: 0;
+    box-shadow: none;
+}
+/*buttons */
+.btn{
+  background: #ef4048;
+  border: #ef4048;
+}
+/*Changes color of button when hovered over*/
+.btn:hover {
+  background: #ef4048;
+  border: #ef4048;
+}
+/*logo*/
+.logo{
+  position: relative;
+  left: 50%;
+  margin-top:-60px;
+  margin-left: -200px;
+}
+/*bottom div containing logo*/
+.inside {
+      width:auto;
+      position: relative;
+      padding: 20px;  
 }

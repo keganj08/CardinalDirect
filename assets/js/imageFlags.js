@@ -11,8 +11,10 @@ image.setAttribute("left","false");
 image.setAttribute("right","false");
 image.setAttribute("backward","false");
 //set attribute for what classroom number(s) is in picture frame
+image.setAttribute("rooms", "101, 202");
 
 console.log(image.attributes);
+console.log(image.attributes.rooms);
 
 //attributes will be in attribute.value (upStairs.value)
 
@@ -28,4 +30,5 @@ image2.setAttribute("right","false");
 image2.setAttribute("backward","false");
 
 console.log(image2.attributes);
+console.log(image2.attributes.forward);
 //console.log(image2.getAttribute(upStairs));

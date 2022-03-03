@@ -1,3 +1,5 @@
+<!--DELETED HEADER.PHP-->
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -27,21 +29,29 @@
           <div class="col-md-5 mx-auto">
               <div class="card card-body">
                   <!--white box--> 
-                  <form id="submitForm" action="plink-sent.html" method="post" required>
-              
+                  <!--<form id="submitForm" action="plink-sent.html" method="post" required>-->
+                 <form id="submitForm" action="php/forgottenpwd/includes/reset-request.inc.php" method="post">  
                     <div class="form-group required">
                       <label for="email">Email</label>
-                      <input type="email" class="form-control text-lowercase" id="email" required name="email">
+                      <input type="email" name="email" class="form-control text-lowercase" id="email" required >
                       
                     </div>  
               
                       <!--reset button-->
+                    
                       <div class="form-group pt-1">
-                          <button class="btn btn-primary btn-block" name="password-reset-token.php" type="submit"> Reset Password</button>
+                        <button class="btn btn-primary btn-block" name="reset-request-submit" type="submit"> Reset Password</button>
 
-                      </div>
-                  </form>
-                  
+                    </div>
+                </form>
+
+                <?php
+                    if (isset($_GET["reset"])){
+                        if ($_GET["reset"] == "success"){
+                            echo '<p class="signupsuccess">Check your e-mail!</p>';
+                        }
+                    }
+              ?>
       
               </div>
               
@@ -51,5 +61,8 @@
 </div>
 </body>
 
-</div> 
+</div>
+ 
 </html>
+
+<!--DELETED FOOTER.PHP>

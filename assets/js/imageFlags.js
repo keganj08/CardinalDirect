@@ -11,8 +11,8 @@ image.setAttribute("left","false");
 image.setAttribute("right","false");
 image.setAttribute("backward","false");
 //set attribute for what classroom number(s) is in picture frame
-image.setAttribute("rooms", "101, 202");
-
+image.setAttribute("leftRooms", "101, 202");
+image.setAttribute("rightRooms", "101, 202");
 console.log(image.attributes);
 console.log(image.attributes.rooms);
 

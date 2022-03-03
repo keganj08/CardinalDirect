@@ -18,17 +18,17 @@ console.log(image.attributes.rooms);
 
 //attributes will be in attribute.value (upStairs.value)
 
-console.log("---------")
-var image2 = document.createElement('img');
-image.src='assets/images/building interiors/1st floor/20220222_193502.jpg';
+console.log("---floor 1------")
+//floor 1 
+var f1_mid_e_to_ne = document.createElement('img');
+image.src='assets/images/building interiors/1st floor/floor1_mid_e_to_ne.jpg';
+f1_mid_e_to_ne.setAttribute("upStairs","false");
+f1_mid_e_to_ne.setAttribute("downStairs","false");
+f1_mid_e_to_ne.setAttribute("forward","true");
+f1_mid_e_to_ne.setAttribute("left","true");
+f1_mid_e_to_ne.setAttribute("right","false");
+f1_mid_e_to_ne.setAttribute("backward","true");
 
-image2.setAttribute("upStairs","true");
-image2.setAttribute("downStairs","true");
-image2.setAttribute("forward","true");
-image2.setAttribute("left","false");
-image2.setAttribute("right","false");
-image2.setAttribute("backward","false");
-
-console.log(image2.attributes);
-console.log(image2.attributes.forward);
-//console.log(image2.getAttribute(upStairs));
+console.log(f1_mid_e_to_ne.attributes);
+console.log(f1_mid_e_to_ne.attributes.forward.value); //this is how to grab specific value
+//console.log(f1_mid_e_to_ne.getAttribute(upStairs));

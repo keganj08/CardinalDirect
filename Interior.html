@@ -30,6 +30,9 @@
 
         <div class="buffer"></div>
 
+        <button id="showRooms"  type="button">Toggle Room #'s</button>
+        <p id="test" style="display: none">room 101</p>
+
         <form method="GET" target="_self">
 			<input class="className" name="className" type="text" placeholder="i.e., room 101" required><br>
 			<button name="confirmDestination" type="button">Create Route</button>
@@ -40,7 +43,7 @@
    
     <!-- image overlay-->
     <td>
-        <image src="assets/images/building interiors/CarnegieEntry-example.jpg" style="width:800px;">
+        <image src="assets/images/building interiors/1st floor/floor1_mid_e_to_ne.jpg" style="width:800px;">
     </td>
 
     <!-- movement controls-->
@@ -57,5 +60,7 @@
 </table>
 
 <script src="assets/js/imageFlags.js"></script>
+<script src="assets/js/buttonHandlers.js"></script>
+<script defer type = "text/javascript" src = "assets/js/routing.js"></script>
 </body>
 </html>

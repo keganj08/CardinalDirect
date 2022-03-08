@@ -15,7 +15,7 @@
 
         require 'db.inc.php';
 
-        $sql = "SELECT * FROM pwdReset WHERE pwdResetSelector=? AND pwdResetExpires >= ?";
+        $sql = "SELECT * FROM pwdReset WHERE pwdResetSelector=? AND pwdResetExpires >= $currentDate";
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -39,7 +39,7 @@
                     exit();
                 } elseif ($tokenCheck === true) {
                     $tokenEmail = $row['pwdResetEmail'];
-                    $sql = "SELECT * FROM users WHERE emailUsers=?;";
+                    $sql = "SELECT * FROM users WHERE usersEmail=?";
                     $stmt = mysqli_stmt_init($conn);
 
                     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -54,7 +54,7 @@
                             exit();
                             
                         } else{
-                            $sql = "UPDATE users SET pwdusers=? WHERE emailUsers=?"; 
+                            $sql = "UPDATE users SET usersPwd=? WHERE usersEmail=?"; 
                             $stmt = mysqli_stmt_init($conn);
                             if (!mysqli_stmt_prepare($stmt, $sql)) {
                                 echo "Error";
@@ -62,7 +62,7 @@
                             } else { 
                                 //UPDATE NEW PWD IN DB
                                 $newPwdHash = password_hash($password, PASSWORD_DEFAULT);
-                                mysqli_stmt_bind_param($stmt, "ss", $tokenEmail);
+                                mysqli_stmt_bind_param($stmt, "ss", $newPwdHash, $tokenEmail);
                                 mysqli_stmt_execute($stmt);
 
                                 $sql = "DELETE FROM pwdReset WHERE pwdResetEmail=?";
@@ -73,7 +73,7 @@
                                     }else { 
                                         mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
                                         mysqli_stmt_execute($stmt);
-                                        header("CardinalDirect/login.html?newpwd=passwordupdated"); 
+                                        header("Location: /CardinalDirect/login.html?newpwd=passwordupdated"); 
                                     }                                      
                                 }
                         
@@ -82,7 +82,5 @@
                 }
             }
         }
-    }else{
-        header("Location: /CardinalDirect/index.php");
     }
 ?>

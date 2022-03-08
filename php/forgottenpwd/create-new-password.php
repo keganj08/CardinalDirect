@@ -7,7 +7,7 @@
   <link rel="icon" href="assets/images/browserIcon.jpg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CD/Reset-Password</title>
+  <title>CD/New-Password</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
 <link rel="stylesheet" href="/CardinalDirect/assets/css/login_style.css">
 
@@ -21,7 +21,7 @@
         </div> 
     </div> 
     <!--page header -->
-    <h1 class="text-center">Forgot Password? <br>No worries.</br></h1>
+    <h1 class="text-center">Create a New Password</h1>
     <!--white box-->
     <div class="container">
         <div class="row">
@@ -37,7 +37,7 @@
                         } else {
                         if(ctype_xdigit($selector) !== false && ctype_xdigit($validator) !== false){
                                 ?>
-                                <form action="inlcudes/reset-password.inc.php" method = "post">
+                                <form action="CardinalDirect/php/forgottenpwd/includes/reset-password.inc.php" method = "post">
                                     <input type="hidden" name="selector" value="<?php echo $selector ?>">
                                     <input type="hidden" name="validator" value="<?php echo $validator ?>">
                                     <div class="form-group required">

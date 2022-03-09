@@ -231,45 +231,45 @@ var wsc = {
 	// Add all of the edges to the Wentz Science Center Graph
 	createEdges: function(){
 		//floor b
-		this.wscGraph.addEdge(new DirectedEdge("fb ne", "fb e", 3));
-		this.wscGraph.addEdge(new DirectedEdge("fb e", "fb se", 3));
-		this.wscGraph.addEdge(new DirectedEdge("fb e", "fb w", 3));
-		this.wscGraph.addEdge(new DirectedEdge("fb se", "fb sw", 3));
-		this.wscGraph.addEdge(new DirectedEdge("fb w", "fb sw", 3));
-		this.wscGraph.addEdge(new DirectedEdge("fb nw", "fb w", 3));
-		this.wscGraph.addEdge(new DirectedEdge("fb nw", "fb ne", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0 ne", "f0  e", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0 e ", "f0 se", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0  e", "f0  w", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0 se", "f0 sw", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0  w", "f0 sw", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0 nw", "f0  w", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0 nw", "f0 ne", 3));
 		//floor b - floor 1 connectors
-		this.wscGraph.addEdge(new DirectedEdge("fb ne", "f1 ne", 3));
-		this.wscGraph.addEdge(new DirectedEdge("fb se", "f1 se", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0 ne", "f1 ne", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0 se", "f1 se", 3));
 		//floor 1
-		this.wscGraph.addEdge(new DirectedEdge("f1 ne", "f1 e", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f1 e", "f1 se", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f1 e", "f1 w", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f1 ne", "f1  e", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f1  e", "f1 se", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f1  e", "f1  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f1 se", "f1 sw", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f1 w", "f1 sw", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f1 nw", "f1 w", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f1  w", "f1 sw", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f1 nw", "f1  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f1 nw", "f1 ne", 3));
 		//floor 1 - floor 2 connectors
 		this.wscGraph.addEdge(new DirectedEdge("f1 ne", "f2 ne", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f1 se", "f2 se", 3));
 		//floor 2
-		this.wscGraph.addEdge(new DirectedEdge("f2 ne", "f2 e", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f2 e", "f2 se", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f2 e", "f2 w", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f2 ne", "f2  e", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f2  e", "f2 se", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f2  e", "f2  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f2 se", "f2 sw", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f2 w", "f2 sw", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f2 nw", "f2 w", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f2  w", "f2 sw", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f2 nw", "f2  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f2 nw", "f2 ne", 3));
 		//floor 2 - floor 3 connectors
 		this.wscGraph.addEdge(new DirectedEdge("f2 ne", "f3 ne", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f2 se", "f3 se", 3));
 		//floor 3
-		this.wscGraph.addEdge(new DirectedEdge("f3 ne", "f3 e", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f3 e", "f3 se", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f3 e", "f3 w", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f3 ne", "f3  e", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f3  e", "f3 se", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f3  e", "f3  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f3 se", "f3 sw", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f3 w", "f3 sw", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f3 nw", "f3 w", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f3  w", "f3 sw", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f3 nw", "f3  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f3 nw", "f3 ne", 3));
 	},
 	// Run Dijkstra's Algorithm on the graph using the specified start
@@ -284,10 +284,10 @@ var wsc = {
 	}
 };
 
-wsc.createEdges();
+/*wsc.createEdges();
 wsc.runDijkstra("f1 nw");
 let path = wsc.getPathTo("f3 e");
-console.log(path);
+console.log(path);*/
 
 
 		

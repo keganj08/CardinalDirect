@@ -232,7 +232,7 @@ var wsc = {
 	createEdges: function(){
 		//floor b
 		this.wscGraph.addEdge(new DirectedEdge("f0 ne", "f0  e", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f0 e ", "f0 se", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0  e", "f0 se", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0  e", "f0  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0 se", "f0 sw", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0  w", "f0 sw", 3));

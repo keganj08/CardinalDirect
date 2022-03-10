@@ -1,6 +1,6 @@
 wsc.createEdges();
-wsc.runDijkstra("f1 sw");
-let path = wsc.getPathTo("f3 ne");
+wsc.runDijkstra("f1 sw"); //entrances  if only w- add space where s is
+let path = wsc.getPathTo("f3 ne"); //any endpoint
 console.log(path);//array
 
 for (let i = 0; i < path.length-1; i++){

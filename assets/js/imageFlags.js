@@ -21,7 +21,7 @@ console.log(image.attributes.rooms);
 console.log("---floor 1------")
 //floor 1 
 var f1_mid_e_to_ne = document.createElement('img');
-image.src='assets/images/building interiors/1st floor/floor1_mid_e_to_ne.jpg';
+image.src='assets/images/building interiors/floor1/floor1_mid_e_to_ne.jpg';
 f1_mid_e_to_ne.setAttribute("upStairs","false");
 f1_mid_e_to_ne.setAttribute("downStairs","false");
 f1_mid_e_to_ne.setAttribute("forward","true");

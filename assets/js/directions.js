@@ -1,5 +1,5 @@
 wsc.createEdges();
-wsc.runDijkstra("f1 sw");
+wsc.runDijkstra("f1 se");
 let path = wsc.getPathTo("f3 ne");
 console.log(path);//array
 
@@ -73,12 +73,44 @@ for (let i = 0; i < path.length-1; i++){
     }
     
 }
-//formatting
-var num = 1;
+//display directions
+/*var num = 1;
 for (let i = 0; i < path.length; i++){
     path[i] = '<br>' + num + ". "+path[i];
     num++;
     path[path.length-1] = '<br>'+ (num-1) + ". Arrived!";
 }
 //print directions
-document.getElementById ("currentInstruction").innerHTML= "Directions:" + path;
+document.getElementById ("currentInstruction").innerHTML= path;*/
+
+//Click through directions-->
+directions = document.getElementById("currentInstruction");
+btn = document.getElementById("next");
+
+
+btn.addEventListener("onmousedown", stopEvent, false);
+btn.addEventListener("click", nextDirection);
+
+directions.innerHTML = path[0];
+index = 1;
+function stopEvent(ev) {
+    ev.stopPropagation();
+}
+//FIX DOUBLE CLICK ISSUE
+function nextDirection() {
+    path[path.length-1] = "Arrived!"; 
+    index++;
+  
+    index %= path.length;
+    directions.innerHTML = path[index];
+    
+       
+}
+
+
+
+
+
+
+       
+       

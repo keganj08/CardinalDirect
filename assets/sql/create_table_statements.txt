@@ -1,10 +1,13 @@
 mysql -u root -p
 // You will then be prompted to enter your MariaDB password
 
+// The following statement should only be run once
 create database cardinaldirect;
 
+// The following statement should be run each time you want to use the tables of the cardinaldirect database
 use cardinaldirect;
 
+// Each Create statement should only be run once.
 CREATE TABLE user(
 	email VARCHAR(30) NOT NULL,
 	username VARCHAR(30) NOT NULL,
@@ -93,44 +96,81 @@ CREATE TABLE courseFaculty(
 	FOREIGN KEY(cid) REFERENCES course(cid)
 );
 
-
+// To verify that all of the tables are in the database
 show tables;
 
 
-//THE FOLLOWING WILL THROUGH AN ERROR -- NEEDS ADJUSTMENT
+// The Insert statements should only be run once
 INSERT INTO course VALUES
-(“CSCE*160*1*SP22”, “Intro to Computer Programming”, “Wentz Science Center”, 156, “09:20 AM”, “10:25 AM”, “MWF”),
-(“CSCE*160*2*SP22”, “Intro to Computer Programming”, “Wentz Science Center”, 156, “01:20 PM”, “02:25 PM”, “MWF”),
-(“CSCE*210*2*SP22”, “Data Structures”, “Wentz Science Center”, 156, “10:40 AM”, “11:45 AM”, “MWF”),
-(“CSCE*210*3*SP22”, “Data Structures”, “Wentz Science Center”, 156, “12:00 PM”, “01:05 PM”, “MWF”),
-(“CSCE*220*1*SP22”, “Computer Organization & Design”, “Wentz Science Center”, 154, “01:20 PM”, “02:25 PM”, “MWF”),
-(“CSCE*230*1*SP22”, “Discrete Structures”, “Wentz Science Center”, 156, “09:50 AM”, “11:25 AM”, “TR”),
-(“CSCE*306*1*SP22”, “OO Software Development”, “Wentz Science Center”, 154, “06:30 PM”, “08:05 PM”, “MW”),
-(“CSCE*320*1*SP22”, “Computer Architecture”, “Wentz Science Center”, 154, “10:40 AM”, “11:45 AM”, “MWF”),
-(“CSCE*330*1*SP22”, “Mobile App Development”, “Wentz Science Center”, 156, “01:45 PM”, “03:20 PM”, “TR”),
-(“CSCE*340*1*SP22”, “Algorithm Design & Analysis”, “Wentz Science Center”, 156, “03:35 PM”, “05:10 PM”, “TR”),
-(“CSCE*364*1*SP22”, “Data Mining & Machine Learning”, “Wentz Science Center”, 156, “08:00 AM”, “09:35 AM”, “TR”),
-(“CSCE*494*1*SP22”, “Senior Capstone”, “Wentz Science Center”, 154, “09:50 AM”, “11:25 AM” “TR”),
-(“MATH*108*1*SP22”, “Mathematics for Elem Ed III”, “Wentz Science Center”, 356, “01:45 PM”, “03:20 PM”, “TR”),
-(“MATH*120*1*SP22”, “Math for the Liberal Arts”, “Wentz Science Center”, 354, “10:40 AM”, “11:45 AM”, “MWF”),
-(“MATH*130*1*SP22”, “Finite Mathematics”, “Wentz Science Center”, 254, “04:00 PM”, “05:35 PM”, “MW”),
-(“MATH*130*2*SP22”, “Finite Mathematics”, “Wentz Science Center”, 101, “09:50 AM”, “11:25 AM”, “TR”),
-(“MATH*140*1*SP22”, “Precalculus”, “Wentz Science Center”, 013, “09:20 AM”, “10:25 AM”, “MWF”),
-(“MATH*151*1*SP22”, “Calculus I”, “Wentz Science Center”, 013, “08:00 AM”, “09:05 AM”, “MWF”),
-(“MATH*151*2*SP22”, “Calculus I”, “Wentz Science Center”, 254, “10:40 AM”, “11:45 AM”, “MWF”),
-(“MATH*152*1*SP22”, “Calculus II”, “Wentz Science Center”, 354, “09:20 AM”, “10:25 AM”, “MWF”),
-(“MATH*152*2*SP22”, “Calculus II”, “Wentz Science Center”, 254, “01:20 PM”, “02:25 PM”, “MWF”),
-(“MATH*253*1*SP22”, “Calculus III”, “Wentz Science Center”, 015, “09:20 AM”, “10:25 AM”, “MWF”),
-(“MATH*255*1*SP22”, “Linear Alg and Diff Equations”, “Wentz Science Center”, 354, “01:20 PM”, “02:25 PM”, “MWF”),
-(“MATH*265*1*SP22”, “The Theory of Interest”, “Wentz Science Center”, 256, “02:40 PM”, “03:45 PM”, “MWF”),
-(“MATH*270*1*SP22”, “Financial Mathematics”, “Wentz Science Center”, 013, “09:50 AM”, “11:25 AM”, “R”),
-(“MATH*300*1*SP22”, “Linear Algebra”, “Wentz Science Center”, 256, “01:20 PM”, “02:25 PM”, “MWF”),
-(“MATH*305*1*SP22”, “College Geometry”, “Wentz Science Center”, 036, “12:00 PM”, “01:05 PM”, “MWF”),
-(“MATH*315*1*SP22”, “Ord Differential Equations”, “Wentz Science Center” 356, “09:20 AM”, “10:25 AM”, “MWF”),
-(“MATH*410*1*SP22”, “Models for Financial Economics”, “Wentz Science Center”, 356, “02:40 PM”, “03:45 PM”, “MWF”),
-(“MATH*422*1*SP22”, “Abstract Algebra II”, “Wentz Science Center”, 036, “01:45 PM”, “03:20 PM”, “TR”),
-(“MATH*470*1*SP22”, “Topology”, “Wentz Science Center”, 038, “12:00 PM”, “01:05 PM”, “MWF”),
-(“MATH*490*1*SP22”, “Seminar in Adv Mathematics”, “Wentz Science Center”, 356, “08:00 AM”, “09:35 AM”, “T”)
+(“CSCE*160*1*SP22”, “Intro to Computer Programming”, "2022-01-10", "2022-05-04", “MWF”, “09:20 AM”, “10:25 AM”, “Wentz Science Center”, "156"),
+(“CSCE*160*2*SP22”, “Intro to Computer Programming”, "2022-01-10", "2022-05-04", “MWF”, “01:20 PM”, “02:25 PM”, “Wentz Science Center”, "156"),
+(“CSCE*210*2*SP22”, “Data Structures”, "2022-01-10", "2022-05-04", “MWF”, “10:40 AM”, “11:45 AM”, “Wentz Science Center”, "156"),
+(“CSCE*210*3*SP22”, “Data Structures”, "2022-01-10", "2022-05-04", “MWF”, “12:00 PM”, “01:05 PM”, “Wentz Science Center”, "156"),
+(“CSCE*220*1*SP22”, “Computer Organization & Design”, "2022-01-10", "2022-05-04", “MWF”, “01:20 PM”, “02:25 PM”, “Wentz Science Center”, "154"),
+(“CSCE*230*1*SP22”, “Discrete Structures”, "2022-01-11", "2022-05-05", “TR”, “09:50 AM”, “11:25 AM”, “Wentz Science Center”, "156"),
+(“CSCE*306*1*SP22”, “OO Software Development”, "2022-01-10", "2022-05-04", “MW”, “06:30 PM”, “08:05 PM”, “Wentz Science Center”, "154"),
+(“CSCE*320*1*SP22”, “Computer Architecture”, "2022-01-10", "2022-05-04", “MWF”, “10:40 AM”, “11:45 AM”, “Wentz Science Center”, "154"),
+(“CSCE*330*1*SP22”, “Mobile App Development”, "2022-01-11", "2022-05-05", “TR”, “01:45 PM”, “03:20 PM”, “Wentz Science Center”, "156"),
+(“CSCE*340*1*SP22”, “Algorithm Design & Analysis”, "2022-01-11", "2022-05-05", “TR”, “03:35 PM”, “05:10 PM”, “Wentz Science Center”, "156"),
+(“CSCE*364*1*SP22”, “Data Mining & Machine Learning”, "2022-01-11", "2022-05-05", “TR”, “08:00 AM”, “09:35 AM”, “Wentz Science Center”, "156"),
+(“CSCE*494*1*SP22”, “Senior Capstone”, "2022-01-11", "2022-05-05", “TR”, “09:50 AM”, “11:25 AM”, “Wentz Science Center”, "154"),
+(“MATH*108*1*SP22”, “Mathematics for Elem Ed III”, "2022-01-11", "2022-05-05", “TR”, “01:45 PM”, “03:20 PM”, “Wentz Science Center”, "356"),
+(“MATH*120*1*SP22”, “Math for the Liberal Arts”, "2022-01-10", "2022-05-04", “MWF”, “10:40 AM”, “11:45 AM”, “Wentz Science Center”, "354"),
+(“MATH*130*1*SP22”, “Finite Mathematics”, "2022-01-10", "2022-05-04", “MW”, “04:00 PM”, “05:35 PM”, “Wentz Science Center”, "254"),
+(“MATH*130*2*SP22”, “Finite Mathematics”, "2022-01-11", "2022-05-05", “TR”, “09:50 AM”, “11:25 AM”, “Wentz Science Center”, "101"),
+(“MATH*140*1*SP22”, “Precalculus”, "2022-01-10", "2022-05-04", “MWF”, “09:20 AM”, “10:25 AM”, “Wentz Science Center”, "013"),
+(“MATH*151*1*SP22”, “Calculus I”, "2022-01-10", "2022-05-04", “MWF”, “08:00 AM”, “09:05 AM”, “Wentz Science Center”, "013"),
+(“MATH*151*2*SP22”, “Calculus I”, "2022-01-10", "2022-05-04", “MWF”, “10:40 AM”, “11:45 AM”, “Wentz Science Center”, "254"),
+(“MATH*152*1*SP22”, “Calculus II”, "2022-01-10", "2022-05-04", “MWF”, “09:20 AM”, “10:25 AM”, “Wentz Science Center”, "354"),
+(“MATH*152*2*SP22”, “Calculus II”, "2022-01-10", "2022-05-04", “MWF”, “01:20 PM”, “02:25 PM”, “Wentz Science Center”, "254"),
+(“MATH*253*1*SP22”, “Calculus III”, "2022-01-10", "2022-05-04", “MWF”, “09:20 AM”, “10:25 AM”, “Wentz Science Center”, "015"),
+(“MATH*255*1*SP22”, “Linear Alg and Diff Equations”, "2022-01-10", "2022-05-04", “MWF”, “01:20 PM”, “02:25 PM”, “Wentz Science Center”, "354"),
+(“MATH*265*1*SP22”, “The Theory of Interest”, "2022-01-10", "2022-05-04", “MWF”, “02:40 PM”, “03:45 PM”, “Wentz Science Center”, "256"),
+(“MATH*270*1*SP22”, “Financial Mathematics”, "2022-01-13", "2022-05-05", “R”, “09:50 AM”, “11:25 AM”, “Wentz Science Center”, "013"),
+(“MATH*300*1*SP22”, “Linear Algebra”, "2022-01-10", "2022-05-04", “MWF”, “01:20 PM”, “02:25 PM”, “Wentz Science Center”, "256"),
+(“MATH*305*1*SP22”, “College Geometry”, "2022-01-10", "2022-05-04", “MWF”, “12:00 PM”, “01:05 PM”, “Wentz Science Center”, "036"),
+(“MATH*315*1*SP22”, “Ord Differential Equations”, "2022-01-10", "2022-05-04", “MWF”, “09:20 AM”, “10:25 AM”, “Wentz Science Center”, "356"),
+(“MATH*410*1*SP22”, “Models for Financial Economics”, "2022-01-10", "2022-05-04", “MWF”, “02:40 PM”, “03:45 PM”, “Wentz Science Center”, "356"),
+(“MATH*422*1*SP22”, “Abstract Algebra II”, "2022-01-11", "2022-05-05", “TR”, “01:45 PM”, “03:20 PM”, “Wentz Science Center”, "036"),
+(“MATH*470*1*SP22”, “Topology”, "2022-01-10", "2022-05-04", “MWF”, “12:00 PM”, “01:05 PM”, “Wentz Science Center”, "038"),
+(“MATH*490*1*SP22”, “Seminar in Adv Mathematics”, "2022-01-11", "2022-05-03", “T”, “08:00 AM”, “09:35 AM”, “Wentz Science Center”, "356");
+
+
+INSERT INTO courseFaculty VALUES
+(“CSCE*160*1*SP22”, "L.", "Aloia"),
+(“CSCE*160*2*SP22”, "S.", "Kim"),
+(“CSCE*210*2*SP22”, "Y.", "Wu"),
+(“CSCE*210*3*SP22”, "Y.", "Wu"),
+(“CSCE*220*1*SP22”, "N.", "Nwanze"),
+(“CSCE*230*1*SP22”, "L.", "Aloia"),
+(“CSCE*306*1*SP22”, "C.", "Garwood"),
+(“CSCE*320*1*SP22”, "N.", "Nwanze"),
+(“CSCE*330*1*SP22”, "L.", "Aloia"),
+(“CSCE*340*1*SP22”, "Y.", "Wu"),
+(“CSCE*364*1*SP22”, "C.", "Garwood"),
+(“CSCE*494*1*SP22”, "S.", "Kim"),
+(“MATH*108*1*SP22”, "C.", "Kaduk"),
+(“MATH*120*1*SP22”, "K.", "Heller"),
+(“MATH*130*1*SP22”, "C.", "Nenne"),
+(“MATH*130*1*SP22”, "N.", "Nicholson"),
+(“MATH*130*2*SP22”, "K.", "Ramsey"),
+(“MATH*140*1*SP22”, "M.", "Orjuela Garavito"),
+(“MATH*151*1*SP22”, "N.", "Nicholson"),
+(“MATH*151*2*SP22”, "M.", "Orjuela Garavito"),
+(“MATH*152*1*SP22”, "K.", "Heller"),
+(“MATH*152*2*SP22”, "M.", "Martinez"),
+(“MATH*253*1*SP22”, "M.", "Pons"),
+(“MATH*255*1*SP22”, "K.", "Heller"),
+(“MATH*265*1*SP22”, "R.", "Wilders"),
+(“MATH*270*1*SP22”, "M.", "Martinez"),
+(“MATH*300*1*SP22”, "M.", "Pons"),
+(“MATH*305*1*SP22”, "D.", "Schmitz"),
+(“MATH*315*1*SP22”, "M.", "Martinez"),
+(“MATH*410*1*SP22”, "D.", "Schmitz"),
+(“MATH*422*1*SP22”, "D.", "Schmitz"),
+(“MATH*470*1*SP22”, "N.", "Nicholson"),
+(“MATH*490*1*SP22”, "N.", "Nicholson");
+
 
 
 

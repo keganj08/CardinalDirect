@@ -1,7 +1,6 @@
 const notesContainer = document.getElementById("notes");
 const addNoteButton = notesContainer.querySelector(".add-note");
 
-
 getNotes().forEach(note => {
     const noteElement = createNoteElement(note.id, note.content);
     notesContainer.insertBefore(noteElement, addNoteButton);
@@ -10,7 +9,6 @@ getNotes().forEach(note => {
 
 addNoteButton.addEventListener("click", () => addNote());
     
-
 function getNotes(){
     return JSON.parse(localStorage.getItem("CardinalDirect-notes") || "[]");
 }

@@ -1,11 +1,11 @@
 wsc.createEdges();
-<<<<<<< HEAD
+
 wsc.runDijkstra("f1 se");
 let path = wsc.getPathTo("f3 ne");
-=======
+
 wsc.runDijkstra("f1 sw"); //entrances  if only w- add space where s is
 let path = wsc.getPathTo("f3 ne"); //any endpoint
->>>>>>> 01e89b6e60201ea212eaa2e4b96d9f9eb4914ae8
+
 console.log(path);//array
 
 for (let i = 0; i < path.length-1; i++){
@@ -108,8 +108,7 @@ function nextDirection() {
   
     index %= path.length;
     directions.innerHTML = path[index];
-    
-       
+  
 }
 
 

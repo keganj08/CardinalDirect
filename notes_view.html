@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--Page for viewing notes-->
 <html>
+
 <head>
 	<link rel="icon" href="assets/images/browserIcon.jpg">
 	<meta charset = "utf-8">
@@ -8,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link href="assets/css/scheduler_styles.css" rel="stylesheet" type="text/css">
+	<script src="assets/js/notes.js" defer></script>
 	<title>Scheduler-View Notes</title>
 </head>
 <body>
@@ -17,12 +19,15 @@
 	</header>
 	<section>
 		<div>
-			<p>You have no notes</p>
-		</div>
-		<div>
 			<button type="button" onclick = "window.location.href = 'scheduler_landing.html';">Back</button>
-			<button type="button">Add</button>
 		</div>
 	</section>
+	<div id="notes">
+		<textarea class = note> Sample </textarea>
+		<textarea class = note> Sample </textarea>
+		<textarea class = note> Sample </textarea>
+		<button class="add-note" type="button">+</button>
+	</div>
 </body>
 </html>
+ 

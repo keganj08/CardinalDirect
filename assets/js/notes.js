@@ -39,10 +39,16 @@ function createNoteElement(id, content){
 }
 
 function addNote(){
+    var today = new Date();
+    var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
+    var today = new Date();
+    var time = today.getHours() + ":" + today.getMinutes();  
     const notes = getNotes();
     const noteObject = {
         id: Math.floor(Math.random() * 100000),
-        content: ""
+
+        content: date + " at " + time + ": " 
+        
     }
 
     const noteElement = createNoteElement(noteObject.id, noteObject.content);

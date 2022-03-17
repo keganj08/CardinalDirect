@@ -3,18 +3,14 @@ body{
 	background-color: #ef4048;
 	color: white;
 	text-align: center; /*centers elements*/
-    display: block;
-   
+  display: block;
   
 }
 
 section{
-   
 	background-color: white;
 	color: #ef4048;
 	padding: 10px;
-   
-
 }
 
 img{
@@ -24,7 +20,6 @@ img{
 }
   
 .taskcontainer {
-    
     width: 50%;
     min-width: 450px;
     position: relative;
@@ -33,24 +28,16 @@ img{
     background: white;
     border-radius: 10px;
     margin:auto;
-    margin-top: 5%;
-
-    
-
-    
-  
-  
+    margin-top: 5%; 
 }
 #newtask{
-  
     position: relative;
     padding: 30px 20px;
-
 }
 #newtask input{
     width: 75%;
     height: 25px;
-    font-family: 'Poppins',sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 15px;
     border: 2px solid #d1d3d4;
     padding: 10px;
@@ -64,6 +51,7 @@ img{
 
     border-color: #ef4048;
 }
+
 button{
 	font-size: 18px;
 	background-color: #ef4048;
@@ -74,7 +62,6 @@ button{
 	border-radius: 8px; /*curves corners of buttons*/
 	
 }
-  
   ul {
     list-style: none;
     margin: 0;
@@ -103,10 +90,8 @@ button{
         
       }
      
-
-  
 .checked {
-    color:green;
+    color: #ef4048;
 }
 .checked:before {
     content: "\2713";
@@ -118,7 +103,9 @@ text-decoration: none;
 }
 .checked:after {
 content: "(remove)";
-color: tomato;
+color: #ef4048;
 text-align: right;
 }
+      
+
       

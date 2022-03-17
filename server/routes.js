@@ -14,7 +14,15 @@ router.post('/new_user', function(req, res){
 		"pwd" : pwd,
 		"pnum" : pnum
 	};
-	mydb.addUser(newRec);
+	let responseObj = {'user' : null};
+	mydb.addUser(newRec, function(result){
+		let idx = result.indexOf("@noctrl.edu");
+		if (idx != -1){
+			responseObj.user = result.substr(0, idx);
+		}
+		res.send(responseObj);
+	});
+	
 	
 	/*
 	mydb.findRec({'username':username}, function(result){

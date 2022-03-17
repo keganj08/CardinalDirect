@@ -28,10 +28,7 @@
   function getValues() {
     var storedValues = window.localStorage.myitems;
     if(!storedValues) {
-      list.innerHTML = '<li>Make a to do list</li>'+
-                       '<li>Check off first thing on the to do list</li>'+
-                       '<li>Realize you have already accomplished 2 things in the list</li>'+
-                       '<li>Reward yourself with a nap</li>';
+      list.innerHTML = ""
     }
     else {
       list.innerHTML = storedValues;

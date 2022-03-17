@@ -23,6 +23,7 @@ input{
 	border: 3px solid #ef4048;
 	outline: none;
 	border-radius: 8px; /*curves corners of buttons*/
+	text-align: center;
 }
 
 button{
@@ -82,4 +83,6 @@ table td, th{
 	background: rgba(0, 0, 0, 0.2);
 
 }
-
+label {
+    color: #555;
+}

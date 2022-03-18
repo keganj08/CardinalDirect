@@ -22,15 +22,25 @@ router.post('/new_user', function(req, res){
 		}
 		res.send(responseObj);
 	});
-	
-	
-	/*
-	mydb.findRec({'username':username}, function(result){
-		if(result == null)
-			mydb.insertRec({'username': username, 'score' : 0});
-		res.send();
-	});
-	*/
 });
+
+
+router.post('/login', function(req, res){
+	let email = req.body.email;
+	let pwd = req.body.password;
+	mydb.findUserRecByEmail(email, function(result){
+		if(result == null || result[0].pwd !== pwd){
+			res.send({"user" : null, "success" : false});
+		}
+		else{ // (result[0].pwd === pwd)
+			let idx = email.indexOf("@noctrl.edu");
+			if (idx != -1){
+				user = email.substr(0, idx);
+			}
+			res.send({"user" : user, "success" : true});
+		}
+	});
+});
+
 
 module.exports = router;

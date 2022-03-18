@@ -12,7 +12,7 @@ const configObj = {
 	database: config.database
 };
 
-
+// Adds a record to the user table.
 exports.addUser = function(record, callbackFn){
 	mariadb.createConnection(configObj)
 		.then(conn => {
@@ -35,20 +35,22 @@ exports.addUser = function(record, callbackFn){
 		});
 };
 
-
-/* This Snippet WORKS
-mariadb.createConnection(configObj)
-    .then(conn => {
-      conn.query("select 1", [2])
-        .then(rows => {
-          console.log(rows); // [{ "1": 1 }]
-          conn.end();
-        })
-        .catch(err => { 
-          console.log("query error: " + err);
-        });
-    })
-    .catch(err => {
-      console.log("connection error: " + err);
-    });
-*/
+// Searches the user table for any record with the matching user email
+exports.findUserRecByEmail = function(keyval, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			conn.query("select * from user where email = ?", [keyval])
+				.then(res => {
+					//console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+				callbackFn(null);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};

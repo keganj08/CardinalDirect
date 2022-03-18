@@ -4,7 +4,7 @@ wsc.runDijkstra("f1 se");
 let path = wsc.getPathTo("f3 ne");
 
 wsc.runDijkstra("f1 sw"); //entrances  if only w- add space where s is
-let path = wsc.getPathTo("f3 ne"); //any endpoint
+path = wsc.getPathTo("f3 ne"); //any endpoint
 
 console.log(path);//array
 

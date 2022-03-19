@@ -1,38 +1,87 @@
 const notesContainer = document.getElementById("notes");
 const addNoteButton = notesContainer.querySelector(".add-note");
 
+function getUserEmail(){
+	let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx + 6) + "@noctrl.edu";
+	}
+	return user;
+}
+
+document.querySelector("body").addEventListener('ready', e => {
+	// Get notes from database
+	fetch('http://127.0.0.1:3000/notes', {
+		method : 'POST',
+		headers: {'Content-Type': 'application/json'},
+		body : JSON.stringify({"email" : getUserEmail()})
+		})
+		.then(response => {
+			if (!response.ok){
+				throw new Error('HTTP error: ${response.status}');
+			}
+			return response.json();
+		})
+		.then(data => {
+			console.log(data);
+		})
+		.catch(error => {
+			console.log(error);
+		});
+});
+
+document.getElementById("add-note_btn").addEventListener('click', e => {
+	// Add note to database
+	const noteElement = createNoteElement(noteObject.id, noteObject.content);
+    notesContainer.insertBefore(noteElement, addNoteButton);
+	
+});
+
+// Listener to delete a note
+// Listener to update a note
+
+/*
 getNotes().forEach(note => {
     const noteElement = createNoteElement(note.id, note.content);
     notesContainer.insertBefore(noteElement, addNoteButton);
 });
+*/
 
 
-addNoteButton.addEventListener("click", () => addNote());
+//addNoteButton.addEventListener("click", () => addNote());
     
 function getNotes(){
-    return JSON.parse(localStorage.getItem("CardinalDirect-notes") || "[]");
+    //return JSON.parse(localStorage.getItem("CardinalDirect-notes") || "[]");
+	return [];
 }
 
 function saveNotes(notes){
-    localStorage.setItem("CardinalDirect-notes" , JSON.stringify(notes));
+    //localStorage.setItem("CardinalDirect-notes" , JSON.stringify(notes));
+	return;
 }
 
-function createNoteElement(id, content){
+function createNoteElement(){//(id, content){
     const element = document.createElement("textarea");
     element.classList.add("note");
-    element.value = content;
+    //element.value = content;
     element.placeholder = "Empty note";
-
+	
+	/*
     element.addEventListener("change", () =>{
         updateNote(id, element.value);
     });
-
+	*/
+	
+	/*
     element.addEventListener("dblclick", () => {
         const doDelete = confirm("Are you sure you want to delete this note?");
         if (doDelete){
             deleteNote(id, element);
         }
     });
+	*/
     return element;
 }
 

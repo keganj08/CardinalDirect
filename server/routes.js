@@ -43,4 +43,17 @@ router.post('/login', function(req, res){
 });
 
 
+router.post('/get_username', function(req, res){
+	let email = req.body.email;
+	mydb.findUserRecByEmail(email, function(result){
+		if(result == null){
+			res.send({"username" : null, "success" : false});
+		}
+		else{
+			res.send({"username" : result[0].username, "success" : true});
+		}
+	});
+});
+
+
 module.exports = router;

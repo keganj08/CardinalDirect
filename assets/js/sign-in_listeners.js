@@ -32,12 +32,6 @@ document.getElementById('sign-inForm').addEventListener('submit', e => {
 				});
 				document.getElementById("error-div").style.display = "block";
 			}
-			
-			
-			//let user = data.user;
-			// change the page to the main landing page, and have the 
-			// user as part of the url
-			//window.location.href = "main_landing.html?user=" + user;
 		})
 		.catch(error => {
 			console.log(error);

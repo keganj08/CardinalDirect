@@ -26,6 +26,7 @@
   }
   
   function getValues() {
+	var storedValues = false;
     var storedValues = window.localStorage.myitems;
     if(!storedValues) {
       list.innerHTML = ""

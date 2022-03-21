@@ -55,5 +55,45 @@ router.post('/get_username', function(req, res){
 	});
 });
 
+router.post('/notes', function(req, res){
+	// mode is either 'g' for get, 'a' for add, 'u' for update, or 'd' for delete
+	let mode = req.body.mode;
+	if(mode === 'g'){
+		console.log("Get Notes");
+		mydb.findNotesByEmail({"email" : req.body.email}, function(result){
+			res.send(result);
+		});
+	}
+	else if(mode === 'a'){
+		console.log("Add Note");
+		let newRec = {
+			"noteTitle" : req.body.title,
+			"noteText" : req.body.text,
+			"email" : req.body.email
+		};
+		mydb.addNote(newRec, function(result){
+			res.send({"id" : "" + result});
+		});
+	}
+	else if(mode === 'u'){
+		console.log("Update Note");
+		let updateRec = {
+			"noteTitle" : req.body.title,
+			"noteText" : req.body.text,
+			"id" : parseInt(req.body.id)
+		};
+		mydb.updateNote(updateRec, function(result){
+			res.send({"status" : "success"});
+		});
+	}
+	else{ //mode === 'd'
+		console.log("Delete Note");
+		mydb.deleteNote({"id" : parseInt(req.body.id)}, function(result){
+			res.send({"status" : "success"});
+			//res.send(result);
+		});
+	}
+});
+
 
 module.exports = router;

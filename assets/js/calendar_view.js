@@ -1,4 +1,4 @@
-// scheduler_view.js
+// calendar_view.js
 
 function populateCalendar(month_txt, month, year){
 	// Label month and year of calendar displayed.

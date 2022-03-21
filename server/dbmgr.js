@@ -39,7 +39,7 @@ exports.addUser = function(record, callbackFn){
 exports.findUserRecByEmail = function(keyval, callbackFn){
 	mariadb.createConnection(configObj)
 		.then(conn => {
-			conn.query("select * from user where email = ?", [keyval])
+			conn.query("SELECT * FROM user WHERE email = ?", [keyval])
 				.then(res => {
 					//console.log(res);
 					conn.end();
@@ -48,6 +48,93 @@ exports.findUserRecByEmail = function(keyval, callbackFn){
 			.catch(err => { 
 				console.log("query error: " + err);
 				callbackFn(null);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+exports.findNotesByEmail = function(keyval, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let email = keyval.email;
+			conn.query("SELECT * FROM note WHERE email = ?", [email])
+				.then(res => {
+					//console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+				callbackFn(null);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+exports.addNote = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let noteTitle = record.noteTitle;
+			let noteText = record.noteText;
+			let email = record.email;
+			conn.query("INSERT INTO note value (?, ?, ?, ?)", [null, noteTitle, noteText, email])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn(res.insertId);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+exports.updateNote = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let noteTitle = record.noteTitle;
+			let noteText = record.noteText;
+			let id = record.id;
+			/*
+			UPDATE Customers
+			SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+			WHERE CustomerID = 1;
+			*/
+			conn.query("UPDATE note SET title = (?), text = (?) WHERE nid = (?)", [noteTitle, noteText, id])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+exports.deleteNote = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let id = record.id;
+			conn.query("DELETE FROM note WHERE nid = (?)", [id])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					//callbackFn(res);
+					callbackFn();
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
 			});
 		})
 		.catch(err => {

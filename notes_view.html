@@ -9,7 +9,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link href="assets/css/scheduler_styles.css" rel="stylesheet" type="text/css">
-	<script src="assets/js/notes.js" defer></script>
 	<title>Scheduler-View Notes</title>
 	
 </head>
@@ -19,13 +18,16 @@
 		<h2>Notes</h2>
 	</header>
 	<section>
-		<div>
-			<button type="button" onclick = "window.location.href = 'scheduler_landing.html';">Back</button>
+		<div id="notes">
+			<button id="add-note_btn" class="add-note" type="button">+</button>
 		</div>
 	</section>
-	<div id="notes">
-		<button id="add-note_btn" class="add-note" type="button">+</button>
-	</div>
+	<section>
+		<div>
+			<button id="back-button" type="button">Back</button>
+		</div>
+	</section>
+	<script defer type = "text/javascript" src = "assets/js/note_listeners.js"></script>
 </body>
 </html>
  

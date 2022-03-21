@@ -29,6 +29,7 @@ input{
 button{
 	font-size: 18px;
 	background-color: #ef4048;
+	/*background-color: blue;*/
 	color: white;
 	border: none;
 	margin: 10px;

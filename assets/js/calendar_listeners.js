@@ -1,4 +1,4 @@
-// scheduler_listeners.js
+// calendar_listeners.js
 
 /* Next button on calendar increments the month */
 document.querySelector("#right_cal_button").addEventListener('click', e => {

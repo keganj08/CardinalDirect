@@ -1,4 +1,4 @@
-// scheduler.js
+// calendar.js
 var calendar = {
 	months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 	/* month is 0-11 */

@@ -68,7 +68,7 @@ function createNoteElement(id, title, content){
 	noteform.appendChild(notetext);
 	
 	let savebtn = document.createElement("button");
-	savebtn.value = "Save";
+	savebtn.innerHTML = "Save";
 	savebtn.type = "submit";
 	noteform.appendChild(savebtn);
 	noteform.addEventListener('submit', e => {
@@ -139,7 +139,7 @@ function createNoteElement(id, title, content){
 	});
 	
 	let delbtn = document.createElement("button");
-	delbtn.value = "Delete";
+	delbtn.innerHTML = "Delete";
 	delbtn.type = "button";
 	noteform.appendChild(delbtn);
 	delbtn.addEventListener('click', function(e){

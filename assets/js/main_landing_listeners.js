@@ -67,5 +67,5 @@ buttons[2].addEventListener('click', e => {
 	if(idx !== -1){
 		user = url.substr(idx);
 	}
-	window.location.href = 'Interior.html' + user;
+	window.location.href = 'choose_entrance.html' + user;
 });

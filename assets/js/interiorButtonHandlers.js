@@ -11,3 +11,13 @@ document.getElementById("showRooms").onclick = function() {
         roomLabels.style.display = "none";
       }
 }
+
+
+//grab entrance from url
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+});
+
+let entrance = params.entrance;
+console.log("entrance= " + entrance);
+

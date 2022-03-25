@@ -10,6 +10,11 @@ img{
 	height: 25%;
 	width: auto;
 }
+section{
+	background-color: white;
+	color: #ef4048;
+	padding: 5px;
+}
 
 input{
 	padding: 10px;
@@ -70,10 +75,9 @@ p{
    grid-template-rows: 1fr 1fr;
    grid-template-columns: 1fr 1fr;
    
-   gap: 3px;
+   gap: 1px;
    height: 100%;
-  
-   
+ 
    
 }
   

@@ -16,6 +16,8 @@ image.setAttribute("rightRooms", "101, 202");
 console.log(image.attributes);
 console.log(image.attributes.rooms);
 
+image.setAttribute("forwardClick", "/picPath");
+
 //attributes will be in attribute.value (upStairs.value)
 
 console.log("---floor 1------")

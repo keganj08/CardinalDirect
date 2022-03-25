@@ -17,27 +17,24 @@
 		<h2>Interior Routing/Exploration</h2>
 	</header>
 
-<!-- divided page into table of 3 parts (1 th, 1 td, 1 th)-->
-<table>
-	<!--Form for desired classroom destination-->
-    <th>
-
-        <button class="exitButton" name="exit" type="button" onclick = "window.location.href = 'main_landing.html';">Exit to Homepage</button>
-        
-        <div class="buffer"></div>
-        <p></p>
-        <p>Directions:</p>
-        <p id="currentInstruction">instructions will appear here</p>
-        <ul id="currentInstruction"></ul>
-        <div class="buffer"></div>
-        
-        <button type="button" id="next">Next Direction</button>
-        
-        </script>
-        <button id="showRooms"  type="button">Toggle Room #'s</button>
+  <div class="interior">
+    <div id="left">
+      <button id="showRooms"  type="button">Left Rooms</button>
         <p id="test" style="font-size: 12px" style="display: none" >room 101 (1st door on right)</p>
-        <!--form validation-->
-        <script>
+    </div>
+    <div id="right">
+        <button id="showRooms"  type="button">Right Rooms</button>
+        <p id="test" style="font-size: 12px" style="display: none" >room 101 (1st door on right)</p>
+    </div>
+
+    <div id="top">
+      <div style="float:left; width: 15%; position:relative; top: 6px">
+        <button class="exitButton" name="exit" type="button" onclick = "window.location.href = 'main_landing.html';">Back</button>
+      </div>
+      <div style="float:left; width: 40%; position:relative; top: 6px">
+        
+          <!--form validation-->
+          <script>
             function validateForm() {
               let x = document.forms["room"]["className"].value;
               //classrooms
@@ -46,32 +43,41 @@
                 return false;
               }
             }
-        </script>
-        <form  method="GET" target="_self" name="room" onsubmit="validateForm()">
-			<input class="className" name="className" type="text" placeholder="Enter room #" required><br>
-			<button name="confirmDestination" type="button">Create Route</button>
-            <button type="button">Remove Route</button>
-		</form>	
+          </script>
+          <form  method="GET" target="_self" name="room" onsubmit="validateForm()">
+            <input class="className" name="className" type="text" placeholder="Enter room #" required>
+            <button name="confirmDestination" type="button">Create Route</button>
+            <!--<button type="button">Remove Route</button>-->
+          </form>
+      </div>	
+      <div style="float:right; width: 40%; position:relative; top: 6px">
         
-    </th>
-   
-    <!-- image overlay-->
-    <td>
-        <image src="assets/images/building interiors/floor1/floor1_mid_e_to_ne.jpg" style="width:800px;">
-    </td>
+        <p style="display:inline;float:left">Directions :&nbsp</p>
+        <p style="display:inline;float:left" id="currentInstruction"></p>
+       
+        <button type="button" id="prev">Prev</button>
+        <button type="button" id="next">Next</button>
+      </div>
+    </div>
 
-    <!-- movement controls-->
+      <div id="image">
+        <image src="assets/images/building interiors/floor1/floor1_mid_e_to_ne.jpg" style="width:890px;height:400px;" ></image>
+        <!-- movement controls-->
     <!-- will likely replace text buttons for image buttons-->
-    <th>
-        <button class="buttonAlt" name="up" type="button">Go Up Stairs</button>
-        <button class="buttonAlt" name="down" type="button">Go Down Stairs</button>
-        <div class="buffer"></div>
-        <button name="Forward" type="button">Forward</button><br>
-        <button name="Left" type="button">Left</button>
-        <button name="Right" type="button">Right</button><br>
-        <button name="Backward" type="button">Backward</button>
-    </th>
-</table>
+    <div class="buffer"></div>
+    <button name="Forward" type="button">Forward</button><br>
+    <button name="Left" type="button">Left</button>
+    <button name="Right" type="button">Right</button><br>
+    <button name="Backward" type="button">Backward</button><br>
+    <button class="buttonAlt" name="up" type="button">Go Up Stairs</button>
+    <button class="buttonAlt" name="down" type="button">Go Down Stairs</button>
+      </div>
+  </div>
+  
+  
+  
+</div>
+
 
 <script src="assets/js/imageFlags.js"></script>
 <script src="assets/js/interiorButtonHandlers.js"></script>

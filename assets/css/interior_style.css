@@ -72,7 +72,7 @@ p{
 /*Interior display*/
 .interior{
 	display: grid; 
-	grid-template-rows: 0.20fr 1fr 1fr;
+	grid-template-rows: 0.20fr 1fr 0.50fr;
 	grid-template-columns: 0.5fr 1fr 0.5fr;
 	gap: 0px;
 	height: 100%;
@@ -125,19 +125,16 @@ p{
 	
  }
 
- #bottom {
+ /*#bottom {
 
 	grid-row-start: 3;
 	grid-column-start: 2;
  
 	grid-row-end: 4;
 	grid-column-end: 3;
-	border:3px solid #ef4048;
 	
- }
-
-
-
+	border:3px solid #ef4048;
+ }*/
 
 
 /*Entrances page*/

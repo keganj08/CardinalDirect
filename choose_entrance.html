@@ -13,22 +13,37 @@
 <body>
 	<header>
 		<img src="assets/images/cardinaldirect_logo.jpg" alt="CardinalDirect Logo"/>
-		<h2>Choose an entrance below</h2>
+		<h2>Choose an entrance</h2>
+		
 	</header>
 
-    <image id="entrance_ne" src="assets/images/building interiors/entrances/entrance_ne_outside.jpg" style="width:600px;"></image>
-    <button id="ne" type="button">Northeast Entrance</button>
-
-    <image id="entrance_nw" src="assets/images/building interiors/entrances/entrance_nw_outside.jpg" style="width:600px;"></image>
-    <button id="nw" type="button">Northwest Entrance</button>
-
-    <image id="entrance_se" src="assets/images/building interiors/entrances/entrance_se_outside.jpg" style="width:600px;"></image>
-    <button id="se" type="button">Southeast Entrance</button>
-
-    <image id="entrance_sw" src="assets/images/building interiors/entrances/entrance_sw_outside.jpg" style="width:600px;"></image>
-    <button id="sw" type="button">Southwest Entrance</button>
-    
-
+	<div class="entrances">
+		<div id="ne">
+			<button id="ne" type="button">Northeast Entrance</button>
+			<image id="entrance_ne" src="assets/images/building interiors/entrances/entrance_ne_outside.jpg" style="width:600px; height: 400px;"></image>
+			
+		</div>
+		<div id="nw">
+			<button id="nw" type="button">Northwest Entrance</button>
+			<image id="entrance_nw" src="assets/images/building interiors/entrances/entrance_nw_outside.jpg" style="width:600px;height: 400px;"></image>
+			
+		</div>
+		<div id="se">
+			<button id="se" type="button">Southeast Entrance</button>
+			<image id="entrance_se" src="assets/images/building interiors/entrances/entrance_se_outside.jpg" style="width:600px;height: 400px;"></image>
+			
+		</div>
+		<div id="sw">
+			<button id="sw" type="button">Southwest Entrance</button>
+			<image id="entrance_sw" src="assets/images/building interiors/entrances/entrance_sw_outside.jpg" style="width:600px;height: 400px;"></image>
+			
+		</div>
+	</div>
+	<section>
+	<div>
+		<button id="back-button" type="button" onclick = "window.location.href = 'main_landing.html';">Back</button>
+	</div>
+	</section>
 
 
 <script src="assets/js/floors.js"></script>

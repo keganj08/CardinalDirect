@@ -55,6 +55,104 @@ exports.findUserRecByEmail = function(keyval, callbackFn){
 		});
 };
 
+// Searches the course table for classes given search parameters
+exports.searchForClasses = function(searchAttrs, searchVals, callbackFn){
+	let searchClause = "";
+	let i=0;
+	//searchClause = searchAttrs[0] + " = " + "\"" + searchVals[0] + "\"";
+	searchClause = searchAttrs[0] + " = " + "(?)";
+	for (i=1; i<searchAttrs.length; i++){
+		//let searchAdd = " AND " + searchAttrs[i] + " = " + "\"" + searchVals[i] + "\"";
+		let searchAdd = " AND " + searchAttrs[i] + " = " + "(?)";
+		searchClause += searchAdd;
+	}
+	let query = "SELECT c.cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast\
+				FROM course c JOIN courseFaculty f ON c.cid = f.cid WHERE " + searchClause;
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			conn.query(query, searchVals)
+				.then(res => {
+					//console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+				callbackFn(null);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Finds all classes a given user is enrolled in by email
+exports.findClassesByEmail = function(keyval, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let email = keyval.email;
+			conn.query("SELECT c.cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast \
+						FROM course c JOIN courseFaculty f ON c.cid = f.cid \
+						WHERE c.cid IN (SELECT cid FROM enroll WHERE email = ?)", email)
+				.then(res => {
+					//console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+				callbackFn(null);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Adds an enrollment record to the enroll table
+exports.addEnroll = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let email = record.email;
+			let cid = record.cid;
+			conn.query("INSERT INTO enroll value (?, ?)", [email, cid])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn();
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Removes an enrollment record from the enroll table
+exports.deleteEnroll = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let email = record.email;
+			let cid = record.cid;
+			conn.query("DELETE FROM enroll WHERE email = (?) AND cid = (?)", [email, cid])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					//callbackFn(res);
+					callbackFn();
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Finds all notes created by a given user by email
 exports.findNotesByEmail = function(keyval, callbackFn){
 	mariadb.createConnection(configObj)
 		.then(conn => {
@@ -75,6 +173,7 @@ exports.findNotesByEmail = function(keyval, callbackFn){
 		});
 };
 
+// Adds a note to the note table
 exports.addNote = function(record, callbackFn){
 	mariadb.createConnection(configObj)
 		.then(conn => {
@@ -96,6 +195,7 @@ exports.addNote = function(record, callbackFn){
 		});
 };
 
+// Updates a note already in the note table
 exports.updateNote = function(record, callbackFn){
 	mariadb.createConnection(configObj)
 		.then(conn => {
@@ -122,6 +222,7 @@ exports.updateNote = function(record, callbackFn){
 		});
 };
 
+// Deletes a note from the note table
 exports.deleteNote = function(record, callbackFn){
 	mariadb.createConnection(configObj)
 		.then(conn => {

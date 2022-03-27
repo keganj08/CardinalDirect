@@ -8,12 +8,14 @@ function getUserEmail(){
 	if(idx !== -1){
 		email = url.substr(idx + 6) + "@noctrl.edu";
 	}
-	return email;
+	//return email;
+	return "atano@noctrl.edu";
 }
 
-/* Not Fully Operational Yet
+// Not Fully Operational Yet
 document.addEventListener('DOMContentLoaded', e => {
 	// Get classes from database
+	console.log("In Event Listener");
 	fetch('http://127.0.0.1:3000/classes', {
 		method : 'POST',
 		headers: {'Content-Type': 'application/json'},
@@ -26,6 +28,9 @@ document.addEventListener('DOMContentLoaded', e => {
 			return response.json();
 		})
 		.then(data => {
+			console.log("Data");
+			console.log(data);
+			/*
 			if(data.length > 0){
 				let classDiv = document.getElementById("classdiv");
 				let classDivChildren = classDiv.childNodes;
@@ -36,6 +41,7 @@ document.addEventListener('DOMContentLoaded', e => {
 					createClassElement(data[i].cid, data[i].name, data[i].startDate, data[i].endDate, data[i].dow, data[i].startTime, data[i].endTime, data[i].building, data[i].roomNum, data[i].fnamefirst, data[i].fnamelast);
 				}
 			}
+			*/
 			
 		})
 		.catch(error => {
@@ -64,11 +70,12 @@ function createClassTable(){
 	headerLocation.innerHTML = "Location";
 	let headerFaculty = document.createElement("th");
 	headerFaculty.innerHTML = "faculty";
+};
 
 function createClassElement(id, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast){
 	
 };
-*/
+
 
 //buttons[0] is "Back" button
 buttons[0].addEventListener('click', e => {

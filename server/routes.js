@@ -55,6 +55,51 @@ router.post('/get_username', function(req, res){
 	});
 });
 
+
+router.post('/classes', function(req, res){
+	let mode = req.body.mode;
+	if (mode === 's'){
+		console.log("Search for Classes");
+		let keys = [];
+		let values = [];
+		let jsonData = req.body.searchParams;
+		Object.keys(jsonData).forEach(function(key) {
+			keys.push(key);
+			values.push(jsonData[key]);			
+		});
+		mydb.searchForClasses(keys, values, function(result){
+			res.send(result);
+		});
+	}
+	else if(mode === 'g'){
+		console.log("Get Classes");
+		mydb.findClassesByEmail({"email" : req.body.email}, function(result){
+			res.send(result);
+		});
+	}
+	else if(mode === 'a'){
+		console.log("Add Class");
+		let newRec = {
+			"email" : req.body.email,
+			"cid" : req.body.cid
+		};
+		mydb.addEnroll(newRec, function(result){
+			res.send({"id" : "" + result});
+		});
+	}
+	else{ //mode === 'd'
+		console.log("Delete Class");
+		let delRec = {
+			"email" : req.body.email,
+			"cid" : req.body.cid
+		};
+		mydb.deleteEnroll(delRec, function(result){
+			res.send({"status" : "success"});
+			//res.send(result);
+		});
+	}
+});
+
 router.post('/notes', function(req, res){
 	// mode is either 'g' for get, 'a' for add, 'u' for update, or 'd' for delete
 	let mode = req.body.mode;

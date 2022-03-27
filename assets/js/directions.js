@@ -107,9 +107,29 @@ function nextDirection() {
     index++;
   
     index %= path.length;
-    directions.innerHTML = path[index];
-  
+    directions.innerHTML = path[index]; 
 }
+
+//prev
+btn = document.getElementById("prev");
+
+btn.addEventListener("onmousedown", stopEvent, false);
+btn.addEventListener("click", prevDirection);
+
+directions.innerHTML = path[path.length-1];
+index = path.length-1;
+function stopEvent(ev) {
+    ev.stopPropagation();
+}
+//FIX DOUBLE CLICK ISSUE
+function prevDirection() {
+    path[path.length-1] = "Arrived!"; 
+    index--;
+  
+    index %= path.length;
+    directions.innerHTML = path[index]; 
+}
+
 
 
 

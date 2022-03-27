@@ -7,23 +7,24 @@ function getUserEmail(){
 	if(idx !== -1){
 		email = url.substr(idx + 6) + "@noctrl.edu";
 	}
-	return email;
+	//return email;
+	return "atano@noctrl.edu";
 }
 
-/*
-document.getElementById("search-form").addEventListener("submit", e => {
+
+document.getElementById("class-search").addEventListener("submit", e => {
 	e.preventDefault();
 	let formElem = e.target;
 	
 	let formData = new FormData(formElem);
 	let formObj = Object.fromEntries(formData);
 	requestObj = {
-		"searchParams" : JSON.stringify(formObj),
+		"searchParams" : formObj, //JSON.stringify(formObj),
 		"mode" : 's'
 	};
 	console.log(requestObj);
 		
-	//Send request to server to add a new note to note database
+	//Send request to server to search course database
 	fetch('http://127.0.0.1:3000/classes', {
 		method : 'POST',
 		headers: {'Content-Type': 'application/json'},
@@ -36,19 +37,22 @@ document.getElementById("search-form").addEventListener("submit", e => {
 			return response.json();
 		})
 		.then(data => {
-			console.log(data);
-			
+			console.log("" + data);
+			for(let i=0; i<data.length; i++){
+				console.log(data[i]);
+			}
+			/*
 			let id = data.id.substring(0, data.id.length);
 			noteDivElem = document.getElementById("new");
 			noteDivElem.id = id;
-			
+			*/
 		})
 		.catch(error => {
 			console.log(error);
 		});
 		
 });
-*/
+
 
 
 

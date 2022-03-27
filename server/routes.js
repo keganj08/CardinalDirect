@@ -64,9 +64,13 @@ router.post('/classes', function(req, res){
 		let values = [];
 		let jsonData = req.body.searchParams;
 		Object.keys(jsonData).forEach(function(key) {
-			keys.push(key);
-			values.push(jsonData[key]);			
+			if (jsonData[key] !== ''){
+				keys.push(key);
+				values.push(jsonData[key]);
+			}
 		});
+		console.log(keys);
+		console.log(values);
 		mydb.searchForClasses(keys, values, function(result){
 			res.send(result);
 		});

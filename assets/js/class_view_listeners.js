@@ -8,7 +8,8 @@ function getUserEmail(){
 	if(idx !== -1){
 		email = url.substr(idx + 6) + "@noctrl.edu";
 	}
-	return email;
+	//return email;
+	return "atano@noctrl.edu";
 }
 
 // Not Fully Operational Yet

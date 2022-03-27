@@ -59,16 +59,18 @@ exports.findUserRecByEmail = function(keyval, callbackFn){
 exports.searchForClasses = function(searchAttrs, searchVals, callbackFn){
 	let searchClause = "";
 	let i=0;
-	searchClause = searchAttrs[0] + " = " + searchVals[0];
+	//searchClause = searchAttrs[0] + " = " + "\"" + searchVals[0] + "\"";
+	searchClause = searchAttrs[0] + " = " + "(?)";
 	for (i=1; i<searchAttrs.length; i++){
-		let searchAdd = " AND " + searchAttrs[i] + " = " + searchVals[i];
+		//let searchAdd = " AND " + searchAttrs[i] + " = " + "\"" + searchVals[i] + "\"";
+		let searchAdd = " AND " + searchAttrs[i] + " = " + "(?)";
 		searchClause += searchAdd;
 	}
-	
+	let query = "SELECT c.cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast\
+				FROM course c JOIN courseFaculty f ON c.cid = f.cid WHERE " + searchClause;
 	mariadb.createConnection(configObj)
 		.then(conn => {
-			conn.query("SELECT c.cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast\
-						FROM course c JOIN courseFaculty f on c.cid = f.cid WHERE ?", [searchClause])
+			conn.query(query, searchVals)
 				.then(res => {
 					//console.log(res);
 					conn.end();

@@ -8,8 +8,7 @@ function getUserEmail(){
 	if(idx !== -1){
 		email = url.substr(idx + 6) + "@noctrl.edu";
 	}
-	//return email;
-	return "atano@noctrl.edu";
+	return email;
 }
 
 // Not Fully Operational Yet
@@ -28,21 +27,16 @@ document.addEventListener('DOMContentLoaded', e => {
 			return response.json();
 		})
 		.then(data => {
-			console.log("Data");
-			console.log(data);
-			/*
 			if(data.length > 0){
-				let classDiv = document.getElementById("classdiv");
-				let classDivChildren = classDiv.childNodes;
-				classDiv.removeChild(classDivChildren[0]);
+				let noClassPar = document.querySelector("#classdiv p");
+				let classDiv = noClassPar.parentElement;
+				classDiv.removeChild(noClassPar);
 				createClassTable();
-				let i=0;
-				for(i=0; i<data.length; i++){
-					createClassElement(data[i].cid, data[i].name, data[i].startDate, data[i].endDate, data[i].dow, data[i].startTime, data[i].endTime, data[i].building, data[i].roomNum, data[i].fnamefirst, data[i].fnamelast);
-				}
 			}
-			*/
-			
+			data.forEach((element)=>{
+				console.log(element);
+				createClassTableRow(element.cid, element.name, element.startDate, element.endDate, element.dow, element.startTime, element.endTime, element.building, element.roomNum, element.fnamefirst, element.fnamelast);
+			});
 		})
 		.catch(error => {
 			console.log(error);
@@ -63,17 +57,105 @@ function createClassTable(){
 	let headerDate = document.createElement("th");
 	headerDate.innerHTML = "Date";
 	let headerDow = document.createElement("th");
-	headerDate.innerHTML = "Days of Week";
+	headerDow.innerHTML = "Days of Week";
 	let headerTime = document.createElement("th");
 	headerTime.innerHTML = "Time";
-	let headerLocation = document.createElement("th");
-	headerLocation.innerHTML = "Location";
+	let headerLoc = document.createElement("th");
+	headerLoc.innerHTML = "Location";
 	let headerFaculty = document.createElement("th");
-	headerFaculty.innerHTML = "faculty";
+	headerFaculty.innerHTML = "Faculty";
+	
+	// Append table data elements to the table row
+	headerRow.appendChild(headerId);
+	headerRow.appendChild(headerName);
+	headerRow.appendChild(headerDate);
+	headerRow.appendChild(headerDow);
+	headerRow.appendChild(headerTime);
+	headerRow.appendChild(headerLoc);
+	headerRow.appendChild(headerFaculty);
+	
+	// Append table row to the table
+	classTable.appendChild(headerRow);
+	
+	// Append table to the classdiv div
+	let classDiv = document.getElementById("classdiv");
+	classDiv.appendChild(classTable);
 };
 
-function createClassElement(id, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast){
+
+// STILL NEED TO HANDLE MULTIPLE FACULTY MEMBERS & ADJUST HOW DATA APPEAR IN TABLE (ESP. DATES)
+function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast){
+	let classTable = document.getElementById("class_table");
 	
+	// Create the table row
+	let dataRow = document.createElement("tr");
+	
+	// Create the table data for the given information
+	let dataId = document.createElement("td");
+	dataId.innerHTML = cid;
+	let dataName = document.createElement("td");
+	dataName.innerHTML = name;
+	let dataDate = document.createElement("td");
+	dataDate.innerHTML = startDate.substr(0,10) + "-" + endDate.substr(0,10);
+	let dataDow = document.createElement("td");
+	dataDow.innerHTML = dow;
+	let dataTime = document.createElement("td");
+	dataTime.innerHTML = startTime + "-" + endTime;
+	let dataLoc = document.createElement("td");
+	dataLoc.innerHTML = building + ", " + roomNum;
+	let dataFaculty = document.createElement("td");
+	dataFaculty.innerHTML = fnamefirst + ", " + fnamelast;
+	
+	let dropTd = document.createElement("td");
+	dropTd.innerHTML = "Drop";
+	
+	dropTd.addEventListener('click', e => {
+		//console.log("Click - Drop Class Button");
+		
+		//Delete Enroll record from database
+		requestObj = {
+			email: getUserEmail(),
+			cid: cid,
+			mode: 'd'
+		};
+		console.log(requestObj);
+		
+		//Send request to server to delete an enroll record from enroll database
+		fetch('http://127.0.0.1:3000/classes', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify(requestObj)
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log(data);
+				let courseTableRow = e.target.parentElement;
+				let courseTable = courseTableRow.parentElement;
+				courseTable.removeChild(courseTableRow);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	});
+	
+	// Append table data elements to the table row
+	dataRow.appendChild(dataId);
+	dataRow.appendChild(dataName);
+	dataRow.appendChild(dataDate);
+	dataRow.appendChild(dataDow);
+	dataRow.appendChild(dataTime);
+	dataRow.appendChild(dataLoc);
+	dataRow.appendChild(dataFaculty);
+	dataRow.appendChild(dropTd);
+	
+	// Append table row to the table
+	classTable.appendChild(dataRow);
+
 };
 
 

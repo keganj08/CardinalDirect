@@ -97,17 +97,21 @@ btn.addEventListener("onmousedown", stopEvent, false);
 btn.addEventListener("click", nextDirection);
 
 directions.innerHTML = path[0];
-index = 1;
+index = 0;
 function stopEvent(ev) {
     ev.stopPropagation();
 }
 //FIX DOUBLE CLICK ISSUE
 function nextDirection() {
-    path[path.length-1] = "Arrived!"; 
-    index++;
-  
+    if (index < path.length - 1){
+        index++;
+    }
     index %= path.length;
     directions.innerHTML = path[index]; 
+
+    path[path.length-1] = "Arrived!"; 
+    
+   
 }
 
 //prev
@@ -116,18 +120,21 @@ btn = document.getElementById("prev");
 btn.addEventListener("onmousedown", stopEvent, false);
 btn.addEventListener("click", prevDirection);
 
-directions.innerHTML = path[path.length-1];
-index = path.length-1;
+
 function stopEvent(ev) {
     ev.stopPropagation();
 }
 //FIX DOUBLE CLICK ISSUE
 function prevDirection() {
-    path[path.length-1] = "Arrived!"; 
-    index--;
+    if (index > 0){
+        index--;
+    }
   
     index %= path.length;
     directions.innerHTML = path[index]; 
+    
+     
+    
 }
 
 

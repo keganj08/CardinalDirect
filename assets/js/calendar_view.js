@@ -19,7 +19,7 @@ function populateCalendar(month_txt, month, year){
 		tableVals[ctr].innerHTML = i;
 		i++;
 		//mark today's date
-		if (today.getDate() == i){
+		if (today.getDate()+1 == i){
 			tableVals[ctr].className = "today";
 		}
 	}

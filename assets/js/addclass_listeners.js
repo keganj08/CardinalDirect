@@ -1,5 +1,7 @@
 // addclass_listeners.js
 
+var courses = [];
+
 function getUserEmail(){
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
@@ -7,9 +9,36 @@ function getUserEmail(){
 	if(idx !== -1){
 		email = url.substr(idx + 6) + "@noctrl.edu";
 	}
-	//return email;
-	return "atano@noctrl.edu";
+	return email;
 }
+
+// Not Fully Operational Yet
+document.addEventListener('DOMContentLoaded', e => {
+	// Get classes from database
+	console.log("In Event Listener");
+	fetch('http://127.0.0.1:3000/classes', {
+		method : 'POST',
+		headers: {'Content-Type': 'application/json'},
+		body : JSON.stringify({"email" : getUserEmail(), "mode" : 'g'})
+		})
+		.then(response => {
+			if (!response.ok){
+				throw new Error('HTTP error: ${response.status}');
+			}
+			return response.json();
+		})
+		.then(data => {
+			data.forEach((element)=>{
+				console.log(element);
+				courses.push(element.cid);
+			});
+			
+		})
+		.catch(error => {
+			console.log(error);
+		});
+});
+
 
 
 document.getElementById("class-search").addEventListener("submit", e => {
@@ -50,7 +79,7 @@ document.getElementById("class-search").addEventListener("submit", e => {
 			for(let i=0; i<data.length; i++){
 				console.log(data[i]);
 				rec = data[i];
-				createClassTableRow(rec.cid, rec.name, rec.startDate, rec.endDate, rec.dow, rec.startTime, rec.endTime, rec.building, rec.roomNum, rec.fnamefirst, rec.fnamelast)
+				createClassTableRow(rec.cid, rec.name, rec.startDate, rec.endDate, rec.dow, rec.startTime, rec.endTime, rec.building, rec.roomNum, rec.fnamefirst, rec.fnamelast);
 			}
 		})
 		.catch(error => {
@@ -84,6 +113,85 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 	let dataFaculty = document.createElement("td");
 	dataFaculty.innerHTML = fnamefirst + ", " + fnamelast;
 	
+	let addTd = document.createElement("td");
+	if(courses.includes(cid)){
+		addTd.innerHTML = "Drop";
+	}
+	else{
+		addTd.innerHTML = "Add";
+	}
+	
+	addTd.addEventListener('click', e => {
+		if(addTd.innerHTML === "Drop"){
+			
+			console.log("Click - Drop Class Button");
+			
+			//Delete Enroll record from database
+			requestObj = {
+				email: getUserEmail(),
+				cid: cid,
+				mode: 'd'
+			};
+			console.log(requestObj);
+			
+			//Send request to server to delete an enroll record from enroll database
+			fetch('http://127.0.0.1:3000/classes', {
+				method : 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body : JSON.stringify(requestObj)
+				})
+				.then(response => {
+					if (!response.ok){
+						throw new Error('HTTP error: ${response.status}');
+					}
+					return response.json();
+				})
+				.then(data => {
+					console.log(data);
+					addTd.innerHTML = "Add"
+					// Remove the cid from courses
+					courses.splice(courses.indexOf(cid), 1);
+				})
+				.catch(error => {
+					console.log(error);
+				});
+		}
+		else{
+			console.log("Click - Add Class Button");
+			
+			//Add Enroll record to database
+			requestObj = {
+				email: getUserEmail(),
+				cid: cid,
+				mode: 'a'
+			};
+			console.log(requestObj);
+			
+			//Send request to server to add a new enroll record to enroll database
+			fetch('http://127.0.0.1:3000/classes', {
+				method : 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body : JSON.stringify(requestObj)
+				})
+				.then(response => {
+					if (!response.ok){
+						throw new Error('HTTP error: ${response.status}');
+					}
+					return response.json();
+				})
+				.then(data => {
+					console.log(data);
+					addTd.innerHTML = "Drop"
+					// Add the cid to courses
+					courses.push(cid);
+				})
+				.catch(error => {
+					console.log(error);
+				});
+		}
+		
+	});
+	
 	// Append table data elements to the table row
 	dataRow.appendChild(dataId);
 	dataRow.appendChild(dataName);
@@ -92,6 +200,7 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 	dataRow.appendChild(dataTime);
 	dataRow.appendChild(dataLoc);
 	dataRow.appendChild(dataFaculty);
+	dataRow.appendChild(addTd);
 	
 	// Append table row to the table
 	classTable.appendChild(dataRow);
@@ -100,148 +209,6 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 	classTableSection.style.display = "block";
 
 };
-
-
-
-
-function createNoteElement(id, title, content){
-	//console.log("In Create Note Element");
-	let notediv = document.createElement("div");
-	if(id === null){
-		notediv.id = "new";
-	}
-	else{
-		notediv.id = id;
-	}
-	notediv.classList.add("note");
-	
-	let noteform = document.createElement("form");
-	notediv.appendChild(noteform);
-	
-	let notetitle = document.createElement("input");
-	notetitle.name = "title";
-	notetitle.type = "text";
-	notetitle.value = title;
-	noteform.appendChild(notetitle);
-	
-	let notetext = document.createElement("textarea");
-	notetext.name = "text";
-	notetext.value = content;
-	noteform.appendChild(notetext);
-	
-	let savebtn = document.createElement("button");
-	savebtn.innerHTML = "Save";
-	savebtn.type = "submit";
-	noteform.appendChild(savebtn);
-	noteform.addEventListener('submit', e => {
-		//console.log("Save Button - Submit");
-		e.preventDefault();
-		let formElem = e.target;
-		let divElem = formElem.parentElement;
-		let noteid = divElem.id;
-		if(noteid === "new"){
-			//console.log("Save Button - Submit - New");
-			// save new note to database
-			let formData = new FormData(formElem);
-			let requestObj = Object.fromEntries(formData);
-			requestObj.email = getUserEmail();
-			requestObj.mode = 'a';
-			
-			//console.log(requestObj);
-			
-			//Send request to server to add a new note to note database
-			fetch('http://127.0.0.1:3000/notes', {
-				method : 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body : JSON.stringify(requestObj)
-				})
-				.then(response => {
-					if (!response.ok){
-						throw new Error('HTTP error: ${response.status}');
-					}
-					return response.json();
-				})
-				.then(data => {
-					let id = data.id.substring(0, data.id.length);
-					noteDivElem = document.getElementById("new");
-					noteDivElem.id = id;
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		}
-		else{
-			console.log("Save Button - Submit - Update");
-			// update note in database
-			let formData = new FormData(formElem);
-			let requestObj = Object.fromEntries(formData);
-			requestObj.email = getUserEmail();
-			requestObj.id = noteid;
-			requestObj.mode = 'u';
-			
-			//Send request to server to update an existing note in note database
-			fetch('http://127.0.0.1:3000/notes', {
-				method : 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body : JSON.stringify(requestObj)
-				})
-				.then(response => {
-					if (!response.ok){
-						throw new Error('HTTP error: ${response.status}');
-					}
-					return response;
-				})
-				.then(data => {
-					console.log(data);
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		}
-	});
-	
-	let delbtn = document.createElement("button");
-	delbtn.innerHTML = "Delete";
-	delbtn.type = "button";
-	noteform.appendChild(delbtn);
-	delbtn.addEventListener('click', function(e){
-		//console.log("Delete Button - Click");
-		let formElem = this.parentElement;
-		let divElem = formElem.parentElement;
-		let noteid = divElem.id;
-		if(noteid !== "new"){	
-			//Send request to server to delete an existing note in note database
-			
-			fetch('http://127.0.0.1:3000/notes', {
-				method : 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body : JSON.stringify({"id" : noteid, "mode" : 'd'})
-				})
-				.then(response => {
-					if (!response.ok){
-						throw new Error('HTTP error: ${response.status}');
-					}
-					return response.json();
-				})
-				.then(data => {
-					console.log(data.success);
-					// Deletes the note div
-					divElem.remove();
-				})
-				.catch(error => {
-					console.log(error);
-				});
-			
-		}
-		else{
-			divElem.remove();
-		}
-	});
-	
-	notesContainer.insertBefore(notediv, addNoteButton);
-	
-	//return notediv;
-}
 
 
 //"Back" button

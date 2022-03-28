@@ -101,7 +101,7 @@ index = 0;
 function stopEvent(ev) {
     ev.stopPropagation();
 }
-//FIX DOUBLE CLICK ISSUE
+
 function nextDirection() {
     if (index < path.length - 1){
         index++;
@@ -124,7 +124,7 @@ btn.addEventListener("click", prevDirection);
 function stopEvent(ev) {
     ev.stopPropagation();
 }
-//FIX DOUBLE CLICK ISSUE
+
 function prevDirection() {
     if (index > 0){
         index--;

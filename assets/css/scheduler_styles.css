@@ -93,3 +93,6 @@ table td, th{
 label {
     color: #555;
 }
+.today{
+	background-color: #cccccc;
+}

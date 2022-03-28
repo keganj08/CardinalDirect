@@ -7,6 +7,8 @@ function populateCalendar(month_txt, month, year){
 	let tableVals = document.getElementsByTagName("td");
 	let numDaysInMonth = new Date(year, month+1, 0).getDate(); // Number of days of the current month
 	let ctr;
+	let today = new Date();
+
 	// Put empty strings in table values prior to first day.
 	for(ctr = 0; ctr<firstDayOfMonth; ctr++){
 		tableVals[ctr].innerHTML = "";
@@ -16,6 +18,10 @@ function populateCalendar(month_txt, month, year){
 	for(ctr = firstDayOfMonth; ctr<firstDayOfMonth + numDaysInMonth; ctr++){
 		tableVals[ctr].innerHTML = i;
 		i++;
+		//mark today's date
+		if (today.getDate() == i){
+			tableVals[ctr].className = "today";
+		}
 	}
 	// Put empty strings in table values after end of month.
 	for(ctr = firstDayOfMonth + numDaysInMonth; ctr<tableVals.length; ctr++){

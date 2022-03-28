@@ -14,6 +14,16 @@ function getUserEmail(){
 
 document.getElementById("class-search").addEventListener("submit", e => {
 	e.preventDefault();
+	let classTableSection = document.getElementById("result_section");
+	let classTable = classTableSection.children[0];
+	let i=0;
+	console.log(classTable.children);
+	let length = classTable.children.length;
+	for(i=1; i<length; i++){
+		classTable.removeChild(classTable.children[1]);
+	}
+	classTableSection.style.display = "none";
+	
 	let formElem = e.target;
 	
 	let formData = new FormData(formElem);
@@ -37,21 +47,59 @@ document.getElementById("class-search").addEventListener("submit", e => {
 			return response.json();
 		})
 		.then(data => {
-			console.log("" + data);
 			for(let i=0; i<data.length; i++){
 				console.log(data[i]);
+				rec = data[i];
+				createClassTableRow(rec.cid, rec.name, rec.startDate, rec.endDate, rec.dow, rec.startTime, rec.endTime, rec.building, rec.roomNum, rec.fnamefirst, rec.fnamelast)
 			}
-			/*
-			let id = data.id.substring(0, data.id.length);
-			noteDivElem = document.getElementById("new");
-			noteDivElem.id = id;
-			*/
 		})
 		.catch(error => {
 			console.log(error);
 		});
 		
 });
+
+
+// STILL NEED TO HANDLE MULTIPLE FACULTY MEMBERS & ADJUST HOW DATA APPEAR IN TABLE (ESP. DATES)
+function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast){
+	let classTableSection = document.getElementById("result_section");
+	let classTable = classTableSection.children[0];
+	
+	// Create the table row
+	let dataRow = document.createElement("tr");
+	
+	// Create the table data for the given information
+	let dataId = document.createElement("td");
+	dataId.innerHTML = cid;
+	let dataName = document.createElement("td");
+	dataName.innerHTML = name;
+	let dataDate = document.createElement("td");
+	dataDate.innerHTML = startDate.substr(0,10) + "-" + endDate.substr(0,10);
+	let dataDow = document.createElement("td");
+	dataDow.innerHTML = dow;
+	let dataTime = document.createElement("td");
+	dataTime.innerHTML = startTime + "-" + endTime;
+	let dataLoc = document.createElement("td");
+	dataLoc.innerHTML = building + ", " + roomNum;
+	let dataFaculty = document.createElement("td");
+	dataFaculty.innerHTML = fnamefirst + ", " + fnamelast;
+	
+	// Append table data elements to the table row
+	dataRow.appendChild(dataId);
+	dataRow.appendChild(dataName);
+	dataRow.appendChild(dataDate);
+	dataRow.appendChild(dataDow);
+	dataRow.appendChild(dataTime);
+	dataRow.appendChild(dataLoc);
+	dataRow.appendChild(dataFaculty);
+	
+	// Append table row to the table
+	classTable.appendChild(dataRow);
+	
+	// Make the table visible
+	classTableSection.style.display = "block";
+
+};
 
 
 

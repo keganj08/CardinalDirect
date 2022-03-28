@@ -59,6 +59,11 @@ table td, th{
 	padding: 24px;
 	gap: 24px;
 }
+
+#result_section{
+	display: none;
+}
+
 .note{
 	height: 200px;
 	box-sizing: boarder-box;

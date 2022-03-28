@@ -8,7 +8,8 @@ function populateCalendar(month_txt, month, year){
 	let numDaysInMonth = new Date(year, month+1, 0).getDate(); // Number of days of the current month
 	let ctr;
 	let today = new Date();
-
+	
+	console.log(today.getDate());
 	// Put empty strings in table values prior to first day.
 	for(ctr = 0; ctr<firstDayOfMonth; ctr++){
 		tableVals[ctr].innerHTML = "";
@@ -19,13 +20,18 @@ function populateCalendar(month_txt, month, year){
 		tableVals[ctr].innerHTML = i;
 		i++;
 		//mark today's date
-		if (today.getDate()+1 == i){
+		if (today.getDate()+1 == ctr){
 			tableVals[ctr].className = "today";
 		}
+		//HOW TO ACCESS INDIVIDUAL MONTHS
+		
 	}
+
 	// Put empty strings in table values after end of month.
 	for(ctr = firstDayOfMonth + numDaysInMonth; ctr<tableVals.length; ctr++){
 		tableVals[ctr].innerHTML = "";
+
+		
 	}
 	// If the last row of the table is empty, hide it.
 	if(tableVals[35].innerHTML == ""){
@@ -35,3 +41,13 @@ function populateCalendar(month_txt, month, year){
 		tableVals[35].parentElement.style.visibility = "visible";
 	}
 }
+
+document.querySelectorAll("td").forEach(day => {
+	day.addEventListener("click", event => {
+		console.log(event.currentTarget);//day clicked
+		event.currentTarget.classList.toggle("selected");
+
+	})
+
+});
+

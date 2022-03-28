@@ -51,7 +51,7 @@ table td, th{
 #calendarmonth{
 	display: inline-block; /*keeps buttons in-line with header*/
 }
-
+/*Notes*/
 #notes{
 	display: grid;
 	grid-template-columns: repeat(auto-fill, 200px);
@@ -93,6 +93,12 @@ table td, th{
 label {
     color: #555;
 }
+
+/*Calender*/
 .today{
 	background-color: #cccccc;
+}
+
+.selected{
+	background-color: #80ccff ;
 }

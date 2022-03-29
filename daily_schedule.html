@@ -7,6 +7,8 @@
 	<meta name="author" content="CSIndustries">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <script src="assets/js/task_listeners.js" defer></script>
 	<link href="assets/css/scheduler_styles.css" rel="stylesheet" type="text/css">
 	<title>Scheduler-Daily Schedule</title>
 </head>
@@ -18,24 +20,40 @@
 		
 	</header>
 	<section>
-		<div>
+		<div class="scheduler">
+			<div id="bottom">
 			<p>Events</p>
 			<p><!--Events are listed here--></p>
-			<button type="button" onclick = "window.location.href = 'events.html';">Add</button>
-		</div>
-		<div>
+			<button type="button" onclick="window.open('events.html','popUpWindow','height=500,width=425,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">Add</button>
+			<br><button type="button" onclick = "window.location.href = 'scheduler_landing.html';">Back</button></br>
+			</div>
+			<div id="assignments">
 			<p>Assignments</p>
 			<p><!--Assignments are listed here--></p>
-			<button type="button" onclick = "window.location.href = 'assignments.html';">Add</button>
+			<!--<button type="button" onclick = "window.location.href = 'assignments.html';">Add</button>-->
+			<button type="button" onclick="window.open('assignments.html','popUpWindow','height=500,width=425,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">Add</button>
 		</div>
-		<div>
-			<p>To-Do</p>
-			<p><!--To-Do items are listed here--></p>
-			<button type="button" onclick = "window.location.href = 'tasks.html';">Add</button>
+			<div id="tasks">
+		
+				<p>To-Do List</p>
+				<div id="newtask">
+        
+					<form  action="#">
+						<div>
+						<input type="text" name="item" id="item" placeholder="Add a new task..." />
+						<button id="push"> Add </button>
+					</div>
+						
+					</form> 
+					
+	
+				
+			<ul id="list">
+				
+			</ul>
 		</div>
-		<div>
-			<button type="button" onclick = "window.location.href = 'scheduler_landing.html';">Back</button>
-		</div>
+		
+		
 	</section>
 </body>
 </html>

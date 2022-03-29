@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			return response.json();
 		})
 		.then(data => {
-			document.getElementById("welcome-div").innerHTML = "Welcome, " + data.username;
+			document.querySelector("#welcome-div h2").innerHTML = "Welcome, " + data.username;
 		})
 		.catch(error => {
 			console.log(error);

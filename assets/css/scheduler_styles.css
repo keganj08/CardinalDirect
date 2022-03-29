@@ -100,5 +100,13 @@ label {
 }
 
 .selected{
-	background-color: #80ccff ;
+	background-color: #b3ecff;
 }
+
+#showEvents {
+	width: 100%;
+	padding: 50px 0;
+	text-align: center;
+	background-color: #b3ecff;
+	margin-top: 20px;
+  }

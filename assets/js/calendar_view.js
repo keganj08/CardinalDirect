@@ -41,11 +41,26 @@ function populateCalendar(month_txt, month, year){
 		tableVals[35].parentElement.style.visibility = "visible";
 	}
 }
-
+function showEvents(){
+	var x = document.getElementById("myDIV");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+	} else {
+		x.style.display = "none";
+	}
+}
+	
 document.querySelectorAll("td").forEach(day => {
 	day.addEventListener("click", event => {
+		
 		console.log(event.currentTarget);//day clicked
 		event.currentTarget.classList.toggle("selected");
+		var x = document.getElementById("showEvents");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+	} else {
+		x.style.display = "none";
+	}
 
 	})
 

@@ -51,6 +51,12 @@ table td, th{
 #calendarmonth{
 	display: inline-block; /*keeps buttons in-line with header*/
 }
+
+/* Add Class Result Section */
+#result_section{
+	display: none;
+}
+
 /*Notes*/
 #notes{
 	display: grid;
@@ -58,10 +64,6 @@ table td, th{
 	margin: 0;
 	padding: 24px;
 	gap: 24px;
-}
-
-#result_section{
-	display: none;
 }
 
 .note{

@@ -53,7 +53,7 @@ table td, th{
 }
 
 /* Add Class Result Section */
-#result_section{
+.result-area{
 	display: none;
 }
 

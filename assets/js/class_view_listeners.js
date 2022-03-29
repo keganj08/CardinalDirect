@@ -11,7 +11,7 @@ function getUserEmail(){
 	return email;
 }
 
-// Not Fully Operational Yet
+// Once the DOM is loaded, retrieve the user's currently enrolled classes
 document.addEventListener('DOMContentLoaded', e => {
 	// Get classes from database
 	console.log("In Event Listener");
@@ -28,22 +28,37 @@ document.addEventListener('DOMContentLoaded', e => {
 		})
 		.then(data => {
 			if(data.length > 0){
+				// If there is data, remove the paragraph saying there are no classes
+				// and create the table (only the header row)
 				let noClassPar = document.querySelector("#classdiv p");
 				let classDiv = noClassPar.parentElement;
 				classDiv.removeChild(noClassPar);
 				createClassTable();
 			}
-			data.forEach((element)=>{
-				console.log(element);
-				createClassTableRow(element.cid, element.name, element.startDate, element.endDate, element.dow, element.startTime, element.endTime, element.building, element.roomNum, element.fnamefirst, element.fnamelast);
-			});
+			// For each record of data retrieved, create a row in the table
+			let resultCourses = [];
+			for(let i=0; i<data.length; i++){
+				console.log(data[i]);
+				rec = data[i];
+				// If a course id shows up more than once (i.e., it's already in resultCourses),
+				// add the faculty member's name to that row in the table. This handles
+				// team teaching
+				if(resultCourses.includes(rec.cid)){
+					addFacultyToRow(rec.cid, rec.fnamefirst, rec.fnamelast);
+				}
+				// If a course id is not already in resultCourses, add it and add a row to the table
+				else{
+					resultCourses.push(rec.cid);
+					createClassTableRow(rec.cid, rec.name, rec.startDate, rec.endDate, rec.dow, rec.startTime, rec.endTime, rec.building, rec.roomNum, rec.fnamefirst, rec.fnamelast);
+				}
+			}
 		})
 		.catch(error => {
 			console.log(error);
 		});
 });
 
-
+// Create the result table with only the header row
 function createClassTable(){
 	let classTable = document.createElement("table");
 	classTable.id = "class_table";
@@ -65,7 +80,7 @@ function createClassTable(){
 	let headerFaculty = document.createElement("th");
 	headerFaculty.innerHTML = "Faculty";
 	
-	// Append table data elements to the table row
+	// Append table header data elements to the table header row
 	headerRow.appendChild(headerId);
 	headerRow.appendChild(headerName);
 	headerRow.appendChild(headerDate);
@@ -74,7 +89,7 @@ function createClassTable(){
 	headerRow.appendChild(headerLoc);
 	headerRow.appendChild(headerFaculty);
 	
-	// Append table row to the table
+	// Append table header row to the table
 	classTable.appendChild(headerRow);
 	
 	// Append table to the classdiv div
@@ -83,7 +98,7 @@ function createClassTable(){
 };
 
 
-// STILL NEED TO HANDLE MULTIPLE FACULTY MEMBERS & ADJUST HOW DATA APPEAR IN TABLE (ESP. DATES)
+// ADJUST HOW DATA APPEAR IN TABLE (ESP. DATES)
 function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast){
 	let classTable = document.getElementById("class_table");
 	
@@ -109,10 +124,8 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 	let dropTd = document.createElement("td");
 	dropTd.innerHTML = "Drop";
 	
-	dropTd.addEventListener('click', e => {
-		//console.log("Click - Drop Class Button");
-		
-		//Delete Enroll record from database
+	dropTd.addEventListener('click', e => {		
+		//Request object has user's email, the course id they are removing, and mode: d for delete
 		requestObj = {
 			email: getUserEmail(),
 			cid: cid,
@@ -134,9 +147,18 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 			})
 			.then(data => {
 				console.log(data);
+				// Remove the corresponding row from the result table
 				let courseTableRow = e.target.parentElement;
 				let courseTable = courseTableRow.parentElement;
 				courseTable.removeChild(courseTableRow);
+				if(courseTable.children.length === 1){ // only tbody is left as a table child
+					// Hide the result table
+					courseTable.style.display = "none";
+					// Add a paragraph saying you have no classes to the DOM
+					let noClassP = document.createElement("p");
+					noClassP.innerHTML = "You have no current classes";
+					document.getElementById("classdiv").appendChild(noClassP);
+				}
 			})
 			.catch(error => {
 				console.log(error);
@@ -158,6 +180,22 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 
 };
 
+// Add a second faculty member to a class in a certain row of the search results table
+function addFacultyToRow(cid, fnamefirst, fnamelast){
+	let classTable = document.querySelector("#classdiv table");
+	let tableChildren = classTable.children; // children should be tbody and tr (we want tr)
+	let i=0;
+	// For each table row, see if the course id (located in the first td element) is the same
+	// as the given cid. If it is, add the new faculty member to the faculty table data element
+	for(i=0; i<tableChildren.length; i++){
+		let cidTableTd = tableChildren[i].children[0]; // children are td
+		if(cidTableTd.innerHTML === cid){
+			let tableRowChildren = tableChildren[i].children;
+			let addFaculty = ", " + fnamefirst + ", " + fnamelast;
+			tableRowChildren[tableRowChildren.length-2].innerHTML += addFaculty;
+		}
+	}
+};
 
 //buttons[0] is "Back" button
 buttons[0].addEventListener('click', e => {

@@ -58,16 +58,35 @@ exports.findUserRecByEmail = function(keyval, callbackFn){
 // Searches the course table for classes given search parameters
 exports.searchForClasses = function(searchAttrs, searchVals, callbackFn){
 	let searchClause = "";
+	
+	// If a search parameter is subc.cid, set wildcards _ and %
+	let cidIdx = searchAttrs.indexOf("subc.cid");
+	if(cidIdx !== -1){
+		let cidInput = searchVals[cidIdx];
+		let dept = cidInput.substr(0, 4); // "CSCE" of "CSCE 494"
+		let num = cidInput.substr(-3); // "494" of "CSCE 494"
+		searchVals[cidIdx] = dept + '_' + num + '%'; // "CSCE_494%"
+	}
+	// Construct the search WHERE clause
+	// Note that if the attribute is cid, we need the LIKE operator and = otherwise
 	let i=0;
-	searchClause = searchAttrs[0] + " = " + "(?)";
+	if(searchAttrs[0] === "subc.cid"){
+		searchClause = searchAttrs[0] + " LIKE " + "(?)";
+	}
+	else{
+		searchClause = searchAttrs[0] + " = " + "(?)";
+	}
 	for (i=1; i<searchAttrs.length; i++){
-		let searchAdd = " AND " + searchAttrs[i] + " = " + "(?)";
+		let searchAdd = "";
+		if(searchAttrs[i] === "subc.cid"){
+			searchAdd = " AND " + searchAttrs[i] + " LIKE " + "(?)";
+		}
+		else{
+			searchAdd = " AND " + searchAttrs[i] + " = " + "(?)";
+		}
 		searchClause += searchAdd;
 	}
-	/*
-	let query = "SELECT c.cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast\
-				FROM course c JOIN courseFaculty f ON c.cid = f.cid WHERE " + searchClause;
-	*/
+	// Search Query
 	let query = "SELECT c.cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast\
 				FROM course c JOIN courseFaculty f ON c.cid = f.cid\
 				WHERE c.cid IN\

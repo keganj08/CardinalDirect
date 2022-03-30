@@ -20,7 +20,10 @@
 			<button id="left_cal_button" type="button">Prev</button>
 			<h3 id="calendarmonth">January 2022</h3>
 			<button id="right_cal_button" type="button">Next</button>
+			
 		</div>
+		
+	
 		<div>
 			<!-- Table representing days of month -->
 			<table>
@@ -89,9 +92,16 @@
 				</tr>
 			</table>
 		</div>
-		<div id="showEvents">No Events
-		<br><button type="button" onclick = "window.location.href = 'events.html';">Add Event</button></br>
+		<div id="showEvents">
+			<div id="eventDate">
+			
+				<!--<script>document.write(new Date().toLocaleDateString());</script>-->
+			</div>
+			No Events
+			<br><button type="button" onclick = "window.location.href = 'events.html';">Add Event</button></br>
+			</div>
 		</div>
+			
 		<div>
 			<button type="button" onclick = "window.location.href = 'scheduler_landing.html';">Back</button>
 			

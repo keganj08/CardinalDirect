@@ -3,11 +3,14 @@
 function populateCalendar(month_txt, month, year){
 	// Label month and year of calendar displayed.
 	document.getElementById("calendarmonth").innerHTML = month_txt + " " + year;
+	document.getElementById("eventDate").innerHTML = month_txt + " " + year;
+
+
 	let firstDayOfMonth = new Date(year, month, 1).getDay(); // Day of week of first day of month (Sun(0) - Sat(6))
 	let tableVals = document.getElementsByTagName("td");
 	let numDaysInMonth = new Date(year, month+1, 0).getDate(); // Number of days of the current month
 	let ctr;
-	let today = new Date();
+	
 	
 	console.log(today.getDate());
 	// Put empty strings in table values prior to first day.
@@ -19,12 +22,14 @@ function populateCalendar(month_txt, month, year){
 	for(ctr = firstDayOfMonth; ctr<firstDayOfMonth + numDaysInMonth; ctr++){
 		tableVals[ctr].innerHTML = i;
 		i++;
+
+		console.log(typeof tableVals[ctr].innerHTML);
 		//mark today's date
-		if (today.getDate()+1 == ctr){
+		if ((today.getDate()+1).toString() === ctr.toString()){
 			tableVals[ctr].className = "today";
 		}
-		//HOW TO ACCESS INDIVIDUAL MONTHS
-		
+	
+
 	}
 
 	// Put empty strings in table values after end of month.
@@ -40,24 +45,33 @@ function populateCalendar(month_txt, month, year){
 	else{
 		tableVals[35].parentElement.style.visibility = "visible";
 	}
+
+	document.getElementById('eventDate').innerText = today.getDate().toString() + " " + document.getElementById('eventDate').innerHTML;
+
 }
 
-	
+let today = new Date();
 document.querySelectorAll("td").forEach(day => {
 	day.addEventListener("click", event => {
+
 		
-		console.log(event.currentTarget);//day clicked
+		console.log(event.currentTarget.innerHTML);//day clicked
 		//add clicked date to top of event div
 		
+		document.getElementById('eventDate').innerText = event.currentTarget.innerHTML + " " + document.getElementById('eventDate').innerHTML;
+		//event.currentTarget.innerHTML
+		
 		var x = document.getElementById("showEvents");
-		if (x.style.display === "none") {
-			x.style.display = "block";
-			event.currentTarget.classList.toggle("selected");
-		} else {
-			x.style.display = "none";
-		}
+		
+		
+		event.currentTarget.classList.toggle("selected");
 
 		})
+		
 
 });
+
+	
+
+
 

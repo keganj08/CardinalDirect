@@ -120,6 +120,11 @@ label {
 	text-align: center;
 	background-color: #b3ecff;
 	margin-top: 20px;
+	position: relative;
+  }
+  #eventDate{
+	position: absolute; width: 100%;
+	margin: 0 auto;top: 0;
   }
 
   /*Scheduler landing*/

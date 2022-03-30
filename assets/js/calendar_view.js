@@ -3,7 +3,7 @@
 function populateCalendar(month_txt, month, year){
 	// Label month and year of calendar displayed.
 	document.getElementById("calendarmonth").innerHTML = month_txt + " " + year;
-	document.getElementById("eventDate").innerHTML = month_txt + " " + year;
+	document.getElementById("monthDay").innerHTML = " " + month_txt + " " + year;
 
 
 	let firstDayOfMonth = new Date(year, month, 1).getDay(); // Day of week of first day of month (Sun(0) - Sat(6))
@@ -23,13 +23,10 @@ function populateCalendar(month_txt, month, year){
 		tableVals[ctr].innerHTML = i;
 		i++;
 
-		console.log(typeof tableVals[ctr].innerHTML);
 		//mark today's date
 		if ((today.getDate()+1).toString() === ctr.toString()){
 			tableVals[ctr].className = "today";
 		}
-	
-
 	}
 
 	// Put empty strings in table values after end of month.
@@ -46,31 +43,28 @@ function populateCalendar(month_txt, month, year){
 		tableVals[35].parentElement.style.visibility = "visible";
 	}
 
-	document.getElementById('eventDate').innerText = today.getDate().toString() + " " + document.getElementById('eventDate').innerHTML;
+	document.getElementById('eventDate').innerHTML = today.getDate().toString() + " " + document.getElementById("monthDay").innerHTML;
 
 }
 
 let today = new Date();
 document.querySelectorAll("td").forEach(day => {
 	day.addEventListener("click", event => {
-
-		
 		console.log(event.currentTarget.innerHTML);//day clicked
 		//add clicked date to top of event div
-		
-		document.getElementById('eventDate').innerText = event.currentTarget.innerHTML + " " + document.getElementById('eventDate').innerHTML;
-		//event.currentTarget.innerHTML
-		
-		var x = document.getElementById("showEvents");
-		
-		
+	
+		document.getElementById("eventDate").innerHTML = " ";
+		document.getElementById('eventDate').innerHTML = event.currentTarget.innerHTML + document.getElementById("monthDay").innerHTML;
+
 		event.currentTarget.classList.toggle("selected");
 
 		})
-		
-
 });
-
+/* Prev button on calendar decrements the month */
+document.querySelector("#left_cal_button").addEventListener('click', e => {
+	calendar.decrementMonth();
+	document.getElementById("selected").innerHTML = " ";
+});
 	
 
 

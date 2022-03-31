@@ -20,6 +20,9 @@ document.getElementById("forwardBtn").onclick = function() {
     curr = window[curr.attributes.forwardVar.value]; //sets curr to pic it changes to
     console.log("test----  " +curr.attributes.test.value);
     console.log("bw----  " +curr.attributes.backward.value);
+
+    //TODO change room # display
+    //etc
   }
 }
 

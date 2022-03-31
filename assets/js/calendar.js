@@ -30,5 +30,7 @@ var calendar = {
 		}
 		this.initialize();
 	}
+	
 }
 calendar.initialize();
+

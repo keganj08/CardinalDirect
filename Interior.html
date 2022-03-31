@@ -21,12 +21,12 @@
     
       <div id="left">
         <button id="showRooms"  type="button">Left Rooms</button>
-          <p id="test" style="font-size: 12px" style="display: none" >room 101 (1st door on right)</p>
+          <p id="roomsLeft" style="font-size: 12px" style="display: none" >room 101 (1st door on right)</p>
       </div>
     
     <div id="right">
         <button id="showRooms"  type="button">Right Rooms</button>
-        <p id="test" style="font-size: 12px" style="display: none" >room 101 (1st door on right)</p>
+        <p id="roomsRight" style="font-size: 12px" style="display: none" >room 101 (1st door on right)</p>
     </div>
 
     <div id="top">
@@ -63,15 +63,15 @@
     </div>
 
       <div id="image">
-        <image src="assets/images/building interiors/floor1/nw_intersection/east.jpg" style="width: 100%;height: auto;" ></image>
+        <image id="current" src="assets/images/building interiors/floor1/nw_intersection/east.jpg" style="width: 100%;height: auto;" ></image>
       
         <!-- movement controls-->
     <!-- will likely replace text buttons for image buttons-->
     
-    <button name="Forward" type="button">Forward</button><br>
-    <button name="Left" type="button">Left</button>
-    <button name="Right" type="button">Right</button><br>
-    <button name="Backward" type="button">Backward</button><br>
+    <button id="forwardBtn" type="button">Forward</button><br>
+    <button id="leftBtn" type="button">Left</button>
+    <button id="rightBtn" type="button">Right</button><br>
+    <button id="backwardBtn" type="button">Backward</button><br>
     <button class="buttonAlt" name="up" type="button">Go Up Stairs</button>
     <button class="buttonAlt" name="down" type="button">Go Down Stairs</button>
     
@@ -83,6 +83,7 @@
 
 
 <script src="assets/js/imageFlags.js"></script>
+<script src="assets/js/interior.js"></script>
 <script src="assets/js/interiorButtonHandlers.js"></script>
 <script defer type = "text/javascript" src = "assets/js/routing.js"></script>
 <script defer type = "text/javascript" src = "assets/js/directions.js"></script>

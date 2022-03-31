@@ -57,6 +57,7 @@ router.post('/get_username', function(req, res){
 
 
 router.post('/classes', function(req, res){
+	// mode is either 's' for search, 'g' for get, 'a' for add, or 'd' for delete
 	let mode = req.body.mode;
 	if (mode === 's'){
 		console.log("Search for Classes");
@@ -98,6 +99,50 @@ router.post('/classes', function(req, res){
 			"cid" : req.body.cid
 		};
 		mydb.deleteEnroll(delRec, function(result){
+			res.send({"status" : "success"});
+			//res.send(result);
+		});
+	}
+});
+
+router.post('/assignments', function(req, res){
+	// mode is either 'g' for get, 'a' for add, 'u' for update, or 'd' for delete
+	let mode = req.body.mode;
+	if(mode === 'g'){
+		console.log("Get Assignments");
+		mydb.findAssignmentsByEmailAndDate({"email" : req.body.email, "dueDate" : req.body.dueDate}, function(result){
+			res.send(result);
+		});
+	}
+	else if(mode === 'a'){
+		console.log("Add Assignment");
+		let newRec = {
+			"title" : req.body.title,
+			"dueDate" : req.body.dueDate,
+			"dueTime" : req.body.dueTime,
+			"email" : req.body.email,
+			"cid" : req.body.cid
+		};
+		mydb.addAssignment(newRec, function(result){
+			res.send({"id" : "" + result});
+		});
+	}
+	else if(mode === 'u'){
+		console.log("Update Assignment");
+		let updateRec = {
+			"title" : req.body.title,
+			"dueDate" : req.body.dueDate,
+			"dueTime" : req.body.dueTime,
+			"cid" : req.body.cid,
+			"id" : parseInt(req.body.id)
+		};
+		mydb.updateAssignment(updateRec, function(result){
+			res.send({"status" : "success"});
+		});
+	}
+	else{ //mode === 'd'
+		console.log("Delete Assignment");
+		mydb.deleteAssignment({"id" : parseInt(req.body.id)}, function(result){
 			res.send({"status" : "success"});
 			//res.send(result);
 		});

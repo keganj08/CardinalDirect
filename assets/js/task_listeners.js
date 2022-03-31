@@ -1,3 +1,4 @@
+/*
 (function(){
   
   var list = document.querySelector('#list'),
@@ -22,12 +23,12 @@
   },false)
   
   function store() {
-    window.localStorage.myitems = list.innerHTML;
+    //window.localStorage.myitems = list.innerHTML;
   }
   
   function getValues() {
 	var storedValues = false;
-    var storedValues = window.localStorage.myitems;
+    //var storedValues = window.localStorage.myitems;
     if(!storedValues) {
       list.innerHTML = ""
     }
@@ -37,4 +38,4 @@
   }
   getValues();
 })();
-
+*/

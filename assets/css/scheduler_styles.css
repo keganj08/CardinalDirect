@@ -34,9 +34,18 @@ button{
 	border: none;
 	margin: 10px;
 	padding: 10px;
-	border-radius: 8px; /*curves corners of buttons*/
-	
-	
+	border-radius: 8px; /*curves corners of buttons*/	
+}
+
+a{
+	font-size: 18px;
+	background-color: #ef4048;
+	/*background-color: blue;*/
+	color: white;
+	border: none;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 8px; /*curves corners of buttons*/	
 }
 
 table{
@@ -111,4 +120,123 @@ label {
 	text-align: center;
 	background-color: #b3ecff;
 	margin-top: 20px;
+	position: relative;
   }
+  #eventDate{
+	
+	position: absolute; width: 100%;
+	margin: 0 auto;top: 0;
+  }
+  #monthDay{
+	  display: none;
+  }
+
+  /*Scheduler landing*/
+.scheduler {
+	display: grid; 
+	grid-template-rows: 1fr 0.5fr;
+	grid-template-columns: 1fr 1fr;
+	gap: 0px;
+	height: 100%;
+	
+ }
+   
+ #assignments {
+	border:3px solid #ef4048; 
+	grid-row-start: 1;
+	grid-column-start: 1;
+	grid-row-end: 2;
+	grid-column-end: 2;
+	
+ }
+ #tasks {
+	border:3px solid #ef4048;
+	grid-row-start: 1;
+	grid-column-start: 2;
+	grid-row-end: 2;
+	grid-column-end: 3;
+	
+ }
+ #bottom {
+	border:3px solid #ef4048;
+	grid-row-start: 2;
+	grid-column-start: 1;
+	grid-row-end: 3;
+	grid-column-end: 3;
+	
+ }
+
+ /*todo checklist*/
+ 
+#newtask{
+    position: relative;
+    padding: 0px;
+}
+#newtask input{
+    width: 50%;
+    height: 25px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    border: 2px solid #ef4048;
+    padding: 10px;
+    color: #111111;
+    font-weight: 500;
+    position: relative;
+    
+}
+
+#newtask input:focus{
+
+    border-color: #ef4048;
+}
+
+ul {
+list-style: none;
+margin: 0;
+padding: 0;
+
+}
+li {
+	color: #899098;
+	font-weight: 400;
+	border-bottom: 1px solid #cfcbcc;
+	line-height: 1.5;
+	padding: 8px 0;
+	
+}
+li:before {
+	content: "\25A1";
+	padding: 10px 10px;
+	font-size: 20px;
+}
+li:hover {
+	text-decoration: line-through;
+	cursor: pointer;
+}
+li:last-child {
+	border-bottom: none;
+	
+}
+	
+.checked {
+	color: #ef4048;
+}
+.checked:before {
+	content: "\2713";
+	padding: 10px 10px;
+	font-size: 20px;
+}
+.checked:hover {
+	text-decoration: none;
+}
+.checked:after {
+	content: "(remove)";
+	color: #ef4048;
+	text-align: right;
+}
+	
+/* Daily Schedule */
+#newassignment{
+	display: none;
+}
+	

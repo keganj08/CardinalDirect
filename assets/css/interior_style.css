@@ -4,6 +4,8 @@ body{
 	background-color: #ef4048;
 	color: white;
 	text-align: center;
+	height: 100%;
+	overflow: hidden;
 }
 
 img{
@@ -74,11 +76,13 @@ p{
 	
 	display: grid; 
 	grid-template-rows: 0.20fr 1fr 1fr;
-	grid-template-columns: 0.25fr 1fr 0.25fr;
+	grid-template-columns: 0.15fr 1fr 0.15fr;
 	gap: 0px;
 	height: 100%;
 	background-color: white;
 	gap: 0;
+	
+	
  }
    
  #left {
@@ -125,9 +129,6 @@ p{
 	grid-column-end: 3;
 	bottom: 0px;
 	border:3px solid #ef4048;
-	
-	
-	
 	
  }
 
@@ -195,7 +196,7 @@ p{
 #sw {
 
 	flex: 25%;
-  padding: 0px;
+  	padding: 0px;
    background-color: #ef4048; 
    grid-row-start: 2;
    grid-column-start: 1;

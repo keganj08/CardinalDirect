@@ -233,6 +233,7 @@ var wsc = {
 		//floor b
 		this.wscGraph.addEdge(new DirectedEdge("f0 ne", "f0  e", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0  e", "f0 se", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0  v", "f0 se", 1));
 		this.wscGraph.addEdge(new DirectedEdge("f0  e", "f0  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0 se", "f0 sw", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0  w", "f0 sw", 3));
@@ -240,7 +241,7 @@ var wsc = {
 		this.wscGraph.addEdge(new DirectedEdge("f0 nw", "f0 ne", 3));
 		//floor b - floor 1 connectors
 		this.wscGraph.addEdge(new DirectedEdge("f0 ne", "f1 ne", 3));
-		this.wscGraph.addEdge(new DirectedEdge("f0 se", "f1 se", 3));
+		this.wscGraph.addEdge(new DirectedEdge("f0  v", "f1 se", 3));
 		//floor 1
 		this.wscGraph.addEdge(new DirectedEdge("f1 ne", "f1  e", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f1  e", "f1 se", 3));

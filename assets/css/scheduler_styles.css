@@ -235,5 +235,8 @@ li:last-child {
 	text-align: right;
 }
 	
-
+/* Daily Schedule */
+#newassignment{
+	display: none;
+}
 	

@@ -10,11 +10,6 @@ section{
 	padding: 10px;
 }
 
-#mapSection {
-	height: 65vh;
-	overflow: hidden;
-}
-
 img{
 	height: 25%;
 	width: auto;
@@ -41,20 +36,34 @@ header input[type=text] {
 	font-size: 16px;
 }
 
+button {
+}
+
+#mapSection {
+	height: 65vh;
+}
+
 #map {
-	width: 100%;
+	width: 500px;
 	max-width: 600px;
-	height: auto;
+	height: 100%;
+	background-color: white;
+	margin: auto;
 }
 
 button{
 	font-size: 18px;
-	background-color: red;
-	color: white;
+	background-color: white;
+	color: red;
 	border: none;
 	margin: 10px;
 	padding: 10px;
 	border-radius: 8px;
+}
+
+button:hover {
+	background-color: lightgray;
+	cursor:pointer;
 }
 
 footer button {

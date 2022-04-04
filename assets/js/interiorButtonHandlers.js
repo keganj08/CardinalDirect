@@ -12,42 +12,122 @@
       }
 }*/
 
+//forward button
 document.getElementById("forwardBtn").onclick = function() {
-  if(curr.attributes.forward.value == "true"){
+  if(curr.hasAttribute("forwardVar")){
+    //set image to corresponding image based on clicked directional
     pic.src = curr.attributes.forwardImg.value;
-    //set curr somehow to forward pic var
+    //set current pic
     //curr = window["SE_east"]; //this works!
     curr = window[curr.attributes.forwardVar.value]; //sets curr to pic it changes to
-    console.log("test----  " +curr.attributes.test.value);
-    console.log("bw----  " +curr.attributes.backward.value);
-
-    //TODO change room # display
-    //etc
+ 
+    //change room # display
+    document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
+    document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
   }
 }
 
+//left button
 document.getElementById("leftBtn").onclick = function() {
-  console.log("in left");
-  if(curr.attributes.left.value == "true"){
+  if(curr.hasAttribute("leftVar")){
     pic.src = curr.attributes.leftImg.value;
     curr = window[curr.attributes.leftVar.value];
+    //change room # display
+    document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
+    document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
   }
 }
 
+//right button
 document.getElementById("rightBtn").onclick = function() {
-  console.log("in right");
-  if(curr.attributes.right.value == "true"){
+  if(curr.hasAttribute("rightVar")){
     pic.src = curr.attributes.rightImg.value;
     curr = window[curr.attributes.rightVar.value];
+    //change room # display
+    document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
+    document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
   }
 }
 
+//backward button
 document.getElementById("backwardBtn").onclick = function() {
-  if(curr.attributes.backward.value == "true"){
+  if(curr.hasAttribute("backwardVar")){
     pic.src = curr.attributes.backwardImg.value;
     curr = window[curr.attributes.backwardVar.value];
+    //change room # display
+    document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
+    document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
   }
 }
+
+//downstairs button
+document.getElementById("down").onclick = function() {
+  if(curr.hasAttribute("downVar")){
+    pic.src = curr.attributes.downImg.value;
+    curr = window[curr.attributes.downVar.value];
+    //change room # display
+    document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
+    document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
+  }  
+}
+
+//upstairs button
+document.getElementById("up").onclick = function() {
+  if(curr.hasAttribute("upVar")){
+    pic.src = curr.attributes.upImg.value;
+    curr = window[curr.attributes.upVar.value];
+    //change room # display
+    document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
+    document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
+  }  
+}
+
+//secondary click handler for button style changing -- for every directional button
+var buttons = document.querySelectorAll(".button").length;
+for (var i = 0; i < buttons ; i++) {
+    document.querySelectorAll(".button")[i].addEventListener("click", function() {
+        //alert("Button Clicked");
+        //hasattribute - directionals - if doesnt, change css to grey out
+    if(!curr.hasAttribute("forwardVar")){
+      document.getElementById("forwardBtn").style = "opacity: 0.1" 
+    }
+    else{
+      document.getElementById("forwardBtn").style = "opacity: 1" 
+    }
+    if(!curr.hasAttribute("leftVar")){
+      document.getElementById("leftBtn").style = "opacity: 0.1" 
+    }
+    else{
+      document.getElementById("leftBtn").style = "opacity: 1" 
+    }
+    if(!curr.hasAttribute("rightVar")){
+      document.getElementById("rightBtn").style = "opacity: 0.1" 
+    }
+    else{
+      document.getElementById("rightBtn").style = "opacity: 1" 
+    }
+    if(!curr.hasAttribute("backwardVar")){
+      document.getElementById("backwardBtn").style = "opacity: 0.1" 
+    }
+    else{
+      document.getElementById("backwardBtn").style = "opacity: 1" 
+    }
+    if(!curr.hasAttribute("upVar")){
+      document.getElementById("up").style = "opacity: 0.1" 
+    }
+    else{
+      document.getElementById("up").style = "opacity: 1" 
+    }
+    if(!curr.hasAttribute("downVar")){
+      document.getElementById("down").style = "opacity: 0.1" 
+    }
+    else{
+      document.getElementById("down").style = "opacity: 1" 
+    }
+    });
+  }
+
+
 
 
 

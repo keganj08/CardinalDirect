@@ -174,6 +174,129 @@ router.post('/assignments', function(req, res){
 	}
 });
 
+router.post('/meetings', function(req, res){
+	// mode is either 'g' for get, 'a' for add, 'u' for update, or 'd' for delete
+	let mode = req.body.mode;
+	if(mode === 'g'){
+		console.log("Get Meetings");
+		mydb.findMeetingsByEmailAndDate({"email" : req.body.email, "meetDate" : req.body.meetDate}, function(result){
+			res.send(result);
+		});
+	}
+	else if(mode === 'a'){
+		console.log("Add Meeting");
+		let newRec = {
+			"title" : req.body.title,
+			"building" : req.body.building,
+			"roomNum" : req.body.roomNum,
+			"start" : req.body.start,
+			"end" : req.body.end,
+			"meetDate" : req.body.meetDate,
+			"email" : req.body.email
+		};
+		mydb.addMeeting(newRec, function(result){
+			res.send({"id" : "" + result});
+		});
+	}
+	else if(mode === 'u'){
+		console.log("Update Meeting");
+		let updateRec = {
+			"title" : req.body.title,
+			"building" : req.body.building,
+			"roomNum" : req.body.roomNum,
+			"start" : req.body.start,
+			"end" : req.body.end,
+			"meetDate" : req.body.meetDate,
+			"id" : parseInt(req.body.id)
+		};
+		mydb.updateAssignment(updateRec, function(result){
+			res.send({"status" : "success"});
+		});
+	}
+	else{ //mode === 'd'
+		console.log("Delete Meeting");
+		mydb.deleteAssignment({"id" : parseInt(req.body.id)}, function(result){
+			res.send({"status" : "success"});
+			//res.send(result);
+		});
+	}
+});
+
+router.post('/todo_list', function(req, res){
+	// mode is either 'g' for get, 'a' for add, 'u' for update, or 'd' for delete
+	let mode = req.body.mode;
+	if(mode === 'g'){
+		console.log("Get ToDo List");
+		mydb.findToDoListByEmailAndDate({"email" : req.body.email, "listDate" : req.body.listDate}, function(result){
+			res.send(result);
+		});
+	}
+	else if(mode === 'a'){
+		console.log("Add ToDo List");
+		let newRec = {
+			"listDate" : req.body.listDate,
+			"email" : req.body.email
+		};
+		mydb.addToDoList(newRec, function(result){
+			res.send({"id" : "" + result});
+		});
+	}
+	else if(mode === 'u'){
+		console.log("Update ToDo List");
+		let updateRec = {
+			"listDate" : req.body.title,
+			"id" : parseInt(req.body.id)
+		};
+		mydb.updateToDoList(updateRec, function(result){
+			res.send({"status" : "success"});
+		});
+	}
+	else{ //mode === 'd'
+		console.log("Delete ToDo List");
+		mydb.deleteToDoList({"id" : parseInt(req.body.id)}, function(result){
+			res.send({"status" : "success"});
+			//res.send(result);
+		});
+	}
+});
+
+
+router.post('/todo_list_item', function(req, res){
+	// mode is either 'a' for add, 'u' for update, or 'd' for delete
+	let mode = req.body.mode;
+	if(mode === 'a'){
+		console.log("Add ToDo List Item");
+		let newRec = {
+			"tid" : req.body.tid,
+			"description" : req.body.description,
+			"isComplete" : req.body.isComplete
+		};
+		mydb.addToDoListItem(newRec, function(result){
+			res.send({"id" : "" + result});
+		});
+	}
+	else if(mode === 'u'){
+		console.log("Update ToDo List Item");
+		let updateRec = {
+			"tid" : parseInt(req.body.tid),
+			"description" : req.body.description,
+			"isComplete" : req.body.isComplete
+		};
+		mydb.updateToDoListItem(updateRec, function(result){
+			res.send({"status" : "success"});
+		});
+	}
+	else{ //mode === 'd'
+		console.log("Delete ToDo List Item");
+		mydb.deleteToDoListItem({"id" : parseInt(req.body.id), "description" : req.body.description}, function(result){
+			res.send({"status" : "success"});
+			//res.send(result);
+		});
+	}
+});
+
+
+
 router.post('/notes', function(req, res){
 	// mode is either 'g' for get, 'a' for add, 'u' for update, or 'd' for delete
 	let mode = req.body.mode;

@@ -10,19 +10,6 @@ function getUserEmail(){
 	return email;
 }
 
-function getUserPnum(){
-	let url = window.location.href;
-	let idx = url.indexOf("?user=");
-	let pnum = null;
-	if(idx !== -1){
-		pnum = url.substr(idx + 6);
-	}
-	return pnum;
-}
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', e => {
 	let email = getUserEmail();
@@ -77,7 +64,60 @@ document.addEventListener('DOMContentLoaded', e => {
 	}
 });
 
+document.addEventListener('DOMContentLoaded', e => {
+	let email = getUserEmail();
+	if (email != null){
+		
+		fetch('http://127.0.0.1:3000/get_pnum', {
+		method : 'POST',
+		headers: {'Content-Type': 'application/json'},
+		body : JSON.stringify({"email" : email})
+		})
+		.then(response => {
+			if (!response.ok){
+				throw new Error('HTTP error: ${response.status}');
+			}
+			return response.json();
+		})
+		
+        .then(data => {
+			document.getElementById("pnumplaceholder").placeholder = data.pnum;
 
+		})
+		
+ 
+		.catch(error => {
+			console.log(error);
+		});		
+	}
+});
+
+document.addEventListener('DOMContentLoaded', e => {
+	let email = getUserEmail();
+	if (email != null){
+		
+		fetch('http://127.0.0.1:3000/get_pwd', {
+		method : 'POST',
+		headers: {'Content-Type': 'application/json'},
+		body : JSON.stringify({"email" : email})
+		})
+		.then(response => {
+			if (!response.ok){
+				throw new Error('HTTP error: ${response.status}');
+			}
+			return response.json();
+		})
+		
+        .then(data => {
+			document.getElementById("pwdplaceholder").placeholder = data.pwd;
+		})
+		
+ 
+		.catch(error => {
+			console.log(error);
+		});		
+	}
+});
 /*show data as placeholders - not working */
 
 

@@ -56,6 +56,31 @@ router.post('/get_username', function(req, res){
 });
 
 
+router.post('/get_pnum', function(req, res){
+	let email = req.body.email;
+	mydb.findUserRecByEmail(email, function(result){
+		if(result == null){
+			res.send({"pnum" : null, "success" : false});
+		}
+		else{
+			res.send({"pnum" : result[0].pnum, "success" : true});
+		}
+	});
+});
+
+router.post('/get_pwd', function(req, res){
+	let email = req.body.email;
+	mydb.findUserRecByEmail(email, function(result){
+		if(result == null){
+			res.send({"pwd" : null, "success" : false});
+		}
+		else{
+			res.send({"pwd" : result[0].pwd, "success" : true});
+		}
+	});
+});
+
+
 router.post('/classes', function(req, res){
 	// mode is either 's' for search, 'g' for get, 'a' for add, or 'd' for delete
 	let mode = req.body.mode;

@@ -222,7 +222,7 @@ router.post('/meetings', function(req, res){
 	}
 });
 
-router.post('/todo_list', function(req, res){
+router.post('/todo_lists', function(req, res){
 	// mode is either 'g' for get, 'a' for add, 'u' for update, or 'd' for delete
 	let mode = req.body.mode;
 	if(mode === 'g'){
@@ -261,7 +261,7 @@ router.post('/todo_list', function(req, res){
 });
 
 
-router.post('/todo_list_item', function(req, res){
+router.post('/todo_list_items', function(req, res){
 	// mode is either 'a' for add, 'u' for update, or 'd' for delete
 	let mode = req.body.mode;
 	if(mode === 'a'){

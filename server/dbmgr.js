@@ -285,7 +285,7 @@ exports.findMeetingsByEmailAndDate = function(searchRec, callbackFn){
 		.then(conn => {
 			let email = searchRec.email;
 			let meetDate = searchRec.meetDate;
-			conn.query("SELECT * FROM meeting WHERE email = (?) and meetDate = (?)", [email, dueDate])
+			conn.query("SELECT * FROM meeting WHERE email = (?) and meetDate = (?)", [email, meetDate])
 				.then(res => {
 					//console.log(res);
 					conn.end();

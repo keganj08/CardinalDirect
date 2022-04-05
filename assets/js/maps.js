@@ -55,6 +55,17 @@ function updateMap(coords, end) {
 
 initMap();
 
+//logout
+document.getElementById("logout").addEventListener('click', e => {
+	let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+	window.location.href = 'login.html';
+});
+
 /*
 
 function initMap() {

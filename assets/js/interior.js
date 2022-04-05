@@ -77,6 +77,16 @@ if(!curr.hasAttribute("forwardVar")){
     document.getElementById("down").style = "opacity: 1" 
   }
 
+// "Logout" button
+document.getElementById("logout").addEventListener('click', e => {
+	let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+	window.location.href = 'login.html';
+});
 
 
 

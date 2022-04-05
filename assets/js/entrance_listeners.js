@@ -17,3 +17,14 @@ document.getElementById("se").onclick = function(){
 document.getElementById("sw").onclick = function(){
     window.location.href = "Interior.html?entrance=sw";
 }
+
+//"Logout" button
+document.getElementById("logout").addEventListener('click', e => {
+	let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+	window.location.href = 'login.html';
+});

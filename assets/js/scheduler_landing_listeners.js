@@ -39,8 +39,19 @@ document.addEventListener('DOMContentLoaded', e => {
 });
 */
 
-//buttons[0] is "View Schedule" button
-buttons[0].addEventListener('click', e => {
+//buttons[0] is "Logout" button
+document.getElementById("logout").addEventListener('click', e => {
+	let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+	window.location.href = 'login.html';
+});
+
+//buttons[1] is "View Schedule" button
+buttons[1].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
@@ -50,8 +61,8 @@ buttons[0].addEventListener('click', e => {
 	window.location.href = 'daily_schedule.html' + user;
 });
 
-//buttons[1] is "View Classes" button
-buttons[1].addEventListener('click', e => {
+//buttons[2] is "View Classes" button
+buttons[2].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
@@ -61,8 +72,8 @@ buttons[1].addEventListener('click', e => {
 	window.location.href = 'class_view.html' + user;
 });
 
-//buttons[2] is "View Calendar" button
-buttons[2].addEventListener('click', e => {
+//buttons[3] is "View Calendar" button
+buttons[3].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
@@ -72,8 +83,8 @@ buttons[2].addEventListener('click', e => {
 	window.location.href = 'calendar.html' + user;
 });
 
-//buttons[3] is "View Notes" button
-buttons[3].addEventListener('click', e => {
+//buttons[4] is "View Notes" button
+buttons[4].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
@@ -83,8 +94,8 @@ buttons[3].addEventListener('click', e => {
 	window.location.href = 'notes_view.html' + user;
 });
 
-//buttons[4] is "Back" button
-buttons[4].addEventListener('click', e => {
+//buttons[5] is "Back" button
+buttons[5].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";

@@ -15,6 +15,19 @@ body {
   color: #fff;
   font-family: "Nunito", sans-serif;
 }
+#logout{
+	font-size: 18px;
+	background-color: white;
+	/*background-color: blue;*/
+	color: #ef4048;
+	border: none;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 8px; /*curves corners of buttons*/
+	position:absolute;
+   right:10px;
+   top:5px;
+}
 button,
 input,
 select,

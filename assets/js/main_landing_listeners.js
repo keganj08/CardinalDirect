@@ -14,8 +14,9 @@ function getUserEmail(){
 document.addEventListener('DOMContentLoaded', e => {
 	let email = getUserEmail();
 	if (email === null){
-		buttons[0].style.display = "none";
-		buttons[3].style.display = "none";
+		buttons[1].style.display = "none";
+		buttons[4].style.display = "none";
+		document.querySelector("#logout").style.display = "none";
 	}
 	else{		
 		fetch('http://127.0.0.1:3000/get_username', {
@@ -38,8 +39,19 @@ document.addEventListener('DOMContentLoaded', e => {
 	}
 });
 
-//buttons[0] is "My Schedule" button
-buttons[0].addEventListener('click', e => {
+//buttons[0] is "Logout" button
+document.querySelector("#logout").addEventListener('click', e => {
+	let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+	window.location.href = 'login.html';
+});
+
+//buttons[1] is "My Schedule" button
+buttons[1].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
@@ -49,8 +61,8 @@ buttons[0].addEventListener('click', e => {
 	window.location.href = 'scheduler_landing.html' + user;
 });
 
-//buttons[1] is "Navigate Campus" button
-buttons[1].addEventListener('click', e => {
+//buttons[2] is "Navigate Campus" button
+buttons[2].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
@@ -60,8 +72,8 @@ buttons[1].addEventListener('click', e => {
 	window.location.href = 'maps.html' + user;
 });
 
-//buttons[2] is "Navigate Buildings" button
-buttons[2].addEventListener('click', e => {
+//buttons[3] is "Navigate Buildings" button
+buttons[3].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
@@ -70,8 +82,8 @@ buttons[2].addEventListener('click', e => {
 	}
 	window.location.href = 'choose_entrance.html' + user;
 });
-//buttons[3] is "Settings" button
-buttons[3].addEventListener('click', e => {
+//buttons[4] is "Settings" button
+buttons[4].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
@@ -80,3 +92,6 @@ buttons[3].addEventListener('click', e => {
 	}
 	window.location.href = 'Settings.html' + user;
 });
+
+
+

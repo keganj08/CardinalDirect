@@ -55,6 +55,18 @@ router.post('/get_username', function(req, res){
 	});
 });
 
+router.post('/get_user', function(req, res){
+	let email = req.body.email;
+	mydb.findUserRecByEmail(email, function(result){
+		/*if(result == null){
+			res.send({"username" : null, "success" : false});
+		}
+		else{
+			res.send({"username" : result[0].username, "success" : true});
+		}*/
+		res.send(result);
+	});
+});
 
 router.post('/get_pnum', function(req, res){
 	let email = req.body.email;
@@ -213,6 +225,21 @@ router.post('/notes', function(req, res){
 		});
 	}
 });
-
+router.post('/settings', function(req, res){
+	let mode = req.body.mode;
+	if(mode === 'u'){
+		console.log("Update Account");
+		let newRec = {
+			"username" : req.body.username,
+			"pwd" : req.body.pwd,
+			"pnum" : req.body.pnum,
+			"email" : req.body.email
+		};
+		mydb.updateAccount(newRec, function(result){
+			
+			res.send(result);
+		});
+}
+});
 
 module.exports = router;

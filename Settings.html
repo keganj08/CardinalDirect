@@ -36,35 +36,37 @@
                         </div>
                     </div>
                 </div>
-              
-                <div id = "user-info">
+  
+                <form id="form">
                     <div class="left"> 
                         <div class="form-group">
                             <label for="username" id="username">User Name</label>
-                            <input type="text" class="form-control" id="usernameplaceholder" placeholder=" ">
+                            <input type="text" name="username" class="form-control" id="usernameplaceholder" placeholder=" ">
                         </div>
                     </div>
                     <div class="right"> 
                         <div class="form-group">
                             <label for="pnum" id="pnum">Phone Number</label>
-                            <input type="text" class="form-control" id="pnumplaceholder" placeholder=" ">
+                            <input type="text" name="pnum" class="form-control" id="pnumplaceholder" placeholder=" ">
                         </div>
                     </div>
-                </div>
-                <div class="left">
-                    <div class="form-group">
-                        <label for="Password" id="password">Password</label>
-                        <input type="text" class="form-control" id="pwdplaceholder" placeholder=" ">
+                    <div class="left">
+                        <div class="form-group">
+                            <label for="pwd" id="pwd">Password</label>
+                            <input type="text" name="pwd" class="form-control" id="pwdplaceholder" placeholder=" ">
+                        </div>
+                    </div>  
+                    <div id = "settings">
+                        <div class="text-right">
+                            <button type="button" id="back" >Back</button>
+                            <button type="submit" id="update" >Update</button>
+                        </div>
                     </div>
-                </div>  
-                
-                <div class="text-right">
-                    <button type="button" id="submit" >Back</button>
-                    <button type="button" id="submit" >Update</button>
-                </div>
+                </form>
+            </div>
+            </form>
         </div>
     </div>
-</div>
 </div>
 </body>
 <script defer type = "text/javascript" src = "assets/js/settings.js"></script>

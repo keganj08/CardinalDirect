@@ -38,10 +38,6 @@ document.addEventListener('DOMContentLoaded', e => {
 addNoteButton.addEventListener('click', () => createNoteElement(null, "", ""));
 
 
-
-
-
-
 function createNoteElement(id, title, content){
 	//console.log("In Create Note Element");
 	let notediv = document.createElement("div");
@@ -111,6 +107,7 @@ function createNoteElement(id, title, content){
 		else{
 			console.log("Save Button - Submit - Update");
 			// update note in database
+			console.log(formElem);
 			let formData = new FormData(formElem);
 			let requestObj = Object.fromEntries(formData);
 			requestObj.email = getUserEmail();

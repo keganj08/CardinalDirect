@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', e => {
 	let email = getUserEmail();
 	if (email === null){
 		buttons[0].style.display = "none";
+		buttons[3].style.display = "none";
 	}
 	else{		
 		fetch('http://127.0.0.1:3000/get_username', {

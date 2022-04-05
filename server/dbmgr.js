@@ -372,3 +372,26 @@ exports.deleteNote = function(record, callbackFn){
 			console.log("connection error: " + err);
 		});
 };
+/* -----------------------------------Settings--------------------------------*/
+exports.updateAccount = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let username = record.username;
+			let pwd = record.pwd;
+			let pnum = record.pnum;
+			let email = record.email;
+			conn.query("UPDATE user SET username = (?), pwd = (?), pnum = (?) WHERE email = (?)", [username, pwd, pnum, email])
+			//conn.query("INSERT INTO user value (?, ?, ?, ?)", [username, pwd, pnum, email])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};

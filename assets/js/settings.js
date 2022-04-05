@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', e => {
 
 
 document.addEventListener('DOMContentLoaded', e => {
-	// Get notes from database
 	fetch('http://127.0.0.1:3000/settings', {
 		method : 'POST',
 		headers: {'Content-Type': 'application/json'},

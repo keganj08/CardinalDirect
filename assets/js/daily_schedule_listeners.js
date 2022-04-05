@@ -19,32 +19,116 @@ function getUserEmail(){
 }
 
 document.addEventListener('DOMContentLoaded', e => {
-	// Get assignments from database
-	fetch('http://127.0.0.1:3000/assignments', {
-		method : 'POST',
-		headers: {'Content-Type': 'application/json'},
-		body : JSON.stringify({"email" : getUserEmail(), "dueDate" : getCurrentDate(), "mode" : 'g'})
-		})
-		.then(response => {
-			if (!response.ok){
-				throw new Error('HTTP error: ${response.status}');
+	Promise.all([
+		// Get classes from database
+		fetch('http://127.0.0.1:3000/classes', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify({"email" : getUserEmail(), "mode" : 'g'})
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response.json();
+			}),
+		// Get meetings from database
+		fetch('http://127.0.0.1:3000/meetings', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify({"email" : getUserEmail(), "meetDate" : getCurrentDate(), "mode" : 'g'})
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response.json();
+			}),
+		// Get assignments from database
+		fetch('http://127.0.0.1:3000/assignments', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify({"email" : getUserEmail(), "dueDate" : getCurrentDate(), "mode" : 'g'})
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response.json();
+			}),
+		// Get to-do list from database
+		fetch('http://127.0.0.1:3000/todo_lists', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify({"email" : getUserEmail(), "listDate" : getCurrentDate(), "mode" : 'g'})
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response.json();
+			})
+	]).then(allResponses => {
+		const classData = allResponses[0]; //Response from classes fetch
+		const meetingData = allResponses[1]; //Response from meetings fetch
+		const assignmentData = allResponses[2]; //Response from assignments fetch
+		const todoData = allResponses[3]; //Response from to do lists fetch
+		// Handle class data
+		console.log(classData);
+		/*
+		if(data.length > 0){
+			// If there is data, remove the paragraph saying there are no classes
+			// and create the table (only the header row)
+			let noClassPar = document.querySelector("#classdiv p");
+			let classDiv = noClassPar.parentElement;
+			classDiv.removeChild(noClassPar);
+			createClassTable();
+		}
+		// For each record of data retrieved, create a row in the table
+		let resultCourses = [];
+		for(let i=0; i<data.length; i++){
+			console.log(data[i]);
+			rec = data[i];
+			// If a course id shows up more than once (i.e., it's already in resultCourses),
+			// add the faculty member's name to that row in the table. This handles
+			// team teaching
+			if(resultCourses.includes(rec.cid)){
+				addFacultyToRow(rec.cid, rec.fnamefirst, rec.fnamelast);
 			}
-			return response.json();
-		})
-		.then(data => {
-			console.log(data);
-			let i=0;
-			for(i=0; i<data.length; i++){
-				console.log(data[i]);
-				addAssignmentTableRow(data[i].aid, data[i].title, data[i].dueTime, data[i].cid);
+			// If a course id is not already in resultCourses, add it and add a row to the table
+			else{
+				resultCourses.push(rec.cid);
+				createClassTableRow(rec.cid, rec.name, rec.startDate, rec.endDate, rec.dow, rec.startTime, rec.endTime, rec.building, rec.roomNum, rec.fnamefirst, rec.fnamelast);
 			}
-		})
-		.catch(error => {
-			console.log(error);
+		}
+		*/
+			
+		
+		// Handle meeting data	
+		console.log(meetingData);
+		meetingData.forEach(rec => {
+			console.log(rec);
+			//addAssignmentTableRow(rec.aid, rec.title, rec.dueTime, rec.cid);
 		});
 		
-	// fetch To-Do
-	// fetch Events (Probably should go first)
+		// Handle assignment data
+		console.log(assignmentData);
+		assignmentData.forEach(rec => {
+			console.log(rec);
+			addAssignmentTableRow(rec.aid, rec.title, rec.dueTime, rec.cid);
+		});
+			
+		// Handle to-do list data
+		console.log(todoData);
+		todoData.forEach(rec => {
+			console.log(rec);
+			//addAssignmentTableRow(rec.aid, rec.title, rec.dueTime, rec.cid);
+		});
+	})
+	.catch(error => {
+		console.log(error);
+	});
+	
 });
 
 
@@ -69,10 +153,15 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 		console.log("Assignment Form Submit - New");
 		// save new assignment to database
 		let formData = new FormData(formElem);
-		let requestObj = Object.fromEntries(formData);
-		requestObj.email = getUserEmail();
-		requestObj.dueDate = getCurrentDate();
-		requestObj.mode = 'a';
+		let formDataObj = Object.fromEntries(formData);
+		let requestObj = {
+			"title" : formDataObj.title,
+			"dueTime" : "" + formDataObj.duehr + ":" + formDataObj.duemin + " " + formDataObj.dueampm,
+			"email" : getUserEmail(),
+			"cid" : formDataObj.cid,
+			"dueDate" : getCurrentDate(),
+			"mode" : 'a'
+		};
 		
 		console.log(requestObj);
 		
@@ -101,11 +190,16 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 		console.log("Assignment Form Submit - Update");
 		// update assignment in database
 		let formData = new FormData(formElem);
-		let requestObj = Object.fromEntries(formData);
-		requestObj.email = getUserEmail();
-		requestObj.id = formElem.id;
-		requestObj.dueDate = getCurrentDate();
-		requestObj.mode = 'u';
+		let formDataObj = Object.fromEntries(formData);
+		let requestObj = {
+			"id" : formElem.id,
+			"title" : formDataObj.title,
+			"dueTime" : "" + formDataObj.duehr + ":" + formDataObj.duemin + " " + formDataObj.dueampm,
+			"email" : getUserEmail(),
+			"cid" : formDataObj.cid,
+			"dueDate" : getCurrentDate(),
+			"mode" : 'u'
+		};		
 		
 		//Send request to server to update an existing assignment in assignment database
 		fetch('http://127.0.0.1:3000/assignments', {
@@ -152,7 +246,7 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 	let dataDue = document.createElement("td");
 	dataDue.innerHTML = dueTime;
 	let dataCid = document.createElement("td");
-	dataCid.innerHTML = cid.substr(0, 4) + " " + cid.substr(-3);
+	dataCid.innerHTML = cid;//cid.substr(0, 4) + " " + cid.substr(-3);
 	
 	let updateTd = document.createElement("td");
 	updateTd.innerHTML = "update";

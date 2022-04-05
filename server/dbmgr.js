@@ -279,10 +279,261 @@ exports.deleteAssignment = function(record, callbackFn){
 
 
 /* --------------------------------Meetings--------------------------------*/
+// Finds all meetings created by a given user by email and date
+exports.findMeetingsByEmailAndDate = function(searchRec, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let email = searchRec.email;
+			let meetDate = searchRec.meetDate;
+			conn.query("SELECT * FROM meeting WHERE email = (?) and meetDate = (?)", [email, meetDate])
+				.then(res => {
+					//console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+				callbackFn(null);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Adds a meeting to the meeting table
+exports.addMeeting = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let title = record.title;
+			let building = record.building;
+			let roomNum = record.roomNum;
+			let start = record.start;
+			let end = record.end;
+			let meetDate = record.meetDate;
+			let email = record.email;
+			conn.query("INSERT INTO meeting value (?, ?, ?, ?, ?, ?, ?, ?)", [null, title, building, roomNum, start, end, meetDate, email])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn(res.insertId);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Updates a meeting already in the meeting table
+exports.updateMeeting = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let title = record.title;
+			let building = record.building;
+			let roomNum = record.roomNum;
+			let start = record.start;
+			let end = record.end;
+			let meetDate = record.meetDate;
+			let mid = record.id;
+			
+			conn.query("UPDATE meeting SET title = (?), building = (?), roomNum = (?), start = (?), \
+						end = (?), meetDate = (?) \
+						WHERE mid = (?)", [title, building, roomNum, start, end, meetDate, mid])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Deletes a meeting from the meeting table
+exports.deleteMeeting = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let id = record.id;
+			conn.query("DELETE FROM meeting WHERE mid = (?)", [id])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					//callbackFn(res);
+					callbackFn();
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
 
 
 /* -----------------------------------To-Do--------------------------------*/
+// Finds all to-do list items created by a given user by email and date
+exports.findToDoListByEmailAndDate = function(searchRec, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let email = searchRec.email;
+			let listDate = searchRec.listDate;
+			conn.query("SELECT td.tid, listDate, description, isComplete, email \
+						FROM todo td JOIN todoItem tdi ON td.tid = tdi.tid \
+						WHERE email = (?) and listDate = (?)", [email, listDate])
+				.then(res => {
+					//console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+				callbackFn(null);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
 
+// Adds a to-do list to the todo table
+exports.addToDoList = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let listDate = record.listDate;
+			let email = record.email;
+			conn.query("INSERT INTO todo value (?, ?, ?)", [null, listDate, email])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn(res.insertId);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Updates a to-do list already in the todo table
+exports.updateToDoList = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let listDate = record.listDate;
+			let tid = record.id;
+			
+			conn.query("UPDATE assignment SET listDate = (?) WHERE tid = (?)", [listDate, tid])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Deletes a to-do list from the todo table
+exports.deleteToDoList = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let id = record.id;
+			conn.query("DELETE FROM todo WHERE tid = (?)", [id])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					//callbackFn(res);
+					callbackFn();
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Adds a to-do list item to the todoItem table
+exports.addToDoListItem = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let tid = record.tid;
+			let description = record.description;
+			let isComplete = record.isComplete;
+			conn.query("INSERT INTO todoItem value (?, ?, ?, ?, ?, ?)", [tid, description, isComplete])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn(res.insertId);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Updates a to-do list item already in the todoItem table
+exports.updateToDoListItem = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let tid = record.id;
+			let description = record.description;
+			let isComplete = record.isComplete;
+			
+			conn.query("UPDATE todoItem SET isComplete = (?) \
+						WHERE tid = (?) and description = (?)", [isComplete, tid, description])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					callbackFn(res);
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
+
+// Deletes a to-do list item from the todoItem table
+exports.deleteToDoListItem = function(record, callbackFn){
+	mariadb.createConnection(configObj)
+		.then(conn => {
+			let id = record.id;
+			let description = record.description;
+			conn.query("DELETE FROM todoItem WHERE tid = (?) AND description = (?)", [id, description])
+				.then(res => {
+					console.log(res);
+					conn.end();
+					//callbackFn(res);
+					callbackFn();
+				})
+			.catch(err => { 
+				console.log("query error: " + err);
+			});
+		})
+		.catch(err => {
+			console.log("connection error: " + err);
+		});
+};
 
 /* -----------------------------------Notes--------------------------------*/
 

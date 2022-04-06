@@ -216,6 +216,9 @@ F0_SE_north.src='assets/images/building interiors/floor0/se_intersection/north.j
 //forward
 F0_SE_north.setAttribute("forwardImg", "assets/images/building interiors/floor0/e_intersection/north.jpg");
 F0_SE_north.setAttribute("forwardVar", "F0_E_north");
+//right
+F0_SE_north.setAttribute("rightImg", "assets/images/building interiors/floor0/se_intersection/east.jpg");
+F0_SE_north.setAttribute("rightVar", "F0_SE_east");
 //left
 F0_SE_north.setAttribute("leftImg", "assets/images/building interiors/floor0/se_intersection/west.jpg");
 F0_SE_north.setAttribute("leftVar", "F0_SE_west");

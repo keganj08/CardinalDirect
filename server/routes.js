@@ -218,13 +218,13 @@ router.post('/meetings', function(req, res){
 			"meetDate" : req.body.meetDate,
 			"id" : parseInt(req.body.id)
 		};
-		mydb.updateAssignment(updateRec, function(result){
+		mydb.updateMeeting(updateRec, function(result){
 			res.send({"status" : "success"});
 		});
 	}
 	else{ //mode === 'd'
 		console.log("Delete Meeting");
-		mydb.deleteAssignment({"id" : parseInt(req.body.id)}, function(result){
+		mydb.deleteMeeting({"id" : parseInt(req.body.id)}, function(result){
 			res.send({"status" : "success"});
 			//res.send(result);
 		});
@@ -489,6 +489,9 @@ router.post ('/reset-password/:email/:token', (req, res, next) => {
 			//hash password - later
 			user.pwd = pwd;
 			res.send(user);
+			//figure out how to send to login page
+			
+			  
 
 		} catch (error) {
 			console.log(error.message);

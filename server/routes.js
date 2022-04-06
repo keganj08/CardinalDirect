@@ -489,6 +489,9 @@ router.post ('/reset-password/:email/:token', (req, res, next) => {
 			//hash password - later
 			user.pwd = pwd;
 			res.send(user);
+			//figure out how to send to login page
+			
+			  
 
 		} catch (error) {
 			console.log(error.message);

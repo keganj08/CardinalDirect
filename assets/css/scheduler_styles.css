@@ -239,7 +239,8 @@ li:last-child {
 }
 	
 /* Daily Schedule */
-#newassignment{
+.new-schedule-item-form, .schedule-item-table {
 	display: none;
 }
+
 	

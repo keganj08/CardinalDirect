@@ -26,7 +26,7 @@
 			<div id="bottom">
 				<p>Events</p>
 				<!--Events are listed here-->
-				<div id="eventlist">
+				<div id="eventlist" class="schedule-item-table">
 					<table>
 						<tr>
 							<th>Event</th>
@@ -35,9 +35,11 @@
 							<th>Room</th>
 						</tr>
 					</table>
-					<button type="button">Add</button>
 				</div>
-				<div id="newevent">
+				<div>
+					<button id="event-add-btn" type="button">Add</button>
+				</div>
+				<div id="newevent" class="new-schedule-item-form">
 					<form>
 						<label for="title">Event</label>
 						<br><input id="title" name="title" type="text" placeholder="i.e, Meet with professor" required><br>
@@ -125,7 +127,7 @@
 			<div id="assignments">
 				<p>Assignments Due Today</p>
 				<!--Assignments are listed here-->
-				<div id="assignmentlist">
+				<div id="assignmentlist" class="schedule-item-table">
 					<table>
 						<tr>
 							<th> Assignment </th>
@@ -133,9 +135,11 @@
 							<th> Course </th>
 						</tr>
 					</table>
-					<button type="button">Add</button>
 				</div>
-				<div id="newassignment">
+				<div>
+					<button id="assignment-add-btn" type="button">Add</button>
+				</div>
+				<div id="newassignment" class="new-schedule-item-form">
 					<form>
 						<label for="title">Assignment</label>
 						<br><input id="title" name="title" type="text" placeholder="i.e, Chapter 4 Journal" required><br>

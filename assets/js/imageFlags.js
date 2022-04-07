@@ -425,9 +425,24 @@ F1_NE_west.setAttribute("leftVar", "F1_NE_south");
 //forward
 F1_NE_west.setAttribute("forwardImg", "assets/images/building interiors/floor1/nw_intersection/west.jpg");
 F1_NE_west.setAttribute("forwardVar", "F1_NW_west");
+//right
+F1_NE_west.setAttribute("rightImg", "assets/images/building interiors/floor1/ne_intersection/offices.jpg");
+F1_NE_west.setAttribute("rightVar", "F1_NE_offices");
 //rooms
 F1_NE_west.setAttribute("leftRooms", " ");
 F1_NE_west.setAttribute("rightRooms", "154, 156");
+
+var F1_NE_offices = document.createElement('img'); //*******************************
+F1_NE_offices.src='assets/images/building interiors/floor1/ne_intersection/offices.jpg';
+//backward
+F1_NE_offices.setAttribute("backwardImg", "assets/images/building interiors/floor1/ne_intersection/north.jpg")
+F1_NE_offices.setAttribute("backwardVar", "F1_NE_north");
+//left
+F1_NE_offices.setAttribute("leftImg", "assets/images/building interiors/floor1/ne_intersection/west.jpg")
+F1_NE_offices.setAttribute("leftVar", "F1_NE_west");
+//rooms
+F1_NE_offices.setAttribute("leftRooms", " ");
+F1_NE_offices.setAttribute("rightRooms", "154, 156");
 
 var F1_NE_south = document.createElement('img'); //*******************************
 F1_NE_south.src='assets/images/building interiors/floor1/ne_intersection/south.jpg';
@@ -446,6 +461,9 @@ F1_NE_north.src='assets/images/building interiors/floor1/ne_intersection/south.j
 //backward
 F1_NE_north.setAttribute("backwardImg", "assets/images/building interiors/floor1/e_intersection/north.jpg");
 F1_NE_north.setAttribute("backwardVar", "F1_E_north");
+//forward
+F1_NE_north.setAttribute("forwardImg", "assets/images/building interiors/floor1/ne_intersection/offices.jpg");
+F1_NE_north.setAttribute("forwardVar", "F1_NE_offices");
 //left
 F1_NE_north.setAttribute("leftImg", "assets/images/building interiors/floor1/ne_intersection/west.jpg");
 F1_NE_north.setAttribute("leftVar", "F1_NE_west");
@@ -464,6 +482,9 @@ F1_NE_east.src='assets/images/building interiors/floor1/ne_intersection/east.jpg
 //right
 F1_NE_east.setAttribute("rightImg", "assets/images/building interiors/floor1/ne_intersection/south.jpg");
 F1_NE_east.setAttribute("rightVar", "F1_NE_south");
+//left
+F1_NE_east.setAttribute("leftImg", "assets/images/building interiors/floor1/ne_intersection/offices.jpg");
+F1_NE_east.setAttribute("leftVar", "F1_NE_offices");
 //backward
 F1_NE_east.setAttribute("backwardImg", "assets/images/building interiors/floor1/nw_intersection/east.jpg");
 F1_NE_east.setAttribute("backwardVar", "F1_NW_east");
@@ -792,9 +813,24 @@ F2_NE_west.setAttribute("leftVar", "F2_NE_south");
 //forward
 F2_NE_west.setAttribute("forwardImg", "assets/images/building interiors/floor2/nw_intersection/west.jpg");
 F2_NE_west.setAttribute("forwardVar", "F2_NW_west");
+//right
+F2_NE_west.setAttribute("rightImg", "assets/images/building interiors/floor2/ne_intersection/offices.jpg");
+F2_NE_west.setAttribute("rightVar", "F2_NE_offices");
 //rooms
 F2_NE_west.setAttribute("leftRooms", " ");
 F2_NE_west.setAttribute("rightRooms", "154, 156");
+
+var F2_NE_offices = document.createElement('img'); //*******************************
+F2_NE_offices.src='assets/images/building interiors/floor2/ne_intersection/offices.jpg';
+//backward
+F2_NE_offices.setAttribute("backwardImg", "assets/images/building interiors/floor2/ne_intersection/north.jpg");
+F2_NE_offices.setAttribute("backwardVar", "F2_NE_north");
+//left
+F2_NE_offices.setAttribute("leftImg", "assets/images/building interiors/floor2/ne_intersection/west.jpg");
+F2_NE_offices.setAttribute("leftVar", "F2_NE_west");
+//rooms
+F2_NE_offices.setAttribute("leftRooms", " ");
+F2_NE_offices.setAttribute("rightRooms", "154, 156");
 
 var F2_NE_south = document.createElement('img'); //*******************************
 F2_NE_south.src='assets/images/building interiors/floor2/ne_intersection/south.jpg';
@@ -819,6 +855,9 @@ F2_NE_north.setAttribute("leftVar", "F2_NE_west");
 //upstairs
 F2_NE_north.setAttribute("upImg", "assets/images/building interiors/floor3/ne_intersection/west.jpg");
 F2_NE_north.setAttribute("upVar", "F3_NE_west");
+//forward
+F2_NE_north.setAttribute("forwardImg", "assets/images/building interiors/floor2/ne_intersection/offices.jpg");
+F2_NE_north.setAttribute("forwardVar", "F2_NE_offices");
 //downstairs
 F2_NE_north.setAttribute("downImg", "assets/images/building interiors/floor1/ne_intersection/west.jpg");
 F2_NE_north.setAttribute("downVar", "F1_NE_west");
@@ -834,6 +873,9 @@ F2_NE_east.setAttribute("rightVar", "F2_NE_south");
 //backward
 F2_NE_east.setAttribute("backwardImg", "assets/images/building interiors/floor2/nw_intersection/east.jpg");
 F2_NE_east.setAttribute("backwardVar", "F2_NW_east");
+//left
+F2_NE_east.setAttribute("leftImg", "assets/images/building interiors/floor2/ne_intersection/offices.jpg");
+F2_NE_east.setAttribute("leftVar", "F2_NE_offices");
 //upstairs
 F2_NE_east.setAttribute("upImg", "assets/images/building interiors/floor3/ne_intersection/west.jpg");
 F2_NE_east.setAttribute("upVar", "F3_NE_west");
@@ -1160,9 +1202,24 @@ F3_NE_west.setAttribute("leftVar", "F3_NE_south");
 //forward
 F3_NE_west.setAttribute("forwardImg", "assets/images/building interiors/floor3/nw_intersection/west.jpg");
 F3_NE_west.setAttribute("forwardVar", "F3_NW_west");
+//right
+F3_NE_west.setAttribute("rightImg", "assets/images/building interiors/floor3/ne_intersection/offices.jpg");
+F3_NE_west.setAttribute("rightVar", "F3_NE_offices");
 //rooms
 F3_NE_west.setAttribute("leftRooms", " ");
 F3_NE_west.setAttribute("rightRooms", "154, 156");
+
+var F3_NE_offices = document.createElement('img'); //*******************************
+F3_NE_offices.src='assets/images/building interiors/floor3/ne_intersection/offices.jpg';
+//backward
+F3_NE_offices.setAttribute("backwardImg", "assets/images/building interiors/floor3/ne_intersection/north.jpg")
+F3_NE_offices.setAttribute("backwardVar", "F3_NE_north");
+//left
+F3_NE_offices.setAttribute("leftImg", "assets/images/building interiors/floor3/ne_intersection/west.jpg")
+F3_NE_offices.setAttribute("leftVar", "F3_NE_west");
+//rooms
+F3_NE_offices.setAttribute("leftRooms", " ");
+F3_NE_offices.setAttribute("rightRooms", "154, 156");
 
 var F3_NE_south = document.createElement('img'); //*******************************
 F3_NE_south.src='assets/images/building interiors/floor3/ne_intersection/south.jpg';
@@ -1181,6 +1238,9 @@ F3_NE_north.src='assets/images/building interiors/floor3/ne_intersection/south.j
 //backward
 F3_NE_north.setAttribute("backwardImg", "assets/images/building interiors/floor3/e_intersection/north.jpg");
 F3_NE_north.setAttribute("backwardVar", "F3_E_north");
+//forward
+F3_NE_north.setAttribute("forwardImg", "assets/images/building interiors/floor3/ne_intersection/offices.jpg");
+F3_NE_north.setAttribute("forwardVar", "F3_NE_offices");
 //left
 F3_NE_north.setAttribute("leftImg", "assets/images/building interiors/floor3/ne_intersection/west.jpg");
 F3_NE_north.setAttribute("leftVar", "F3_NE_west");
@@ -1196,6 +1256,9 @@ F3_NE_east.src='assets/images/building interiors/floor3/ne_intersection/east.jpg
 //right
 F3_NE_east.setAttribute("rightImg", "assets/images/building interiors/floor3/ne_intersection/south.jpg");
 F3_NE_east.setAttribute("rightVar", "F3_NE_south");
+//left
+F3_NE_east.setAttribute("leftImg", "assets/images/building interiors/floor3/ne_intersection/offices.jpg");
+F3_NE_east.setAttribute("leftVar", "F3_NE_offices");
 //backward
 F3_NE_east.setAttribute("backwardImg", "assets/images/building interiors/floor3/nw_intersection/east.jpg");
 F3_NE_east.setAttribute("backwardVar", "F3_NW_east");

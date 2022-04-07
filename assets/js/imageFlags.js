@@ -388,9 +388,6 @@ F0_W_south.setAttribute("backwardVar", "F0_NW_south");
 //left
 F0_W_south.setAttribute("leftImg", "assets/images/building interiors/floor0/w_intersection/east.jpg");
 F0_W_south.setAttribute("leftVar", "F0_W_east");
-//upstairs
-F0_W_south.setAttribute("upImg", "assets/images/building interiors/floor1/w_intersection/east.jpg"); //TODO idk if this exists - same if F1 goes to F0 here
-F0_W_south.setAttribute("upVar", "F1_W_east");
 //rooms
 F0_W_south.setAttribute("leftRooms", "119, 121, 101");
 F0_W_south.setAttribute("rightRooms", " ");
@@ -760,9 +757,6 @@ F1_W_south.setAttribute("leftVar", "F1_W_east");
 //upstairs
 F1_W_south.setAttribute("upImg", "assets/images/building interiors/floor2/w_intersection/east.jpg");
 F1_W_south.setAttribute("upVar", "F2_W_east");
-//downstairs
-F1_W_south.setAttribute("downImg", "assets/images/building interiors/floor0/w_intersection/east.jpg");
-F1_W_south.setAttribute("downVar", "F0_W_east");
 //rooms
 F1_W_south.setAttribute("leftRooms", "119, 121, 101");
 F1_W_south.setAttribute("rightRooms", " ");

@@ -131,14 +131,36 @@ function addEventTableRow(mid, title, start, end, building, roomNum, eventType){
 			document.getElementById("newevent").style.display = "block";
 			let formElem = document.querySelector("#newevent form");
 			formElem.id = dataRow.id;
-			//console.log(formElem.children);
-			let inputs = formElem.querySelectorAll("input");
 			
-			let i=0;
-			// Fill in the form inputs with the current assignment data
-			for(i=0; i<inputs.length; i++){
-				inputs[i].value = dataRow.children[i].innerHTML;
-			}
+			/* Fill in the form inputs with the current assignment data*/
+			// Fill in the title
+			formElem.querySelector("#title").innerHTML = dataRow.children[0].innerHTML;
+			
+			// Fill in the start and end times
+			let hrValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+			let minValues = ["00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"];
+			let AmPmValues = ["AM", "PM"];
+			let start_end = dataRow.children[1].innerHTML.split("-"); // e.g., ["12:00 AM", "1:00 AM"] 
+			
+			// To fill in the start time
+			let time_ampm = start_end[0].split(" "); // e.g., ["12:00", "AM"]
+			let hr_min = time_ampm[0].split(":"); //e.g., ["12", "00"]
+			formElem.querySelector("#starthr").selectedIndex = hrValues.indexOf(hr_min[0]);
+			formElem.querySelector("#startmin").selectedIndex = minValues.indexOf(hr_min[1]);
+			formElem.querySelector("#startampm").selectedIndex = AmPmValues.indexOf(time_ampm[1]);
+			
+			// To fill in the end time
+			time_ampm = start_end[1].split(" "); // e.g., ["1:00", "AM"]
+			hr_min = time_ampm[0].split(":"); //e.g., ["1", "00"]
+			formElem.querySelector("#endhr").selectedIndex = hrValues.indexOf(hr_min[0]);
+			formElem.querySelector("#endmin").selectedIndex = minValues.indexOf(hr_min[1]);
+			formElem.querySelector("#endampm").selectedIndex = AmPmValues.indexOf(time_ampm[1]);
+			
+			// Fill in the building
+			formElem.querySelector("#building").innerHTML = dataRow.children[2].innerHTML;
+			
+			// Fill in the roomNum
+			formElem.querySelector("#roomNum").innerHTML = dataRow.children[3].innerHTML;
 		});
 	
 		let delTd = document.createElement("td");

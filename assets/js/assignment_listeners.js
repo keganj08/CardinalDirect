@@ -82,7 +82,7 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				let dataRow = document.getElementById(requestObj.id);
 				dataRow.children[0].innerHTML = requestObj.title;
 				dataRow.children[1].innerHTML = requestObj.dueTime;
-				dataRow.children[2].innerHTML = requestObj.cid;
+				dataRow.children[2].innerHTML = courseIds.getSimpleFromCid(requestObj.cid);
 			})
 			.catch(error => {
 				console.log(error);
@@ -105,7 +105,7 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 	let dataDue = document.createElement("td");
 	dataDue.innerHTML = dueTime;
 	let dataCid = document.createElement("td");
-	dataCid.innerHTML = cid;//cid.substr(0, 4) + " " + cid.substr(-3);
+	dataCid.innerHTML = courseIds.getSimpleFromCid(cid);
 	
 	let updateTd = document.createElement("td");
 	updateTd.innerHTML = "Edit";
@@ -115,14 +115,24 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 		document.getElementById("newassignment").style.display = "block";
 		let formElem = document.querySelector("#newassignment form");
 		formElem.id = dataRow.id;
-		console.log(formElem.children);
-		let inputs = formElem.querySelectorAll("input");
 		
-		let i=0;
-		// Fill in the form inputs with the current assignment data
-		for(i=0; i<inputs.length; i++){
-			inputs[i].value = dataRow.children[i].innerHTML;
-		}
+		/* Fill in the form inputs with the current assignment data*/
+		// Fill in the title
+		formElem.querySelector("#title").innerHTML = dataRow.children[0].innerHTML;
+		
+		// Fill in the due time
+		let dueHrValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+		let dueMinValues = ["00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"];
+		let dueAmPmValues = ["AM", "PM"];
+		let time_ampm = dataRow.children[1].innerHTML.split(" "); // e.g., ["12:00", "AM"]
+		let hr_min = time_ampm[0].split(":"); //e.g., ["12", "00"]
+		formElem.querySelector("#duehr").selectedIndex = dueHrValues.indexOf(hr_min[0]);
+		formElem.querySelector("#duemin").selectedIndex = dueMinValues.indexOf(hr_min[1]);
+		formElem.querySelector("#dueampm").selectedIndex = dueAmPmValues.indexOf(time_ampm[1]);
+		
+		// Fill in the associated class
+		let courseIdx = courseIds.getSimpleIdx(dataRow.children[2].innerHTML);
+		formElem.querySelector("#cid").selectedIndex = courseIdx;
 	});
 	
 	let delTd = document.createElement("td");

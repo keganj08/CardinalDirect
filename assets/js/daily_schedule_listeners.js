@@ -1,5 +1,34 @@
 // daily_schedule_listeners.js
 
+var courseIds = {
+	cids: [],
+	simpleCids: [],
+	addCourse: function(cid){
+		this.cids.push(cid);
+		this.simpleCids.push(cid.split("*", 2).join(' '));
+	},
+	getCids: function(){return this.cids;},
+	getSimpleCids: function(){return this.simpleCids;},
+	getCidFromSimple: function(simpleCid){
+		let idx = this.simpleCids.indexOf(simpleCid);
+		let cid = null;
+		if(idx !== -1){
+			cid = this.cids[idx];
+		}
+		return cid;
+	},
+	getSimpleFromCid: function(cid){
+		let idx = this.cids.indexOf(cid);
+		let simpleCid = null;
+		if(idx !== -1){
+			simpleCid = this.simpleCids[idx];
+		}
+		return simpleCid;
+	},
+	getCidIdx: function(cid){return this.cids.indexOf(cid);},
+	getSimpleIdx: function(simpleCid){return this.simpleCids.indexOf(simpleCid);}
+};
+
 function getCurrentDate(){
 	//Will need to handle when get to this page from calendar
 	let today = new Date();
@@ -85,11 +114,24 @@ document.addEventListener('DOMContentLoaded', e => {
 		
 		// Handle class data
 		console.log(classData);
-		classData.forEach(rec => {
-			console.log(rec);
-			addEventTableRow("", rec.cid + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
-		});
-			
+		let assigFormCidSelect = document.querySelector("#cid");
+		let i=0;
+		for(i=0; i<classData.length; i++){
+			let rec = classData[i];
+			console.log("Rec:" + rec.cid);
+			// Makes sure we are not double-including courses
+			if(courseIds.getCidIdx(rec.cid) === -1){
+				courseIds.addCourse(rec.cid); //add course id
+				let simpleCid = courseIds.getSimpleFromCid(rec.cid);
+				addEventTableRow("", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
+				
+				// Add each class id to the select options for "associated with" under assignment
+				let selectOption = document.createElement("option");
+				selectOption.value = rec.cid;
+				selectOption.innerHTML = simpleCid;
+				assigFormCidSelect.appendChild(selectOption);
+			}
+		}
 		
 		// Handle meeting data	
 		console.log(meetingData);

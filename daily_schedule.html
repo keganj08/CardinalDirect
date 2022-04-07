@@ -45,7 +45,7 @@
 						<br><input id="title" name="title" type="text" placeholder="i.e, Meet with professor" required><br>
 						<label for="starthr">Start</label>
 							<!-- Area for user to choose starting hour -->
-							<select name="starthr" required>
+							<select id="starthr" name="starthr" required>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -60,7 +60,7 @@
 								<option value="12">12</option>
 							</select>:
 							<!-- Area for user to choose starting minutes -->
-							<select name="startmin" required>
+							<select id="startmin" name="startmin" required>
 								<option value="00">00</option>
 								<option value="05">05</option>
 								<option value="10">10</option>
@@ -75,13 +75,13 @@
 								<option value="55">55</option>
 							</select>
 							<!-- Area for user to choose if starting time is AM or PM -->
-							<select name="startampm" required>
-								<option value="am">AM</option>
-								<option value="pm">PM</option>
+							<select id="startampm" name="startampm" required>
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
 							</select><br>
 							<label for="endhr">End</label>
 							<!-- Area for user to choose ending hour -->
-							<select name="endhr" required>
+							<select id="endhr" name="endhr" required>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -96,7 +96,7 @@
 								<option value="12">12</option>
 							</select>:
 							<!-- Area for user to choose ending minutes -->
-							<select name="endmin" required>
+							<select id="endmin" name="endmin" required>
 								<option value="00">00</option>
 								<option value="05">05</option>
 								<option value="10">10</option>
@@ -111,9 +111,9 @@
 								<option value="55">55</option>
 							</select>
 							<!-- Area for user to choose if ending time is AM or PM -->
-							<select name="endampm" required>
-								<option value="am">AM</option>
-								<option value="pm">PM</option>
+							<select id="endampm" name="endampm" required>
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
 							</select><br>
 						<label for="building">Building</label>
 						<br><input id="building" name="building" type="text" placeholder="i.e, Wentz Science Center"><br>
@@ -145,7 +145,7 @@
 						<br><input id="title" name="title" type="text" placeholder="i.e, Chapter 4 Journal" required><br>
 						<label for="duehr">Due</label>
 							<!-- Area for user to choose due time hour -->
-							<select name="duehr" required>
+							<select id="duehr" name="duehr" required>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -160,7 +160,7 @@
 								<option value="12">12</option>
 							</select>:
 							<!-- Area for user to choose due time minutes -->
-							<select name="duemin" required>
+							<select id="duemin" name="duemin" required>
 								<option value="00">00</option>
 								<option value="05">05</option>
 								<option value="10">10</option>
@@ -175,12 +175,13 @@
 								<option value="55">55</option>
 							</select>
 							<!-- Area for user to choose if due time is AM or PM -->
-							<select name="dueampm" required>
-								<option value="am">AM</option>
-								<option value="pm">PM</option>
+							<select id="dueampm" name="dueampm" required>
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
 							</select><br>
 						<label for="cid">Associated with</label>
-						<br><input id="cid" name="cid" type="text" placeholder="i.e., CARD 101" required></br>
+						<!--<br><input id="cid" name="cid" type="text" placeholder="i.e., CARD 101" required></br>-->
+						<br><select id="cid" name="cid" required></select></br>
 						<button type="submit">Done</button>
 					</form>
 				</div>

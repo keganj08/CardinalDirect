@@ -54,13 +54,13 @@ function deleteToDoList(){
 
 // Event Handler for To-do list "Add" Button
 document.querySelector("#todolist button").addEventListener('click', e => {
-	document.getElementById("newtodo").style.display = "block";
+	document.getElementById("newtodo").style.display = "block"; // Show the new to-do item form
+	e.target.style.display = "none"; // Hide the add button
 	console.log("in todo list add");
 	console.log(todoListTable.children);
-	if(todoListTable.children.length === 0){//only tbody in table, no rows
+	if(todoListTable.children.length === 0){ //table is empty
 		createToDoList();
 	}
-	//document.querySelector("#newtodo form").id = "new";
 });
 
 // Event Handler for To Do Form Submit
@@ -71,34 +71,48 @@ document.querySelector("#newtodo form").addEventListener('submit', e => {
 
 	console.log("To-Do Item Form Submit");
 	// save new to-do item to database
+	
+	// Get data from the form
 	let formData = new FormData(formElem);
 	let requestObj = Object.fromEntries(formData);
-	requestObj.tid = todoListTable.id;
-	requestObj.isComplete = false;
-	requestObj.mode = 'a';
 	
-	console.log(requestObj);
+	// Check that the new entry is unique (i.e., that it is not already in the to-do list table)
+	let isUnique = true;
+	todoListTable.childNodes.forEach(row => {
+		if(isUnique && row.childNodes[0].innerHTML === requestObj.description){
+			isUnique = false;
+		}
+	});
 	
-	//Send request to server to add a new assignment to assignment database
-	fetch('http://127.0.0.1:3000/todo_list_items', {
-		method : 'POST',
-		headers: {'Content-Type': 'application/json'},
-		body : JSON.stringify(requestObj)
-		})
-		.then(response => {
-			if (!response.ok){
-				throw new Error('HTTP error: ${response.status}');
-			}
-			return response.json();
-		})
-		.then(data => {
-			formElem.parentNode.style.display = "none";
-			//document.getElementById("todolist").style.display = "block";
-			addToDoListItem(requestObj.description, requestObj.isComplete);
-		})
-		.catch(error => {
-			console.log(error);
-		});
+	if(isUnique){ // Only add the to-do item to the database if it is unique
+		requestObj.tid = todoListTable.id;
+		requestObj.isComplete = false;
+		requestObj.mode = 'a';
+		
+		console.log(requestObj);
+		
+		//Send request to server to add a new assignment to assignment database
+		fetch('http://127.0.0.1:3000/todo_list_items', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify(requestObj)
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response.json();
+			})
+			.then(data => {
+				formElem.parentNode.style.display = "none"; // Hide the new to-do item form
+				document.querySelector("#todolist button").style.display = "block"; //Show the add button
+				//document.getElementById("todolist").style.display = "block";
+				addToDoListItem(requestObj.description, requestObj.isComplete); // add item to to-do list table
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
 });
 
 
@@ -125,33 +139,36 @@ function addToDoListItem(description, isComplete){
 	todo_isComplete.addEventListener('click', e => {
 		console.log("Update Completeness of To Do List Item");
 		
-		let requestObj = {
-			"tid" : todoListTable.id,
-			"description" : e.target.parentNode.childNodes[0].innerHTML,
-			"isComplete" : true,
-			"mode" : 'u'
-		};
-		
-		console.log(requestObj);
-		
-		//Send request to server to update to-do list item in to-do list item database
-		fetch('http://127.0.0.1:3000/todo_list_items', {
-			method : 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body : JSON.stringify(requestObj)
-			})
-			.then(response => {
-				if (!response.ok){
-					throw new Error('HTTP error: ${response.status}');
-				}
-				return response.json();
-			})
-			.then(data => {
-				e.target.innerHTML = "Completed";
-			})
-			.catch(error => {
-				console.log(error);
-			});
+		// Only update the database if the item has not been completed
+		if(e.target.parentNode.childNodes[1].innerHTML !== "Done"){
+			let requestObj = {
+				"tid" : todoListTable.id,
+				"description" : e.target.parentNode.childNodes[0].innerHTML,
+				"isComplete" : true,
+				"mode" : 'u'
+			};
+			
+			console.log(requestObj);
+			
+			//Send request to server to update to-do list item in to-do list item database
+			fetch('http://127.0.0.1:3000/todo_list_items', {
+				method : 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body : JSON.stringify(requestObj)
+				})
+				.then(response => {
+					if (!response.ok){
+						throw new Error('HTTP error: ${response.status}');
+					}
+					return response.json();
+				})
+				.then(data => {
+					e.target.innerHTML = "Done";
+				})
+				.catch(error => {
+					console.log(error);
+				});
+		}
 	});
 	
 	let delTd = document.createElement("td");

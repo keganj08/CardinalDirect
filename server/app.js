@@ -7,6 +7,9 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const nodemailer = require('nodemailer');
 
+app.use( express.static( "public" ) );
+
+
 const { reset } = require('nodemon');
 var mydb = require('./dbmgr.js');
 

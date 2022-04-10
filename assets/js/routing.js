@@ -292,6 +292,8 @@ wsc.runDijkstra("f1 nw");
 let path = wsc.getPathTo("f3 e");
 console.log(path);*/
 
+/*INTERSECTIONS*/
+
 
 		
 		

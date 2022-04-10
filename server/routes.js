@@ -65,6 +65,8 @@ router.post('/get_user', function(req, res){
 	});
 });
 
+
+
 router.post('/get_pnum', function(req, res){
 	let email = req.body.email;
 	mydb.findUserRecByEmail(email, function(result){
@@ -363,9 +365,31 @@ router.post('/settings', function(req, res){
 });
 
 //FORGOT PASSWORD
+
+var path = require("path")
+
 router.get('/forgot-password', (req, res, next) => {
     res.render('forgot-password');
+	
 })
+
+router.get('/logo' , (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', '/assets/images/cardinaldirect_logo.jpg'));
+	
+})
+
+router.get('/css' , (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', '/assets/css/login_style.css'));
+	
+})
+
+router.get('/icon' , (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', '/assets/images/browserIcon.jpg'));
+	
+})
+
+
+
 
 const JWT_SECRET = 'secret'
 router.post('/forgot-password', (req, res, next) => {
@@ -484,6 +508,7 @@ router.post ('/reset-password/:email/:token', (req, res, next) => {
 			};
 			mydb.updateAccount(newRec, function(result){
 				res.send(result);
+				//res.send('login.html');
 			});
 
 			//hash password - later
@@ -499,6 +524,7 @@ router.post ('/reset-password/:email/:token', (req, res, next) => {
 		}
 	});
 })
+
 
 
 module.exports = router;

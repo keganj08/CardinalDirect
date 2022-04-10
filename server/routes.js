@@ -375,10 +375,9 @@ router.get('/forgot-password', (req, res, next) => {
 
 router.get('/logo' , (req, res, next) => {
     res.sendFile(path.join(__dirname, '..', '/assets/images/cardinaldirect_logo.jpg'));
-	
 })
 
-router.get('/css' , (req, res, next) => {
+router.get('/login-css' , (req, res, next) => {
     res.sendFile(path.join(__dirname, '..', '/assets/css/login_style.css'));
 	
 })
@@ -387,9 +386,6 @@ router.get('/icon' , (req, res, next) => {
     res.sendFile(path.join(__dirname, '..', '/assets/images/browserIcon.jpg'));
 	
 })
-
-
-
 
 const JWT_SECRET = 'secret'
 router.post('/forgot-password', (req, res, next) => {
@@ -448,6 +444,7 @@ router.post('/forgot-password', (req, res, next) => {
 
 })
 
+
 router.get('/reset-password/:email/:token', (req, res, next) => {
     const { email, token } = req.params;
 	console.log(email);
@@ -475,6 +472,8 @@ router.get('/reset-password/:email/:token', (req, res, next) => {
 		}
 	});
 })
+
+
 
 router.post ('/reset-password/:email/:token', (req, res, next) => {
     const { email, token } = req.params;
@@ -508,22 +507,26 @@ router.post ('/reset-password/:email/:token', (req, res, next) => {
 			};
 			mydb.updateAccount(newRec, function(result){
 				res.send(result);
-				//res.send('login.html');
 			});
 
 			//hash password - later
 			user.pwd = pwd;
-			res.send(user);
+			//res.send(user);
+			
 			//figure out how to send to login page
 			
-			  
-
 		} catch (error) {
 			console.log(error.message);
 			res.send(error.message);	
 		}
 	});
+	//res.sendFile((path.join(__dirname,'..', 'login.html')));
+	res.sendFile("http://localhost:3000/login");
 })
+
+router.get('/login', (req, res) => {
+	res.sendFile((path.join(__dirname,'..', 'login.html')));
+})	
 
 
 

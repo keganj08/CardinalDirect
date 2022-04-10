@@ -299,7 +299,7 @@ router.post('/todo_list_items', function(req, res){
 	}
 	else{ //mode === 'd'
 		console.log("Delete ToDo List Item");
-		mydb.deleteToDoListItem({"id" : parseInt(req.body.id), "description" : req.body.description}, function(result){
+		mydb.deleteToDoListItem({"tid" : parseInt(req.body.tid), "description" : req.body.description}, function(result){
 			res.send({"status" : "success"});
 			//res.send(result);
 		});

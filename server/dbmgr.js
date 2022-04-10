@@ -431,7 +431,7 @@ exports.updateToDoList = function(record, callbackFn){
 			let listDate = record.listDate;
 			let tid = record.id;
 			
-			conn.query("UPDATE assignment SET listDate = (?) WHERE tid = (?)", [listDate, tid])
+			conn.query("UPDATE todo SET listDate = (?) WHERE tid = (?)", [listDate, tid])
 				.then(res => {
 					console.log(res);
 					conn.end();
@@ -474,7 +474,7 @@ exports.addToDoListItem = function(record, callbackFn){
 			let tid = record.tid;
 			let description = record.description;
 			let isComplete = record.isComplete;
-			conn.query("INSERT INTO todoItem value (?, ?, ?, ?, ?, ?)", [tid, description, isComplete])
+			conn.query("INSERT INTO todoItem value (?, ?, ?)", [tid, description, isComplete])
 				.then(res => {
 					console.log(res);
 					conn.end();
@@ -493,7 +493,7 @@ exports.addToDoListItem = function(record, callbackFn){
 exports.updateToDoListItem = function(record, callbackFn){
 	mariadb.createConnection(configObj)
 		.then(conn => {
-			let tid = record.id;
+			let tid = record.tid;
 			let description = record.description;
 			let isComplete = record.isComplete;
 			
@@ -517,9 +517,9 @@ exports.updateToDoListItem = function(record, callbackFn){
 exports.deleteToDoListItem = function(record, callbackFn){
 	mariadb.createConnection(configObj)
 		.then(conn => {
-			let id = record.id;
+			let tid = record.tid;
 			let description = record.description;
-			conn.query("DELETE FROM todoItem WHERE tid = (?) AND description = (?)", [id, description])
+			conn.query("DELETE FROM todoItem WHERE tid = (?) AND description = (?)", [tid, description])
 				.then(res => {
 					console.log(res);
 					conn.end();

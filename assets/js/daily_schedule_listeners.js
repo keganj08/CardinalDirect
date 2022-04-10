@@ -149,10 +149,14 @@ document.addEventListener('DOMContentLoaded', e => {
 			
 		// Handle to-do list data
 		console.log(todoData);
+		if(todoData.length > 0){
+			document.querySelector("#todolist table").id = todoData[0].tid;
+		}
 		todoData.forEach(rec => {
 			console.log(rec);
-			//addAssignmentTableRow(rec.aid, rec.title, rec.dueTime, rec.cid);
+			addToDoListItem(rec.description, rec.isComplete);
 		});
+		
 	})
 	.catch(error => {
 		console.log(error);

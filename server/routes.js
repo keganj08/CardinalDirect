@@ -511,7 +511,7 @@ router.post ('/reset-password/:email/:token', (req, res, next) => {
 
 			//hash password - later
 			user.pwd = pwd;
-			//res.send(user);
+			res.send(user);
 			
 			//figure out how to send to login page
 			
@@ -521,7 +521,7 @@ router.post ('/reset-password/:email/:token', (req, res, next) => {
 		}
 	});
 	//res.sendFile((path.join(__dirname,'..', 'login.html')));
-	res.sendFile("http://localhost:3000/login");
+	//res.sendFile("http://localhost:3000/login");
 })
 
 router.get('/login', (req, res) => {

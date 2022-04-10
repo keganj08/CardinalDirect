@@ -99,9 +99,10 @@ button{
 	/*background-color: blue;*/
 	color: white;
 	border: none;
-	margin: 10px;
+	margin: auto;
 	padding: 10px;
 	border-radius: 8px; /*curves corners of buttons*/	
+  
 
 }
 

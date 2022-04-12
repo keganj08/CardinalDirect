@@ -8,7 +8,7 @@ var calendar = {
 	/* Returns the current month of the calendar*/
 	getMonth: function(){return this.month;},
 	/* Returns the current year of the calendar*/
-	getYear: function(){return this.month;},
+	getYear: function(){return this.year;},
 	/* Populates the calendar with dates */
 	initialize: function(){
 		populateCalendar(this.months[this.month], this.month, this.year);
@@ -30,7 +30,5 @@ var calendar = {
 		}
 		this.initialize();
 	}
-	
 }
-calendar.initialize();
 

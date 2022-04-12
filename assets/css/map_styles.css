@@ -26,7 +26,21 @@ img{
 	width: 15%;
 }
 
-input {
+#logout{
+	font-size: 18px;
+	background-color: white;
+	/*background-color: blue;*/
+	color: #ef4048;
+	border: none;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 8px; /*curves corners of buttons*/
+	position:absolute;
+   right:10px;
+   top:5px;
+}
+
+input{
 	padding: 10px;
 	margin: 10px;
 	border: 3px solid red;

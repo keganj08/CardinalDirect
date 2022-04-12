@@ -197,8 +197,19 @@ function addFacultyToRow(cid, fnamefirst, fnamelast){
 	}
 };
 
-//buttons[0] is "Back" button
-buttons[0].addEventListener('click', e => {
+//buttons[0] is "Logout" button
+document.getElementById("logout").addEventListener('click', e => {
+	let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+	window.location.href = 'login.html';
+});
+
+//buttons[1] is "Back" button
+buttons[1].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
@@ -208,8 +219,8 @@ buttons[0].addEventListener('click', e => {
 	window.location.href = 'scheduler_landing.html' + user;
 });
 
-//buttons[1] is "Add" button
-buttons[1].addEventListener('click', e => {
+//buttons[2] is "Add" button
+buttons[2].addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";

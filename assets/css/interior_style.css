@@ -4,6 +4,8 @@ body{
 	background-color: #ef4048;
 	color: white;
 	text-align: center;
+	height: 100%;
+
 }
 
 img{
@@ -33,6 +35,20 @@ button{
 	padding: 10px;
 	border-radius: 8px;
 	
+}
+
+#logout{
+	font-size: 18px;
+	background-color: white;
+	/*background-color: blue;*/
+	color: #ef4048;
+	border: none;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 8px; /*curves corners of buttons*/
+	position:absolute;
+   	right:10px;
+   	top:5px;
 }
 
 table{
@@ -73,12 +89,14 @@ p{
 .interior{
 	
 	display: grid; 
-	grid-template-rows: 0.20fr 1fr 1fr;
-	grid-template-columns: 0.25fr 1fr 0.25fr;
+	grid-template-rows: 0.15fr 0.65fr;
+	grid-template-columns: 0.15fr 1fr 0.15fr;
 	gap: 0px;
 	height: 100%;
 	background-color: white;
 	gap: 0;
+	
+	
  }
    
  #left {
@@ -126,9 +144,17 @@ p{
 	bottom: 0px;
 	border:3px solid #ef4048;
 	
-	
-	
-	
+ }
+
+ #current{
+	width: 100%;
+	height: 65%;
+ }
+
+ #showRooms{
+	color: #ef4048; 
+	margin-top: 20px;
+	text-decoration: underline; 
  }
 
  /*#bottom {
@@ -195,7 +221,7 @@ p{
 #sw {
 
 	flex: 25%;
-  padding: 0px;
+  	padding: 0px;
    background-color: #ef4048; 
    grid-row-start: 2;
    grid-column-start: 1;

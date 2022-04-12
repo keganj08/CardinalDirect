@@ -37,15 +37,18 @@ button{
 	border-radius: 8px; /*curves corners of buttons*/	
 }
 
-a{
+#logout{
 	font-size: 18px;
-	background-color: #ef4048;
+	background-color: white;
 	/*background-color: blue;*/
-	color: white;
+	color: #ef4048;
 	border: none;
 	margin: 10px;
 	padding: 10px;
-	border-radius: 8px; /*curves corners of buttons*/	
+	border-radius: 8px; /*curves corners of buttons*/
+	position:absolute;
+   right:10px;
+   top:5px;
 }
 
 table{
@@ -106,11 +109,11 @@ label {
 }
 
 /*Calender*/
-.today{
+#today {
 	background-color: #cccccc;
 }
 
-.selected{
+.selected {
 	background-color: #b3ecff;
 }
 
@@ -121,15 +124,18 @@ label {
 	background-color: #b3ecff;
 	margin-top: 20px;
 	position: relative;
-  }
-  #eventDate{
-	
+}
+
+#eventDate {
 	position: absolute; width: 100%;
 	margin: 0 auto;top: 0;
-  }
-  #monthDay{
-	  display: none;
-  }
+}
+
+/*
+#monthDay{
+  display: none;
+}
+*/
 
   /*Scheduler landing*/
 .scheduler {
@@ -236,7 +242,9 @@ li:last-child {
 }
 	
 /* Daily Schedule */
-#newassignment{
+.new-schedule-item-form, .schedule-item-table, #newtodo {
 	display: none;
 }
+
+
 	

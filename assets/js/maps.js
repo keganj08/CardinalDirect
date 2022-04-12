@@ -1,3 +1,30 @@
+/* To-do:
+	- Drop-down menu for campus locations
+	- Step by step directions
+*/
+
+let method = "WALKING";
+
+document.getElementById("walkToggle").addEventListener("click", function(){
+	let methods = document.getElementById("mapUiUpper").children;
+	for (let i=0; i<methods.length; i++){
+		methods[i].classList.remove("methodToggleSelected");
+	}
+	document.getElementById("walkToggle").classList.add("methodToggleSelected");
+	method = "WALKING";
+	getCoords();
+});
+
+document.getElementById("driveToggle").addEventListener("click", function(){
+	let methods = document.getElementById("mapUiUpper").children;
+	for (let i=0; i<methods.length; i++){
+		methods[i].classList.remove("methodToggleSelected");
+	}
+	document.getElementById("driveToggle").classList.add("methodToggleSelected");
+	method = "DRIVING";
+	getCoords();
+});
+
 const directionsService = new google.maps.DirectionsService();
 const directionsRenderer = new google.maps.DirectionsRenderer();
 
@@ -15,7 +42,11 @@ function initMap() {
 
 //On button click, gets and renders route to given destination
 document.getElementById("goBtn").addEventListener("click", function(){
-	let input = document.getElementById("destinationInput").value;
+	getCoords();
+});
+
+function getCoords(){
+	let input = document.getElementById("locations").value;
 	if(input){
 		//Get the user's location and pass it into updateMap()
 		navigator.geolocation.getCurrentPosition(position => {
@@ -25,7 +56,7 @@ document.getElementById("goBtn").addEventListener("click", function(){
 	} else {
 		alert("Input a destination.");
 	}
-});
+}
 
 //Finds and renders route to given destination
 function updateMap(coords, end) {
@@ -34,7 +65,7 @@ function updateMap(coords, end) {
 	var req = {
 		origin: {lat: coords.latitude, lng: coords.longitude},
 		destination: end,
-		travelMode: "DRIVING"
+		travelMode: method
 	}
 
 	//Server call to find route
@@ -50,10 +81,37 @@ function updateMap(coords, end) {
 				alert('response error');
 			}
 		}
-	)	
+	)
+  	getTime(coords, end);
+  	setInterval(function() {
+    	getTime(coords, end)
+	}, 15000);
 }
 
 initMap();
+
+function getTime(coords, end) {
+	let originCoords = coords.latitude + "," + coords.longitude;
+	var service = new google.maps.DistanceMatrixService();
+	service.getDistanceMatrix({
+		origins: [originCoords],
+		destinations: [end],
+		travelMode: method,
+		/* Optional settings
+		transitOptions: TransitOptions,
+		drivingOptions: DrivingOptions,
+		unitSystem: UnitSystem,
+		avoidHighways: Boolean,
+		avoidTolls: Boolean,
+		*/
+  	}, printTime);
+}
+
+function printTime(response, status) {
+	let eta = response.rows[0].elements[0].duration.text; //Isolate the time remaining string
+	document.getElementById("eta").innerHTML = eta;
+}
+
 
 /*
 

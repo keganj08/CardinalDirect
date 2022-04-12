@@ -1,15 +1,5 @@
 // calendar_listeners.js
 
-function getUserEmail(){
-	let url = window.location.href;
-	let idx = url.indexOf("?user=");
-	let email = "";
-	if(idx !== -1){
-		email = url.substr(idx + 6) + "@noctrl.edu";
-	}
-	return email;
-}
-
 /* Next button on calendar increments the month */
 document.querySelector("#right_cal_button").addEventListener('click', e => {
 	//Clear the today marking if changing the month
@@ -32,6 +22,14 @@ document.querySelector("#left_cal_button").addEventListener('click', e => {
 	calendar.decrementMonth();
 });
 
+document.addEventListener('DOMContentLoaded', e => {
+	// Populate the calendar with the current month
+	calendar.initialize();
+	
+	// Update the "showEvents" div with the selected day's events
+	getEvents(getCurrentDate());
+});
+
 // Click on a day of the calendar
 document.querySelector("#calendar tbody").addEventListener('click', e=>{
 	const tableElement = e.target;
@@ -45,7 +43,15 @@ document.querySelector("#calendar tbody").addEventListener('click', e=>{
 			prevSelects[0].classList.remove("selected");
 		}
 		tableElement.classList.add("selected");
+		
+		// Update the "showEvents" div with the selected day's events
+		getEvents(getSelectedDate());
 	}
+});
+
+// View Daily Schedule Button Click
+document.getElementById("daily-sched-btn").addEventListener('click', e => {
+	
 });
 
 //"Logout" button

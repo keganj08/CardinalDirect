@@ -51,7 +51,15 @@ document.querySelector("#calendar tbody").addEventListener('click', e=>{
 
 // View Daily Schedule Button Click
 document.getElementById("daily-sched-btn").addEventListener('click', e => {
-	
+	const selectDays = document.getElementsByClassName("selected"); // There should only be one day selected at a time
+	let url = window.location.href;
+	let idx = url.indexOf("?");
+	if(selectDays.length === 0){ // Nothing selected yet, on current day by default
+		window.location.href = 'daily_schedule.html' + url.substr(idx) + "&date=" + getCurrentDate();
+	}
+	else{
+		window.location.href = 'daily_schedule.html' + url.substr(idx) + "&date=" + getSelectedDate();
+	}
 });
 
 //"Logout" button

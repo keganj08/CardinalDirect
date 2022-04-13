@@ -18,6 +18,7 @@ document.getElementById("sw").onclick = function(){
     window.location.href = "Interior.html?entrance=sw";
 }
 
+
 //check if user signed in
 
 buttons = document.querySelectorAll("button");
@@ -66,3 +67,4 @@ document.getElementById("logout").addEventListener('click', e => {
 	}
 	window.location.href = 'login.html';
 });
+

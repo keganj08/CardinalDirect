@@ -40,15 +40,15 @@
             function validateForm() {
               let x = document.forms["room"]["className"].value;
               //classrooms
-              if (x != "002" && x != "101"&& x != "317" && x != "315" && x != "313" && x != "307" && x != "301" && x != "325" && x != "323" && x != "321" && x != "319" && x != "213" && x != "205" && x != "109" && x != "111" && x != "115" && x != "034" && x != "010" && x != "005" && x != "028" && x != "026" && x != "024" && x != "022" && x != "020"){
+              if (x != "154" && x != "002" && x != "101"&& x != "317" && x != "315" && x != "313" && x != "307" && x != "301" && x != "325" && x != "323" && x != "321" && x != "319" && x != "213" && x != "205" && x != "109" && x != "111" && x != "115" && x != "034" && x != "010" && x != "005" && x != "028" && x != "026" && x != "024" && x != "022" && x != "020"){
                 alert("Uh oh! Invalid Location.");
                 return false;
               }
             }
           </script>
           <form  method="GET" target="_self" name="room" onsubmit="validateForm()">
-            <input class="className" name="className" type="text" placeholder="Enter room #" required>
-            <button name="confirmDestination" type="button">Create Route</button>
+            <input class="className" name="className" type="text" id= "destination" placeholder="Enter room #" required>
+            <button name="confirmDestination" id="createRoute" type="button">Create Route</button>
             <!--<button type="button">Remove Route</button>-->
           </form>
       </div>	

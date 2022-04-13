@@ -224,13 +224,14 @@ let path = dijkstra.pathTo("z");
 console.log(path);
 */
 
+
 var wsc = {
 	// Graph of Wentz Science Center
 	wscGraph: new EdgeWeightedDigraph(),
 	dijkstra: null,
 	// Add all of the edges to the Wentz Science Center Graph
 	createEdges: function(){
-		//floor b
+		//floor 0
 		this.wscGraph.addEdge(new DirectedEdge("f0 ne", "f0  e", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0  e", "f0 se", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0  v", "f0 se", 1));
@@ -239,7 +240,7 @@ var wsc = {
 		this.wscGraph.addEdge(new DirectedEdge("f0  w", "f0 sw", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0 nw", "f0  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0 nw", "f0 ne", 3));
-		//floor b - floor 1 connectors
+		//floor 0 - floor 1 connectors
 		this.wscGraph.addEdge(new DirectedEdge("f0 ne", "f1 ne", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f0  v", "f1 se", 3));
 		//floor 1
@@ -254,6 +255,7 @@ var wsc = {
 		this.wscGraph.addEdge(new DirectedEdge("f1 ne", "f2 ne", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f1 se", "f2 se", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f1  w", "f2  w", 3));
+		
 		//floor 2
 		this.wscGraph.addEdge(new DirectedEdge("f2 ne", "f2  e", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f2  e", "f2 se", 3));
@@ -262,6 +264,7 @@ var wsc = {
 		this.wscGraph.addEdge(new DirectedEdge("f2  w", "f2 sw", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f2 nw", "f2  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f2 nw", "f2 ne", 3));
+
 		//floor 2 - floor 3 connectors
 		this.wscGraph.addEdge(new DirectedEdge("f2 ne", "f3 ne", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f2 se", "f3 se", 3));
@@ -274,6 +277,7 @@ var wsc = {
 		this.wscGraph.addEdge(new DirectedEdge("f3  w", "f3 sw", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f3 nw", "f3  w", 3));
 		this.wscGraph.addEdge(new DirectedEdge("f3 nw", "f3 ne", 3));
+
 	},
 	// Run Dijkstra's Algorithm on the graph using the specified start
 	runDijkstra: function(start){
@@ -292,7 +296,8 @@ wsc.runDijkstra("f1 nw");
 let path = wsc.getPathTo("f3 e");
 console.log(path);*/
 
-/*INTERSECTIONS*/
+
+
 
 
 		

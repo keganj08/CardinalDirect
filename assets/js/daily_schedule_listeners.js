@@ -29,20 +29,36 @@ var courseIds = {
 	getSimpleIdx: function(simpleCid){return this.simpleCids.indexOf(simpleCid);}
 };
 
+// Gets the date of the daily schedule from the url or constructs it if not provided
 function getCurrentDate(){
-	//Will need to handle when get to this page from calendar
-	let today = new Date();
-	let month = ("0" + (today.getMonth() + 1)).slice(-2);
-    let date = ("0" + today.getDate()).slice(-2);
-	return today.getFullYear() + '-' + month + '-' + date;
+	let url = window.location.href;
+	let dateidx = url.indexOf("&date=");
+	let datestring = "";
+	// If date is not in the url, we are coming at the daily schedule page from the scheduler landing
+	// and need to construct the current date as a string
+	if(dateidx === -1){ 
+		let today = new Date();
+		let month = ("0" + (today.getMonth() + 1)).slice(-2);
+		let date = ("0" + today.getDate()).slice(-2);
+		datestring = today.getFullYear() + '-' + month + '-' + date;
+	}
+	else{ // Otherwise, we are coming at the daily schedule from the calendar and have a date in the url.
+		datestring = url.substr(dateidx + 6); 
+	}
+	return datestring;
 }
 
+// Gets the user's email from the url
 function getUserEmail(){
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
+	let endidx = url.indexOf("&date=");
 	let email = "";
-	if(idx !== -1){
+	if(idx !== -1 && endidx === -1){ // There is no date in the url
 		email = url.substr(idx + 6) + "@noctrl.edu";
+	}
+	else if(idx !== -1 && endidx !== -1){ // There is a date in the url
+		email = url.substring(idx + 6, endidx) + "@noctrl.edu";
 	}
 	return email;
 }
@@ -114,13 +130,17 @@ document.addEventListener('DOMContentLoaded', e => {
 		
 		// Handle class data
 		console.log(classData);
+		// U - Sunday, M - Monday, T - Tuesday, W - Wednesday, R - Thursday, F - Friday, S - Saturday
+		let daysOfWeek = ['U', 'M', 'T', 'W', 'R', 'F', 'S'];
+		// Get Day of Week of given day
+		let selectDayOfWeek = daysOfWeek[new Date(getCurrentDate() + "T12:00:00Z").getDay()];	
 		let assigFormCidSelect = document.querySelector("#cid");
 		let i=0;
 		for(i=0; i<classData.length; i++){
 			let rec = classData[i];
 			console.log("Rec:" + rec.cid);
 			// Makes sure we are not double-including courses
-			if(courseIds.getCidIdx(rec.cid) === -1){
+			if((rec.dow.indexOf(selectDayOfWeek) !== -1) && (courseIds.getCidIdx(rec.cid) === -1)){
 				courseIds.addCourse(rec.cid); //add course id
 				let simpleCid = courseIds.getSimpleFromCid(rec.cid);
 				addEventTableRow("", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
@@ -168,19 +188,15 @@ document.addEventListener('DOMContentLoaded', e => {
 document.getElementById("back-button").addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
+	let endidx = url.indexOf("&date=");
 	let user = "";
-	if(idx !== -1){
+	if(idx !== -1 && endidx === -1){ // There is no date in the url
 		user = url.substr(idx);
+	}
+	else if(idx !== -1 && endidx !== -1){ // There is a date in the url
+		user = url.substring(idx, endidx);
 	}
 	window.location.href = 'scheduler_landing.html' + user;
 });
 
-document.getElementById("logout").addEventListener('click', e => {
-	let url = window.location.href;
-	let idx = url.indexOf("?user=");
-	let user = "";
-	if(idx !== -1){
-		user = url.substr(idx);
-	}
-	window.location.href = 'login.html';
-});
+document.getElementById("logout").addEventListener('click', e => {window.location.href = 'login.html';});

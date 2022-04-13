@@ -130,13 +130,17 @@ document.addEventListener('DOMContentLoaded', e => {
 		
 		// Handle class data
 		console.log(classData);
+		// U - Sunday, M - Monday, T - Tuesday, W - Wednesday, R - Thursday, F - Friday, S - Saturday
+		let daysOfWeek = ['U', 'M', 'T', 'W', 'R', 'F', 'S'];
+		// Get Day of Week of given day
+		let selectDayOfWeek = daysOfWeek[new Date(getCurrentDate() + "T12:00:00Z").getDay()];	
 		let assigFormCidSelect = document.querySelector("#cid");
 		let i=0;
 		for(i=0; i<classData.length; i++){
 			let rec = classData[i];
 			console.log("Rec:" + rec.cid);
 			// Makes sure we are not double-including courses
-			if(courseIds.getCidIdx(rec.cid) === -1){
+			if((rec.dow.indexOf(selectDayOfWeek) !== -1) && (courseIds.getCidIdx(rec.cid) === -1)){
 				courseIds.addCourse(rec.cid); //add course id
 				let simpleCid = courseIds.getSimpleFromCid(rec.cid);
 				addEventTableRow("", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');

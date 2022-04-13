@@ -44,6 +44,12 @@ createRoute.addEventListener("click", function(e){
         destination == "118" || destination == "116" || destination == "112"){
             location.setAttribute("destination", "f1  e");
         }
+        if (destination == "113" || destination == "115" || destination == "119" || destination == "121" || destination == "101" ){
+            location.setAttribute("destination", "f1  w");
+            
+        }
+    
+        
     }
     if (entrance == "f1 nw"){
         if (destination == "154" || destination == "156"){
@@ -55,6 +61,10 @@ createRoute.addEventListener("click", function(e){
         if (destination == "119" || destination == "121" || destination == "101"){
             location.setAttribute("destination", "f1  w");
         }
+        if (destination == "128" || destination == "126" || destination == "124" || destination == "122" || destination == "118" || destination == "116" ||
+        destination == "101" || destination == "101"){
+            location.setAttribute("destination", "f1  e");
+        }
     }
     if (entrance == "f1 sw"){
         if (destination == "104" || destination == "106"){
@@ -65,6 +75,10 @@ createRoute.addEventListener("click", function(e){
         }
         if (destination == "113" || destination == "115"){
             location.setAttribute("destination", "f1  w");
+        }
+        if (destination == "107" || destination == "109" || destination == "111" || destination == "132" || destination == "134" || destination == "136" ||
+        destination == "138" || destination == "144" || destination == "148" || destination == "150"){
+            location.setAttribute("destination", "f1  e");
         }
     }
     if (entrance == "f1 se"){
@@ -79,6 +93,10 @@ createRoute.addEventListener("click", function(e){
         destination == "138" || destination == "144" || destination == "148" || destination == "150"){
             location.setAttribute("destination", "f1  e");
         }
+        if (destination == "113" || destination == "115" || destination == "119" || destination == "121" || destination == "101" ){
+            location.setAttribute("destination", "f1  w");
+            
+        }
     }
     else{ //destination is not connected to starting intersection
 
@@ -91,6 +109,7 @@ createRoute.addEventListener("click", function(e){
     wsc.createEdges();
     wsc.runDijkstra(entrance);
     let path = wsc.getPathTo(location.getAttribute("destination"));
+
     console.log(path);//array
 
     if(path.length > 1){
@@ -100,12 +119,12 @@ createRoute.addEventListener("click", function(e){
                 if (path[i+1].includes("nw")){
                     path[i] = "Go Straight";
                 }
-                
                 if (path[i+1].includes("e",4)){
                     if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
                         path[i] = "Turn Left & Go Straight";
                     }
                 }
+                
             }
             //NW corner
             if (path[i].includes("nw")){
@@ -161,6 +180,9 @@ createRoute.addEventListener("click", function(e){
                     }
                 }
             }
+            //E
+            //W
+           
             //STAIRS
             if (path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
                 if(path[i].charAt(1) < path[i+1].charAt(1)) {
@@ -186,7 +208,7 @@ createRoute.addEventListener("click", function(e){
         path[0] = "Turn Right & Arrived!";  
     }
  
-
+    
     //Click through directions-->
     directions = document.getElementById("currentInstruction");
     btn = document.getElementById("next");
@@ -236,151 +258,12 @@ createRoute.addEventListener("click", function(e){
         
 });
 
- //USE FOR MANUAL TESTING   
-/*wsc.createEdges();
-wsc.runDijkstra("f1 ne");
-let path = wsc.getPathTo("f1 sw");
-console.log(path);//array
+/*//USE FOR MANUAL TESTING   
+wsc.createEdges();
+wsc.runDijkstra("f1 nw");
+let path = wsc.getPathTo("f1  e");
+console.log(path);//array*/
 
-if(path.length > 1){
-    for (let i = 0; i < path.length-1; i++){
-        //NE corner
-        if (path[i].includes("ne")){
-            if (path[i+1].includes("nw")){
-                path[i] = "Go Straight";
-            }
-            
-            if (path[i+1].includes("e",4)){
-                if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
-                    path[i] = "Turn Left & Go Straight";
-                }
-            }
-        }
-        //NW corner
-        if (path[i].includes("nw")){
-            if (path[i+1].includes("ne")){
-                path[i] = "Go Straight";
-            }
-            //midpoint
-            if (path[i+1].includes("w",4)){
-                path[i] = "Turn Right & Go Straight";
-                if (path[i+2] != null && path[i+2].includes("sw")){
-                    path[i+1] = "Go Straight & Turn Left";
-                }
-            }
-            
-        }
-        //SE corner
-        if (path[i].includes("se")){
-            if (path[i+1].includes("sw")){
-                path[i] = "Go Straight";
-            }
-            //midpoint
-            if (path[i+1].includes("e",4)){
-                if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
-                    path[i] = "Turn Right & Go Straight";
-                }
-                if (path[i+2] != null && path[i+2].includes("ne") && path[i].charAt(1) === path[i+1].charAt(1)){//if "e" is not the destination
-                    path[i+1] = "Go Straight & Turn Left";
-                }
-                else{
-                    path[i+1] = "Go Straight";
-                }
-            }
-            
-        }
-        //SW corner
-        if (path[i].includes("sw")){
-            if (path[i+1].includes("se")){
-                path[i] = "Go Straight";
-            }
-            //midpoint
-            if (path[i+1].includes("w",4)){
-                if (path[i].charAt(1) === path[i+1].charAt(1)){
-                    path[i] = "Turn Left & Go Straight";
-                }
-                if (path[i+2] != null && path[i+2].includes("nw") && path[i].charAt(1) === path[i+1].charAt(1)){
-                    path[i+1] = "Go Straight & Turn Right";
-                }
-                if (path[i+2] != null && path[i+2].includes("e",4)){
-                    path[i+1] = "Turn Right & Go Straight";
-                }
-                else{
-                    path[i+1] = "Go Straight";
-                }
-            }
-        }
-        //STAIRS
-        if (path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
-            if(path[i].charAt(1) < path[i+1].charAt(1)) {
-                path[i] = "Go Upstairs";
-            }else{
-                path[i] = "Go Downstairs";
-            }
-        }
-        
-    }
-}
-//user only needs to turn left/right to arrive at destination
-if (path[0].includes("ne") && path.length == 1){
-    path[0] = "Turn Left & Arrived!";  
-}
-if (path[0].includes("sw") && path.length == 1){
-    path[0] = "Turn Left & Arrived!";  
-}
-if (path[0].includes("nw") && path.length == 1){
-    path[0] = "Turn Right & Arrived!";  
-}
-if (path[0].includes("se") && path.length == 1){
-    path[0] = "Turn Right & Arrived!";  
-}
-
-
-//Click through directions-->
-directions = document.getElementById("currentInstruction");
-btn = document.getElementById("next");
-
-
-btn.addEventListener("onmousedown", stopEvent, false);
-btn.addEventListener("click", nextDirection);
-
-directions.innerHTML = path[0];
-index = 0;
-function stopEvent(ev) {
-    ev.stopPropagation();
-}
-
-function nextDirection() {
-    if (index < path.length - 1){
-        index++;
-    }
-    index %= path.length;
-    directions.innerHTML = path[index]; 
-    console.log(path.length);
-    if (path.length > 1){
-        path[path.length-1] = "Arrived!";
-    } 
-}
-
-//prev
-btn = document.getElementById("prev");
-
-btn.addEventListener("onmousedown", stopEvent, false);
-btn.addEventListener("click", prevDirection);
-
-
-function stopEvent(ev) {
-    ev.stopPropagation();
-}
-
-function prevDirection() {
-    if (index > 0){
-        index--;
-    }
-
-    index %= path.length;
-    directions.innerHTML = path[index]; 
-} */   
 
 
 

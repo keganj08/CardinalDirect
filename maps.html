@@ -14,25 +14,44 @@
     <script src="https://ajax.googleapis.com/ajax/libs/handlebars/4.7.7/handlebars.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
 <body>
 	<header>
 		<img class="smallLogo" src="assets/images/cardinaldirect_logo.jpg" alt="CardinalDirect Logo"/>
 		<button id="logout" type="button">Logout</button><br>
 		<form>
-			<input id="destinationInput" type="text" name="location" placeholder="Search campus"></input>
+			<!-- <input id="destinationInput" type="text" name="location" placeholder="Search campus"></input> -->
+			<select name="locations" id="locations">
+				<option value="Carnegie Hall, Naperville, IL">Carnegie Hall</option>
+				<option value="Goldspohn Hall, Naperville, IL">Goldspohn Hall</option>
+				<option value="Residence Hall / Recreation Center, Naperville, IL">Res/Rec</option>
+				<option value="Wentz Concert Hall, Naperville, IL">Wentz Concert Hall</option>
+				<option value="Wentz Science Center, Naperville, IL">Wentz Science Center</option>
+			</select>
 			<button type="button" id="goBtn">Find route</button>
 		</form>
 	</header>
 	<section>
 		<div id="mapSection">
+			<div id="mapUiUpper">
+				<div class="methodToggle methodToggleSelected" id="walkToggle">
+					<span class="material-icons">directions_walk</span>				
+				</div>
+				<div class="methodToggle" id="driveToggle">
+					<span class="material-icons">directions_car_filled</span>
+				</div>
+			</div>
 			<div id="map">
-
+				
+			</div>
+			<div id="mapUiLower">
+				<p id="eta">Time remaining: --</p>
 			</div>
 		</div>
 	</section>
 	<footer>
-		<p id="eta">Time remaining: 0 minutes</p>
 		<button type="button" onclick = "window.location.href = 'main_landing.html';">Back</button>
 	</footer>
 	

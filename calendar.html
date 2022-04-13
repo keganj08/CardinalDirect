@@ -27,7 +27,7 @@
 	
 		<div>
 			<!-- Table representing days of month -->
-			<table>
+			<table id="calendar">
 				<tr>
 					<th>S</th>
 					<th>M</th>
@@ -95,14 +95,12 @@
 		</div>
 		<div id="showEvents">
 			<div id="eventDate"></div>
-			<div id='monthDay'></div>
-			No Events
-			<br><button type="button" onclick = "window.location.href = 'events.html';">Add Event</button></br>
-			</div>
+			<div id="messageDiv">No Events</div>
+			<table></table>
+			<br><button id="daily-sched-btn" type="button">View Daily Schedule</button></br>
 		</div>
-			
 		<div>
-			<button type="button" onclick = "window.location.href = 'scheduler_landing.html';">Back</button>
+			<button id="back-button" type="button">Back</button>
 			
 		</div>
 

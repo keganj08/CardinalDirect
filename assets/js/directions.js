@@ -1,6 +1,6 @@
 var createRoute = document.getElementById("createRoute");
 createRoute.addEventListener("click", function(e){
-    e.preventDefault();
+    e.preventDefault();//only works if button is clicked, not with the  "enter" key
 	//grab entrance from url
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
@@ -9,7 +9,6 @@ createRoute.addEventListener("click", function(e){
     var entrance = params.entrance;
 	console.log(entrance[0]);
     
-
 	if (entrance == "ne"){
 		entrance = "f1 ne";
 	}
@@ -28,32 +27,233 @@ createRoute.addEventListener("click", function(e){
 	var destination = document.getElementById('destination').value;
     console.log(destination);
 
-    //INTERSECTIONS
+    //INTERSECTION-LOCATION ASSIGNMENTS
     var location = document.createElement('destination');
-
-    if (destination == "154"){
-        location.setAttribute("destination", "f1 ne");
+    //cut intersections in half 
+    if (entrance == "f1 ne"){
+        if (destination == "154" || destination == "156"){
+            //location.setAttribute("destination", "f1 ne");//issue: user already there
+            alert("You are already here.");
+        }
+        //issue: same destination but different hallways 
+        if (destination == "111" || destination == "109" || destination == "107" || destination == "144" || destination == "142" || destination == "138" ||
+        destination == "136" || destination == "134" || destination == "132"){
+            location.setAttribute("destination", "f1 ne");
+        }
+        if (destination == "103" || destination == "101" || destination == "128" || destination == "126" || destination == "124" || destination == "122" ||
+        destination == "118" || destination == "116" || destination == "112"){
+            location.setAttribute("destination", "f1  e");
+        }
     }
+    if (entrance == "f1 nw"){
+        if (destination == "154" || destination == "156"){
+            alert("You are already here.");
+        }
+        if (destination == "113" || destination == "115"){
+            location.setAttribute("destination", "f1 nw");
+        }
+        if (destination == "119" || destination == "121" || destination == "101"){
+            location.setAttribute("destination", "f1  w");
+        }
+    }
+    if (entrance == "f1 sw"){
+        if (destination == "104" || destination == "106"){
+            alert("You are already here.");
+        }
+        if (destination == "119" || destination == "121" || destination == "101"){
+            location.setAttribute("destination", "f1 sw");
+        }
+        if (destination == "113" || destination == "115"){
+            location.setAttribute("destination", "f1  w");
+        }
+    }
+    if (entrance == "f1 se"){
+        if (destination == "104" || destination == "106"){
+            alert("You are already here.");
+        }
+        if (destination == "101" || destination == "103" || destination == "112" || destination == "116" || destination == "118" || destination == "122" ||
+        destination == "124" || destination == "126" || destination == "128"){
+            location.setAttribute("destination", "f1 se");
+        }
+        if (destination == "107" || destination == "109" || destination == "111" || destination == "132" || destination == "134" || destination == "136" ||
+        destination == "138" || destination == "144" || destination == "148" || destination == "150"){
+            location.setAttribute("destination", "f1  e");
+        }
+    }
+    else{ //destination is not connected to starting intersection
 
-    //Add rest of attributes
+    }
+   
 
     console.log(location);
     console.log(destination);
-
     
-
     wsc.createEdges();
-    //wsc.runDijkstra("f1 se"); //entrances  if only w- add space where s is
     wsc.runDijkstra(entrance);
-    //path = wsc.getPathTo("f3 ne"); //any endpoint
     let path = wsc.getPathTo(location.getAttribute("destination"));
     console.log(path);//array
 
+    if(path.length > 1){
+        for (let i = 0; i < path.length-1; i++){
+            //NE corner
+            if (path[i].includes("ne")){
+                if (path[i+1].includes("nw")){
+                    path[i] = "Go Straight";
+                }
+                
+                if (path[i+1].includes("e",4)){
+                    if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
+                        path[i] = "Turn Left & Go Straight";
+                    }
+                }
+            }
+            //NW corner
+            if (path[i].includes("nw")){
+                if (path[i+1].includes("ne")){
+                    path[i] = "Go Straight";
+                }
+                //midpoint
+                if (path[i+1].includes("w",4)){
+                    path[i] = "Turn Right & Go Straight";
+                    if (path[i+2] != null && path[i+2].includes("sw")){
+                        path[i+1] = "Go Straight & Turn Left";
+                    }
+                }
+                
+            }
+            //SE corner
+            if (path[i].includes("se")){
+                if (path[i+1].includes("sw")){
+                    path[i] = "Go Straight";
+                }
+                //midpoint
+                if (path[i+1].includes("e",4)){
+                    if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
+                        path[i] = "Turn Right & Go Straight";
+                    }
+                    if (path[i+2] != null && path[i+2].includes("ne") && path[i].charAt(1) === path[i+1].charAt(1)){//if "e" is not the destination
+                        path[i+1] = "Go Straight & Turn Left";
+                    }
+                    else{
+                        path[i+1] = "Go Straight";
+                    }
+                }
+                
+            }
+            //SW corner
+            if (path[i].includes("sw")){
+                if (path[i+1].includes("se")){
+                    path[i] = "Go Straight";
+                }
+                //midpoint
+                if (path[i+1].includes("w",4)){
+                    if (path[i].charAt(1) === path[i+1].charAt(1)){
+                        path[i] = "Turn Left & Go Straight";
+                    }
+                    if (path[i+2] != null && path[i+2].includes("nw") && path[i].charAt(1) === path[i+1].charAt(1)){
+                        path[i+1] = "Go Straight & Turn Right";
+                    }
+                    if (path[i+2] != null && path[i+2].includes("e",4)){
+                        path[i+1] = "Turn Right & Go Straight";
+                    }
+                    else{
+                        path[i+1] = "Go Straight";
+                    }
+                }
+            }
+            //STAIRS
+            if (path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
+                if(path[i].charAt(1) < path[i+1].charAt(1)) {
+                    path[i] = "Go Upstairs";
+                }else{
+                    path[i] = "Go Downstairs";
+                }
+            }
+            
+        }
+    }
+    //user only needs to turn left/right to arrive at destination
+    if (path[0].includes("ne") && path.length == 1){
+        path[0] = "Turn Left & Arrived!";  
+    }
+    if (path[0].includes("sw") && path.length == 1){
+        path[0] = "Turn Left & Arrived!";  
+    }
+    if (path[0].includes("nw") && path.length == 1){
+        path[0] = "Turn Right & Arrived!";  
+    }
+    if (path[0].includes("se") && path.length == 1){
+        path[0] = "Turn Right & Arrived!";  
+    }
+ 
+
+    //Click through directions-->
+    directions = document.getElementById("currentInstruction");
+    btn = document.getElementById("next");
+
+
+    btn.addEventListener("onmousedown", stopEvent, false);
+    btn.addEventListener("click", nextDirection);
+
+    directions.innerHTML = path[0];
+    index = 0;
+    function stopEvent(ev) {
+        ev.stopPropagation();
+    }
+
+    function nextDirection() {
+        if (index < path.length - 1){
+            index++;
+        }
+        index %= path.length;
+        directions.innerHTML = path[index]; 
+        console.log(path.length);
+        if (path.length > 1){
+            path[path.length-1] = "Arrived!";
+        } 
+    }
+
+    //prev
+    btn = document.getElementById("prev");
+
+    btn.addEventListener("onmousedown", stopEvent, false);
+    btn.addEventListener("click", prevDirection);
+
+
+    function stopEvent(ev) {
+        ev.stopPropagation();
+    }
+
+    function prevDirection() {
+        if (index > 0){
+            index--;
+        }
+    
+        index %= path.length;
+        directions.innerHTML = path[index]; 
+    }    
+        
+        
+});
+
+ //USE FOR MANUAL TESTING   
+/*wsc.createEdges();
+wsc.runDijkstra("f1 ne");
+let path = wsc.getPathTo("f1 sw");
+console.log(path);//array
+
+if(path.length > 1){
     for (let i = 0; i < path.length-1; i++){
         //NE corner
         if (path[i].includes("ne")){
             if (path[i+1].includes("nw")){
                 path[i] = "Go Straight";
+            }
+            
+            if (path[i+1].includes("e",4)){
+                if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
+                    path[i] = "Turn Left & Go Straight";
+                }
             }
         }
         //NW corner
@@ -68,6 +268,7 @@ createRoute.addEventListener("click", function(e){
                     path[i+1] = "Go Straight & Turn Left";
                 }
             }
+            
         }
         //SE corner
         if (path[i].includes("se")){
@@ -77,7 +278,7 @@ createRoute.addEventListener("click", function(e){
             //midpoint
             if (path[i+1].includes("e",4)){
                 if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
-                    path[i] = "Turn Left & Go Straight";
+                    path[i] = "Turn Right & Go Straight";
                 }
                 if (path[i+2] != null && path[i+2].includes("ne") && path[i].charAt(1) === path[i+1].charAt(1)){//if "e" is not the destination
                     path[i+1] = "Go Straight & Turn Left";
@@ -119,64 +320,69 @@ createRoute.addEventListener("click", function(e){
         }
         
     }
-    //display directions
-    /*var num = 1;
-    for (let i = 0; i < path.length; i++){
-        path[i] = '<br>' + num + ". "+path[i];
-        num++;
-        path[path.length-1] = '<br>'+ (num-1) + ". Arrived!";
+}
+//user only needs to turn left/right to arrive at destination
+if (path[0].includes("ne") && path.length == 1){
+    path[0] = "Turn Left & Arrived!";  
+}
+if (path[0].includes("sw") && path.length == 1){
+    path[0] = "Turn Left & Arrived!";  
+}
+if (path[0].includes("nw") && path.length == 1){
+    path[0] = "Turn Right & Arrived!";  
+}
+if (path[0].includes("se") && path.length == 1){
+    path[0] = "Turn Right & Arrived!";  
+}
+
+
+//Click through directions-->
+directions = document.getElementById("currentInstruction");
+btn = document.getElementById("next");
+
+
+btn.addEventListener("onmousedown", stopEvent, false);
+btn.addEventListener("click", nextDirection);
+
+directions.innerHTML = path[0];
+index = 0;
+function stopEvent(ev) {
+    ev.stopPropagation();
+}
+
+function nextDirection() {
+    if (index < path.length - 1){
+        index++;
     }
-    //print directions
-    document.getElementById ("currentInstruction").innerHTML= path;*/
+    index %= path.length;
+    directions.innerHTML = path[index]; 
+    console.log(path.length);
+    if (path.length > 1){
+        path[path.length-1] = "Arrived!";
+    } 
+}
 
-    //Click through directions-->
-    directions = document.getElementById("currentInstruction");
-    btn = document.getElementById("next");
+//prev
+btn = document.getElementById("prev");
+
+btn.addEventListener("onmousedown", stopEvent, false);
+btn.addEventListener("click", prevDirection);
 
 
-    btn.addEventListener("onmousedown", stopEvent, false);
-    btn.addEventListener("click", nextDirection);
+function stopEvent(ev) {
+    ev.stopPropagation();
+}
 
-    directions.innerHTML = path[0];
-    index = 0;
-    function stopEvent(ev) {
-        ev.stopPropagation();
+function prevDirection() {
+    if (index > 0){
+        index--;
     }
 
-    function nextDirection() {
-        if (index < path.length - 1){
-            index++;
-        }
-        index %= path.length;
-        directions.innerHTML = path[index]; 
-
-        path[path.length-1] = "Arrived!"; 
-        
-    
-    }
-
-    //prev
-    btn = document.getElementById("prev");
-
-    btn.addEventListener("onmousedown", stopEvent, false);
-    btn.addEventListener("click", prevDirection);
+    index %= path.length;
+    directions.innerHTML = path[index]; 
+} */   
 
 
-    function stopEvent(ev) {
-        ev.stopPropagation();
-    }
-
-    function prevDirection() {
-        if (index > 0){
-            index--;
-        }
-    
-        index %= path.length;
-        directions.innerHTML = path[index]; 
-    }    
-        
-        
-});
 
 
 

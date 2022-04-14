@@ -65,6 +65,9 @@ function getUserEmail(){
 
 // Once the page is loaded, get the user's classes, meetings, assignments, and to-do list
 document.addEventListener('DOMContentLoaded', e => {
+	//Show the current date
+	document.getElementById("date-header").innerHTML = new Date(getCurrentDate() + "T12:00:00Z").toLocaleDateString();
+	
 	Promise.all([
 		// Get classes from database
 		fetch('http://127.0.0.1:3000/classes', {
@@ -182,6 +185,38 @@ document.addEventListener('DOMContentLoaded', e => {
 		console.log(error);
 	});
 	
+});
+
+document.getElementById("left_button").addEventListener('click', e => {
+	let yesterday = new Date(getCurrentDate() + "T12:00:00Z");
+	yesterday.setDate(yesterday.getDate()-1);
+	let month = ("0" + (yesterday.getMonth() + 1)).slice(-2);
+	let date = ("0" + yesterday.getDate()).slice(-2);
+	let datestring = yesterday.getFullYear() + '-' + month + '-' + date;
+	let url = window.location.href;
+	let idx = url.indexOf("&date=");
+	if(idx !== -1){
+		window.location.href = url.substring(0, idx) + "&date=" + datestring;
+	}
+	else{
+		window.location.href = url + "&date=" + datestring;
+	}
+});
+
+document.getElementById("right_button").addEventListener('click', e => {
+	let tomorrow = new Date(getCurrentDate() + "T12:00:00Z");
+	tomorrow.setDate(tomorrow.getDate()+1);
+	let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
+	let date = ("0" + tomorrow.getDate()).slice(-2);
+	let datestring = tomorrow.getFullYear() + '-' + month + '-' + date;
+	let url = window.location.href;
+	let idx = url.indexOf("&date=");
+	if(idx !== -1){
+		window.location.href = url.substring(0, idx) + "&date=" + datestring;
+	}
+	else{
+		window.location.href = url + "&date=" + datestring;
+	}
 });
 
 

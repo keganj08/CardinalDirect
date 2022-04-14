@@ -244,6 +244,10 @@ li:last-child {
 	display: none;
 }
 
+#date-header {
+	display: inline-block;
+}
+
 /* Icons */
 .add-icon {
 	background-image: url('../images/icons/add.jpg');

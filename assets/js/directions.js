@@ -1,10 +1,11 @@
-/*//USE FOR MANUAL TESTING   
-wsc.createEdges();
-wsc.runDijkstra("f1 ne");
-let path = wsc.getPathTo("f1 sw");
+//USE FOR MANUAL TESTING   
+/*wsc.createEdges();
+wsc.runDijkstra("f1 nw");
+let path = wsc.getPathTo("f1  e");
 console.log(path);//array*/
 
 var createRoute = document.getElementById("createRoute");
+
 createRoute.addEventListener("click", function(e){
     e.preventDefault();//only works if button is clicked, not with the  "enter" key
 	//grab entrance from url
@@ -69,8 +70,15 @@ createRoute.addEventListener("click", function(e){
             location.setAttribute("destination", "f1  w");
         }
         if (destination == "128" || destination == "126" || destination == "124" || destination == "122" || destination == "118" || destination == "116" ||
-        destination == "101" || destination == "101"){
+        destination == "101" || destination == "103"){
             location.setAttribute("destination", "f1  e");
+        }
+        if (destination == "104" || destination == "106"){
+            location.setAttribute("destination", "f1 sw");
+        }
+        if (destination == "107" || destination == "109" || destination == "111" || destination == "132" || destination == "134" || destination == "136" ||
+        destination == "138" || destination == "144" || destination == "148" || destination == "150"){
+            location.setAttribute("destination", "f1 ne");
         }
     }
     if (entrance == "f1 sw"){
@@ -116,7 +124,6 @@ createRoute.addEventListener("click", function(e){
 
     console.log(path);//array
 
-    
 
     if(path.length > 1){
         for (let i = 0; i < path.length-1; i++){
@@ -154,14 +161,26 @@ createRoute.addEventListener("click", function(e){
                 if (path[i].includes("nw")){
                     if (path[i+1].includes("ne")){
                         path[i] = "Go Straight";
+                        if (destination == "107" || destination == "109" || destination == "111" || destination == "132" || destination == "134" || destination == "136" ||
+                        destination == "138" || destination == "144" || destination == "148" || destination == "150"){
+                            path[i+1] = "Turn Right";
+                        }
+                        if(path[i+2] != null && path[i+2].includes("e", 4)){
+                            path[i+1] = "Turn Right";
+                            path[i+2] = "Go Straight";
+                        }
                     }
                     //midpoint
                     if (path[i+1].includes("w",4)){
-                        path[i] = "Turn Right & Go Straight";
+                        path[i] = "Turn Right";
+                        path[i+1] = "Go Straight";
                         if (path[i+2] != null && path[i+2].includes("sw")){
-                            path[i+1] = "Go Straight";
-                            path[i+2] = "Turn Left";
-                        }
+                            path[i+2] = "Go Straight";
+                            if (destination == "104" || destination == "106"){
+                                path.length+=1;
+                                path[i+4] = "Turn Left";
+                            }
+                        }   
                     }
                 }
                 //SE corner
@@ -175,7 +194,8 @@ createRoute.addEventListener("click", function(e){
                             path[i] = "Turn Right & Go Straight";
                         }
                         if (path[i+2] != null && path[i+2].includes("ne") && path[i].charAt(1) === path[i+1].charAt(1)){//if "e" is not the destination
-                            path[i+1] = "Go Straight & Turn Left";
+                            //path[i+1] = "Go Straight";
+                            path[i+2] = "Turn Left";
                         }
                         else{
                             path[i+1] = "Go Straight";

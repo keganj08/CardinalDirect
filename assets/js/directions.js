@@ -112,6 +112,9 @@ createRoute.addEventListener("click", function(e){
             location.setAttribute("destination", "f1  w");
             
         }
+        if (destination == "154" || destination == "156"){
+            location.setAttribute("destination", "f1 ne");
+        }
     }
     
 
@@ -191,10 +194,25 @@ createRoute.addEventListener("click", function(e){
                     //midpoint
                     if (path[i+1].includes("e",4)){
                         if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
-                            path[i] = "Turn Right & Go Straight";
+                            path[i] = "Turn Right";
+                            path[i+1] = "Go Straight";
+                            if(path[i+2].includes("ne")){
+                                path[i+2] = "Turn Left";
+                            }
+                            if(path[i+2] != null && path[i+2].includes("w",4)){
+                                path[i+2] = "Turn Left";
+                                path[i+3] = "Go Straight";
+                                if (destination == "115" || destination == "113"){
+                                    path.length+=1;
+                                    path[i+4] = "Turn Right";
+                                }
+                                else{
+                                    path.length+=1;
+                                    path[i+4] = "Turn Left";
+                                }
+                            }
                         }
                         if (path[i+2] != null && path[i+2].includes("ne") && path[i].charAt(1) === path[i+1].charAt(1)){//if "e" is not the destination
-                            //path[i+1] = "Go Straight";
                             path[i+2] = "Turn Left";
                         }
                         else{

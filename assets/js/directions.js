@@ -38,13 +38,12 @@ createRoute.addEventListener("click", function(e){
 
     //INTERSECTION-LOCATION ASSIGNMENTS
     var location = document.createElement('destination');
-    //cut intersections in half 
+    //NE ENTRANCE 
     if (entrance == "f1 ne"){
+        //FLOOR 1
         if (destination == "154" || destination == "156"){
-            //location.setAttribute("destination", "f1 ne");//issue: user already there
             alert("You are already here.");
         }
-        //issue: same destination but different hallways 
         if (destination == "111" || destination == "109" || destination == "107" || destination == "144" || destination == "142" || destination == "138" ||
         destination == "136" || destination == "134" || destination == "132"){
             location.setAttribute("destination", "f1 ne");
@@ -59,8 +58,43 @@ createRoute.addEventListener("click", function(e){
         if (destination == "104" || destination == "106"){
             location.setAttribute("destination", "f1 se");  
         }
-        
+        //FLOOR 2
+        if (destination == "254" || destination == "256"){
+            location.setAttribute("destination", "f2 ne");
+        }
+        if (destination == "232" || destination == "234" || destination == "236" || destination == "238" || 
+        destination == "213" || destination == "215" || destination == "242" || destination == "244"){
+            location.setAttribute("destination", "f2 ne");
+            //turn left
+        }
+        if (destination == "205" || destination == "216" || destination == "218" || destination == "222" || destination == "224" || destination == "226" ||
+        destination == "228"){
+            location.setAttribute("destination", "f2  e");
+        }
+        if (destination == "217" || destination == "219" || destination == "221" || destination == "223"){
+            location.setAttribute("destination", "f2  w");  
+        }
+        //FLOOR 3
+        if (destination == "354" || destination == "356"){
+            location.setAttribute("destination", "f3 ne");
+        }
+        if (destination == "317" || destination == "315" || destination == "313" || destination == "332" || destination == "334" || destination == "336" ||
+        destination == "338" || destination == "342" || destination == "344" || destination == "348" || destination == "350" || destination == "352"){
+            location.setAttribute("destination", "f3 ne");
+            //turn left
+        }
+        if (destination == "319" || destination == "321" || destination == "323" || destination == "325"){
+            location.setAttribute("destination", "f3  w");  
+        }
+        if (destination == "307" || destination == "328" || destination == "326" || destination == "324" || destination == "322" || destination == "318" ||
+        destination == "316" || destination == "312" || destination == "310" || destination == "308"){
+            location.setAttribute("destination", "f3  e");
+        }
+        if (destination == "301"){
+            location.setAttribute("destination", "f3 se");  
+        }   
     }
+    //NW ENTRANCE
     if (entrance == "f1 nw"){
         if (destination == "154" || destination == "156"){
             alert("You are already here.");
@@ -83,7 +117,9 @@ createRoute.addEventListener("click", function(e){
             location.setAttribute("destination", "f1 ne");
         }
     }
+    //SW ENTRANCE
     if (entrance == "f1 sw"){
+        //FLOOR 1
         if (destination == "104" || destination == "106"){
             alert("You are already here.");
         }
@@ -104,7 +140,9 @@ createRoute.addEventListener("click", function(e){
         destination == "124" || destination == "126" || destination == "128"){
             location.setAttribute("destination", "f1 se");
         }
+        
     }
+    //SE ENTRANCE
     if (entrance == "f1 se"){
         if (destination == "104" || destination == "106"){
             alert("You are already here.");
@@ -251,18 +289,15 @@ createRoute.addEventListener("click", function(e){
                 }
             }
         }
-            //E
-            
-            //W
-           
-            //STAIRS
-           /* if (path[i] != null && path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
-                if(path[i].charAt(1) < path[i+1].charAt(1)) {
-                   path[i] = "Go Upstairs";
-                }else{
-                    path[i] = "Go Downstairs";
-                }
-            }*/
+ 
+        //STAIRS
+        /* if (path[i] != null && path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
+            if(path[i].charAt(1) < path[i+1].charAt(1)) {
+                path[i] = "Go Upstairs";
+            }else{
+                path[i] = "Go Downstairs";
+            }
+        }*/
             
         }
     }

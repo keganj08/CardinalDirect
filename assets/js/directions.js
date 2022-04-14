@@ -1,8 +1,10 @@
-//USE FOR MANUAL TESTING   
-/*wsc.createEdges();
-wsc.runDijkstra("f1 nw");
+
+/*//USE FOR MANUAL TESTING   
+wsc.createEdges();
+wsc.runDijkstra("f1 sw");
 let path = wsc.getPathTo("f1  e");
-console.log(path);//array*/
+console.log(path);//array
+*/
 
 var createRoute = document.getElementById("createRoute");
 
@@ -94,6 +96,13 @@ createRoute.addEventListener("click", function(e){
         if (destination == "107" || destination == "109" || destination == "111" || destination == "132" || destination == "134" || destination == "136" ||
         destination == "138" || destination == "144" || destination == "148" || destination == "150"){
             location.setAttribute("destination", "f1  e");
+        }
+        if (destination == "154" || destination == "156"){
+            location.setAttribute("destination", "f1 nw");
+        }
+        if (destination == "101" || destination == "103" || destination == "112" || destination == "116" || destination == "118" || destination == "122" ||
+        destination == "124" || destination == "126" || destination == "128"){
+            location.setAttribute("destination", "f1 se");
         }
     }
     if (entrance == "f1 se"){
@@ -220,40 +229,40 @@ createRoute.addEventListener("click", function(e){
                         }
                     }
                 }
-                //SW corner
-                if (path[i] != null && path[i].includes("sw")){
-                    if (path[i+1] != null && path[i+1].includes("se")){
-                        path[i] = "Go Straight";
+               //SW corner
+               if (path[i] != null && path[i].includes("sw")){
+                if (path[i+1] != null && path[i+1].includes("se")){
+                    path[i] = "Go Straight";
+                    path[i+1] = "Turn Left";
+                    if(path[i+2].includes("e", 4)){
+                        path[i+2] = "Go Straight";
                     }
-                    //midpoint
-                    if (path[i+1] != null && path[i+1].includes("w",4)){
-                        if (path[i].charAt(1) === path[i+1].charAt(1)){
-                            path[i] = "Turn Left & Go Straight";
-                        }
-                        if (path[i+2] != null && path[i+2].includes("nw") && path[i].charAt(1) === path[i+1].charAt(1)){
-                            path[i+1] = "Go Straight & Turn Right";
-                        }
-                        if (path[i+2] != null && path[i+2].includes("e",4)){
-                            path[i+1] = "Turn Right & Go Straight";
-                        }
-                        else{
-                            path[i+1] = "Go Straight";
-                        }
+                }
+                //midpoint
+                if (path[i+1] != null && path[i+1].includes("w",4)){
+                    path[i] = "Turn Left";
+                    path[i+1] = "Go Straight";
+                    if(path[i+2] != null && path[i+2].includes("nw")){
+                        path[i+2] = "Go Straight";
+                        path.length+=1;
+                        path[i+3] = "Turn Right";
+                        
                     }
                 }
             }
+        }
             //E
             
             //W
            
             //STAIRS
-            //if (path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
-                //if(path[i].charAt(1) < path[i+1].charAt(1)) {
-                   // path[i] = "Go Upstairs";
-                //}else{
-                    //path[i] = "Go Downstairs";
-                //}
-            //}
+           /* if (path[i] != null && path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
+                if(path[i].charAt(1) < path[i+1].charAt(1)) {
+                   path[i] = "Go Upstairs";
+                }else{
+                    path[i] = "Go Downstairs";
+                }
+            }*/
             
         }
     }

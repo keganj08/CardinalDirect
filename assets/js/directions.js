@@ -1,3 +1,9 @@
+/*//USE FOR MANUAL TESTING   
+wsc.createEdges();
+wsc.runDijkstra("f1 ne");
+let path = wsc.getPathTo("f1 sw");
+console.log(path);//array*/
+
 var createRoute = document.getElementById("createRoute");
 createRoute.addEventListener("click", function(e){
     e.preventDefault();//only works if button is clicked, not with the  "enter" key
@@ -45,10 +51,11 @@ createRoute.addEventListener("click", function(e){
             location.setAttribute("destination", "f1  e");
         }
         if (destination == "113" || destination == "115" || destination == "119" || destination == "121" || destination == "101" ){
-            location.setAttribute("destination", "f1  w");
-            
+            location.setAttribute("destination", "f1  w");  
         }
-    
+        if (destination == "104" || destination == "106"){
+            location.setAttribute("destination", "f1 se");  
+        }
         
     }
     if (entrance == "f1 nw"){
@@ -98,10 +105,7 @@ createRoute.addEventListener("click", function(e){
             
         }
     }
-    else{ //destination is not connected to starting intersection
-
-    }
-   
+    
 
     console.log(location);
     console.log(destination);
@@ -112,100 +116,121 @@ createRoute.addEventListener("click", function(e){
 
     console.log(path);//array
 
+    
+
     if(path.length > 1){
         for (let i = 0; i < path.length-1; i++){
-            //NE corner
-            if (path[i].includes("ne")){
-                if (path[i+1].includes("nw")){
-                    path[i] = "Go Straight";
-                }
-                if (path[i+1].includes("e",4)){
-                    if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
-                        path[i] = "Turn Left & Go Straight";
+            if(path[i] != null){
+                //NE corner
+                if (path[i].includes("ne")){
+                    if (path[i+1] != null && path[i+1].includes("nw")){
+                        path[i] = "Go Straight";
                     }
-                }
-                
-            }
-            //NW corner
-            if (path[i].includes("nw")){
-                if (path[i+1].includes("ne")){
-                    path[i] = "Go Straight";
-                }
-                //midpoint
-                if (path[i+1].includes("w",4)){
-                    path[i] = "Turn Right & Go Straight";
-                    if (path[i+2] != null && path[i+2].includes("sw")){
-                        path[i+1] = "Go Straight & Turn Left";
+                    if (path[i+1] != null && path[i+1].includes("e",4)){
+                        if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
+                            path[i] = "Turn Left";
+                            path[i+1] = "Go Straight"
+                            if(path[i+2] != null && path[i+2].includes("w",4)){
+                                path[i+2] = "Turn Right";
+                                path[i+3] = "Go Straight";
+                                if (destination == "115" || destination == "113"){
+                                    path.length+=1;
+                                    path[i+4] = "Turn Right";
+                                }
+                                else{
+                                    path.length+=1;
+                                    path[i+4] = "Turn Left";
+                                }
+                            }
+                            if(path[i+2] != null && path[i+2].includes("e", 4)){
+                                path[i+2] = "Go Straight";
+                            }
+                        }
                     }
-                }
-                
-            }
-            //SE corner
-            if (path[i].includes("se")){
-                if (path[i+1].includes("sw")){
-                    path[i] = "Go Straight";
-                }
-                //midpoint
-                if (path[i+1].includes("e",4)){
-                    if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
+
+                }  
+            
+                //NW corner
+                if (path[i].includes("nw")){
+                    if (path[i+1].includes("ne")){
+                        path[i] = "Go Straight";
+                    }
+                    //midpoint
+                    if (path[i+1].includes("w",4)){
                         path[i] = "Turn Right & Go Straight";
-                    }
-                    if (path[i+2] != null && path[i+2].includes("ne") && path[i].charAt(1) === path[i+1].charAt(1)){//if "e" is not the destination
-                        path[i+1] = "Go Straight & Turn Left";
-                    }
-                    else{
-                        path[i+1] = "Go Straight";
+                        if (path[i+2] != null && path[i+2].includes("sw")){
+                            path[i+1] = "Go Straight";
+                            path[i+2] = "Turn Left";
+                        }
                     }
                 }
-                
-            }
-            //SW corner
-            if (path[i].includes("sw")){
-                if (path[i+1].includes("se")){
-                    path[i] = "Go Straight";
+                //SE corner
+                if (path[i].includes("se")){
+                    if (path[i+1].includes("sw")){
+                        path[i] = "Go Straight";
+                    }
+                    //midpoint
+                    if (path[i+1].includes("e",4)){
+                        if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
+                            path[i] = "Turn Right & Go Straight";
+                        }
+                        if (path[i+2] != null && path[i+2].includes("ne") && path[i].charAt(1) === path[i+1].charAt(1)){//if "e" is not the destination
+                            path[i+1] = "Go Straight & Turn Left";
+                        }
+                        else{
+                            path[i+1] = "Go Straight";
+                        }
+                    }
                 }
-                //midpoint
-                if (path[i+1].includes("w",4)){
-                    if (path[i].charAt(1) === path[i+1].charAt(1)){
-                        path[i] = "Turn Left & Go Straight";
+                //SW corner
+                if (path[i] != null && path[i].includes("sw")){
+                    if (path[i+1] != null && path[i+1].includes("se")){
+                        path[i] = "Go Straight";
                     }
-                    if (path[i+2] != null && path[i+2].includes("nw") && path[i].charAt(1) === path[i+1].charAt(1)){
-                        path[i+1] = "Go Straight & Turn Right";
-                    }
-                    if (path[i+2] != null && path[i+2].includes("e",4)){
-                        path[i+1] = "Turn Right & Go Straight";
-                    }
-                    else{
-                        path[i+1] = "Go Straight";
+                    //midpoint
+                    if (path[i+1] != null && path[i+1].includes("w",4)){
+                        if (path[i].charAt(1) === path[i+1].charAt(1)){
+                            path[i] = "Turn Left & Go Straight";
+                        }
+                        if (path[i+2] != null && path[i+2].includes("nw") && path[i].charAt(1) === path[i+1].charAt(1)){
+                            path[i+1] = "Go Straight & Turn Right";
+                        }
+                        if (path[i+2] != null && path[i+2].includes("e",4)){
+                            path[i+1] = "Turn Right & Go Straight";
+                        }
+                        else{
+                            path[i+1] = "Go Straight";
+                        }
                     }
                 }
             }
             //E
+            
             //W
            
             //STAIRS
-            if (path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
-                if(path[i].charAt(1) < path[i+1].charAt(1)) {
-                    path[i] = "Go Upstairs";
-                }else{
-                    path[i] = "Go Downstairs";
-                }
-            }
+            //if (path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
+                //if(path[i].charAt(1) < path[i+1].charAt(1)) {
+                   // path[i] = "Go Upstairs";
+                //}else{
+                    //path[i] = "Go Downstairs";
+                //}
+            //}
             
         }
     }
     //user only needs to turn left/right to arrive at destination
     if (path[0].includes("ne") && path.length == 1){
-        path[0] = "Turn Left & Arrived!";  
+        path[0] = "Turn Left";  
     }
     if (path[0].includes("sw") && path.length == 1){
-        path[0] = "Turn Left & Arrived!";  
+        path[0] = "Turn Left";  
     }
     if (path[0].includes("nw") && path.length == 1){
-        path[0] = "Turn Right & Arrived!";  
+        path[0] = "Turn Right";  
     }
     if (path[0].includes("se") && path.length == 1){
-        path[0] = "Turn Right & Arrived!";  
+        path[0] = "Turn Right";  
     }
  
     
@@ -229,10 +254,11 @@ createRoute.addEventListener("click", function(e){
         }
         index %= path.length;
         directions.innerHTML = path[index]; 
-        console.log(path.length);
-        if (path.length > 1){
-            path[path.length-1] = "Arrived!";
-        } 
+     
+     
+        path.length +=1 ;
+        path[path.length-1] = "Arrived!";
+        
     }
 
     //prev
@@ -258,11 +284,6 @@ createRoute.addEventListener("click", function(e){
         
 });
 
-/*//USE FOR MANUAL TESTING   
-wsc.createEdges();
-wsc.runDijkstra("f1 nw");
-let path = wsc.getPathTo("f1  e");
-console.log(path);//array*/
 
 
 

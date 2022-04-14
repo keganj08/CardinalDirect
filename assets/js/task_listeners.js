@@ -79,7 +79,7 @@ document.querySelector("#newtodo form").addEventListener('submit', e => {
 	// Check that the new entry is unique (i.e., that it is not already in the to-do list table)
 	let isUnique = true;
 	todoListTable.childNodes.forEach(row => {
-		if(isUnique && row.childNodes[0].innerHTML === requestObj.description){
+		if(isUnique && row.childNodes[1].innerHTML === requestObj.description){
 			isUnique = false;
 		}
 	});
@@ -106,7 +106,6 @@ document.querySelector("#newtodo form").addEventListener('submit', e => {
 			.then(data => {
 				formElem.parentNode.style.display = "none"; // Hide the new to-do item form
 				document.querySelector("#todolist button").style.display = "block"; //Show the add button
-				//document.getElementById("todolist").style.display = "block";
 				addToDoListItem(requestObj.description, requestObj.isComplete); // add item to to-do list table
 			})
 			.catch(error => {
@@ -125,14 +124,13 @@ function addToDoListItem(description, isComplete){
 	//dataRow.id = tid;
 	
 	// Create the table data for the given information
-	let todo_description = document.createElement("td");
-	todo_description.innerHTML = description;
 	let todo_isComplete = document.createElement("td");
 	if(isComplete == true){	
-		todo_isComplete.innerHTML = "Done";
+		todo_isComplete.classList.remove('circle-icon');
+		todo_isComplete.classList.add('check-mark-icon');
 	}
 	else{
-		todo_isComplete.innerHTML = "Complete";
+		todo_isComplete.classList.add('circle-icon');
 	}
 	
 	// Event listener when click "Complete" 
@@ -140,10 +138,10 @@ function addToDoListItem(description, isComplete){
 		console.log("Update Completeness of To Do List Item");
 		
 		// Only update the database if the item has not been completed
-		if(e.target.parentNode.childNodes[1].innerHTML !== "Done"){
+		if(e.target.parentNode.childNodes[0].classList.contains('circle-icon')){
 			let requestObj = {
 				"tid" : todoListTable.id,
-				"description" : e.target.parentNode.childNodes[0].innerHTML,
+				"description" : e.target.parentNode.childNodes[1].innerHTML,
 				"isComplete" : true,
 				"mode" : 'u'
 			};
@@ -163,7 +161,8 @@ function addToDoListItem(description, isComplete){
 					return response.json();
 				})
 				.then(data => {
-					e.target.innerHTML = "Done";
+					e.target.classList.remove('circle-icon');
+					e.target.classList.add('check-mark-icon');
 				})
 				.catch(error => {
 					console.log(error);
@@ -171,14 +170,17 @@ function addToDoListItem(description, isComplete){
 		}
 	});
 	
+	let todo_description = document.createElement("td");
+	todo_description.innerHTML = description;
+	
 	let delTd = document.createElement("td");
-	delTd.innerHTML = "Delete";
+	delTd.classList.add('trash-icon');
 	// Event listener to delete to-do list item
 	delTd.addEventListener('click', e => {
 		console.log("Delete ToDo Item - Click");
 		let dataRow = e.target.parentNode;
 		let dataVals = dataRow.children;
-		let description = dataVals[0].innerHTML;
+		let description = dataVals[1].innerHTML;
 		let id = dataRow.parentNode.id;
 		
 		//Send request to server to delete an existing to-do item from to-do item database
@@ -220,8 +222,8 @@ function addToDoListItem(description, isComplete){
 	});
 	
 	// Append table data elements to the table row
-	todo_item.appendChild(todo_description);
 	todo_item.appendChild(todo_isComplete);
+	todo_item.appendChild(todo_description);
 	todo_item.appendChild(delTd);
 
 	

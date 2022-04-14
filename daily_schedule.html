@@ -18,13 +18,16 @@
 		<img src="assets/images/cardinaldirect_logo.jpg" alt="CardinalDirect Logo"/>
 		<button  id="logout" type="button">Logout</button>
 		<h2>Schedule</h2>
-		<h3><script> document.write(new Date().toLocaleDateString()); </script></h3>
-		
+		<span>
+			<button id="left_button" class="left-arrow-icon" type="button"></button>
+			<h3 id="date-header"></h3>
+			<button id="right_button" class="right-arrow-icon" type="button"></button>
+		</span>
 	</header>
 	<section>
 		<div class="scheduler">
 			<div id="bottom">
-				<p>Events</p>
+				<h3>Events</h3>
 				<!--Events are listed here-->
 				<div id="eventlist" class="schedule-item-table">
 					<table>
@@ -37,7 +40,7 @@
 					</table>
 				</div>
 				<div>
-					<button id="event-add-btn" type="button">Add</button>
+					<button id="event-add-btn" class="add-icon" type="button"></button>
 				</div>
 				<div id="newevent" class="new-schedule-item-form">
 					<form>
@@ -125,7 +128,7 @@
 				<!--<button type="button" onclick="window.open('events.html','popUpWindow','height=500,width=425,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">Add</button>-->
 			</div>
 			<div id="assignments">
-				<p>Assignments Due Today</p>
+				<h3>Assignments Due Today</h3>
 				<!--Assignments are listed here-->
 				<div id="assignmentlist" class="schedule-item-table">
 					<table>
@@ -137,7 +140,7 @@
 					</table>
 				</div>
 				<div>
-					<button id="assignment-add-btn" type="button">Add</button>
+					<button id="assignment-add-btn" class="add-icon" type="button"></button>
 				</div>
 				<div id="newassignment" class="new-schedule-item-form">
 					<form>
@@ -190,10 +193,10 @@
 				<!--<button type="button" onclick="window.open('assignments.html','popUpWindow','height=500,width=425,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">Add</button>-->
 			</div>
 			<div id="tasks">
-				<p>To-Do List</p>
+				<h3>To-Do List</h3>
 				<div id="todolist">
 					<table></table>
-					<button type="button">Add</button>
+					<button type="button" class="add-icon"></button>
 				</div>
 				
 				<div id="newtodo">

@@ -123,7 +123,7 @@ function addEventTableRow(mid, title, start, end, building, roomNum, eventType){
 	// Allow for updating and deleting non-class events (classes cannot be updated here)
 	if(eventType === 'm'){
 		let updateTd = document.createElement("td");
-		updateTd.innerHTML = "Edit";
+		updateTd.classList.add('edit-icon');
 		// Event listener when click update and autofill assignment form
 		updateTd.addEventListener('click', e => {
 			console.log("Click Update Event");
@@ -164,7 +164,7 @@ function addEventTableRow(mid, title, start, end, building, roomNum, eventType){
 		});
 	
 		let delTd = document.createElement("td");
-		delTd.innerHTML = "Delete";
+		delTd.classList.add('trash-icon');
 		// Event listener to delete assignment
 		delTd.addEventListener('click', e => {
 			console.log("Delete Event - Click");

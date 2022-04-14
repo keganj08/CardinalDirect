@@ -12,9 +12,11 @@ section{
 	padding: 10px;
 }
 
+/* Sets the image size so that the width is either 75% of the screen
+or it is 300px if 75% of the screen is larger than 300px*/
 img{
-	height: 25%;
-	width: auto;
+	height: auto;
+	width: min(75%, 300px);
 }
 
 input{
@@ -131,12 +133,6 @@ label {
 	margin: 0 auto;top: 0;
 }
 
-/*
-#monthDay{
-  display: none;
-}
-*/
-
   /*Scheduler landing*/
 .scheduler {
 	display: grid; 
@@ -144,7 +140,6 @@ label {
 	grid-template-columns: 1fr 1fr;
 	gap: 0px;
 	height: 100%;
-	
  }
    
  #assignments {
@@ -153,23 +148,22 @@ label {
 	grid-column-start: 1;
 	grid-row-end: 2;
 	grid-column-end: 2;
-	
  }
+ 
  #tasks {
 	border:3px solid #ef4048;
 	grid-row-start: 1;
 	grid-column-start: 2;
 	grid-row-end: 2;
 	grid-column-end: 3;
-	
  }
+ 
  #bottom {
 	border:3px solid #ef4048;
 	grid-row-start: 2;
 	grid-column-start: 1;
 	grid-row-end: 3;
 	grid-column-end: 3;
-	
  }
 
  /*todo checklist*/
@@ -178,6 +172,7 @@ label {
     position: relative;
     padding: 0px;
 }
+
 #newtask input{
     width: 50%;
     height: 25px;
@@ -192,49 +187,52 @@ label {
 }
 
 #newtask input:focus{
-
     border-color: #ef4048;
 }
 
 ul {
-list-style: none;
-margin: 0;
-padding: 0;
-
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
+
 li {
 	color: #899098;
 	font-weight: 400;
 	border-bottom: 1px solid #cfcbcc;
 	line-height: 1.5;
 	padding: 8px 0;
-	
 }
+
 li:before {
 	content: "\25A1";
 	padding: 10px 10px;
 	font-size: 20px;
 }
+
 li:hover {
 	text-decoration: line-through;
 	cursor: pointer;
 }
+
 li:last-child {
 	border-bottom: none;
-	
 }
 	
 .checked {
 	color: #ef4048;
 }
+
 .checked:before {
 	content: "\2713";
 	padding: 10px 10px;
 	font-size: 20px;
 }
+
 .checked:hover {
 	text-decoration: none;
 }
+
 .checked:after {
 	content: "(remove)";
 	color: #ef4048;
@@ -245,6 +243,70 @@ li:last-child {
 .new-schedule-item-form, .schedule-item-table, #newtodo {
 	display: none;
 }
+
+#date-header {
+	display: inline-block;
+}
+
+/* Icons */
+.add-icon {
+	background-image: url('../images/icons/add.jpg');
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+}
+
+.check-mark-icon {
+	background-image: url('../images/icons/check_mark.jpg');
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+}
+
+.circle-icon {
+	background-image: url('../images/icons/circle.jpg');
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+}
+
+.close-icon {
+	background-image: url('../images/icons/close.jpg');
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+}
+
+.edit-icon {
+	background-image: url('../images/icons/edit.jpg');
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+}
+
+.left-arrow-icon {
+	background-image: url('../images/icons/left_arrow.jpg');
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+}
+
+.right-arrow-icon {
+	background-image: url('../images/icons/right_arrow.jpg');
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+}
+
+.trash-icon {
+	background-image: url('../images/icons/trash.jpg');
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+}
+
+
+
 
 
 	

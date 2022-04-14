@@ -40,6 +40,24 @@ createRoute.addEventListener("click", function(e){
     var location = document.createElement('destination');
     //NE ENTRANCE 
     if (entrance == "f1 ne"){
+        //FLOOR 0
+        if (destination == "034" || destination == "036"){
+            location.setAttribute("destination", "f0 ne");
+        }
+        if (destination == "028" || destination == "026" || destination == "024" || destination == "022" || 
+        destination == "020"){
+            location.setAttribute("destination", "f0 ne");
+            //turn left
+        }
+        if (destination == "010" || destination == "005" ){
+            location.setAttribute("destination", "f0  e");
+        }
+        if (destination == "013" || destination == "015" || destination == "038" || destination == "040" || destination == "042"){
+            location.setAttribute("destination", "f0  w");  
+        }
+        if (destination == "002"){
+            location.setAttribute("destination", "f0 se");  
+        }
         //FLOOR 1
         if (destination == "154" || destination == "156"){
             alert("You are already here.");

@@ -108,7 +108,7 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 	dataCid.innerHTML = courseIds.getSimpleFromCid(cid);
 	
 	let updateTd = document.createElement("td");
-	updateTd.innerHTML = "Edit";
+	updateTd.classList.add('edit-icon');
 	// Event listener when click update and autofill assignment form
 	updateTd.addEventListener('click', e => {
 		let dataRow = e.target.parentNode;
@@ -136,7 +136,7 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 	});
 	
 	let delTd = document.createElement("td");
-	delTd.innerHTML = "Delete";
+	delTd.classList.add('trash-icon');
 	// Event listener to delete assignment
 	delTd.addEventListener('click', e => {
 		console.log("Delete Event - Click");

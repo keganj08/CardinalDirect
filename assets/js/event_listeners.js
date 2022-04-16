@@ -18,8 +18,8 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 		let formDataObj = Object.fromEntries(formData);
 		let requestObj = {
 			"title" : formDataObj.title,
-			"start" : "" + formDataObj.starthr + ":" + formDataObj.startmin + " " + formDataObj.startampm,
-			"end" : "" + formDataObj.endhr + ":" + formDataObj.endmin + " " + formDataObj.endampm,
+			"start" : "" + ("0" + formDataObj.starthr).slice(-2) + ":" + formDataObj.startmin + " " + formDataObj.startampm,
+			"end" : "" + ("0" + formDataObj.endhr).slice(-2) + ":" + formDataObj.endmin + " " + formDataObj.endampm,
 			"building" : formDataObj.building,
 			"roomNum" : formDataObj.roomNum,
 			"email" : getUserEmail(),
@@ -45,7 +45,13 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 				formElem.style.display = "none";
 				document.getElementById("eventlist").style.display = "block";
 				let id = data.id.substring(0, data.id.length);
-				addEventTableRow(id, requestObj.title, requestObj.start, requestObj.end, requestObj.building, requestObj.roomNum, 'm');
+				
+				// Add the event's times to the events object in order to get back where the event
+				// falls in relation to other events chronologically
+				let insertIdx = events.addEventTimes(id, requestObj.start, requestObj.end);
+				
+				// Create a row in the event table at the chronological index for this event
+				addEventTableRow(insertIdx, id, requestObj.title, requestObj.start, requestObj.end, requestObj.building, requestObj.roomNum, 'm');
 			})
 			.catch(error => {
 				console.log(error);
@@ -59,8 +65,8 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 		let requestObj = {
 			"id" : formElem.id,
 			"title" : formDataObj.title,
-			"start" : "" + formDataObj.starthr + ":" + formDataObj.startmin + " " + formDataObj.startampm,
-			"end" : "" + formDataObj.endhr + ":" + formDataObj.endmin + " " + formDataObj.endampm,
+			"start" : "" + ("0" + formDataObj.starthr).slice(-2) + ":" + formDataObj.startmin + " " + formDataObj.startampm,
+			"end" : "" + ("0" + formDataObj.endhr).slice(-2) + ":" + formDataObj.endmin + " " + formDataObj.endampm,
 			"building" : formDataObj.building,
 			"roomNum" : formDataObj.roomNum,
 			"email" : getUserEmail(),
@@ -83,11 +89,24 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 			.then(data => {
 				console.log(data);
 				formElem.style.display = "none";
+				
+				// Get new index of event's placement in chronological order of events
+				let newInsertIdx = events.updateEventTimes(requestObj.id, requestObj.start, requestObj.end);
+				
+				// Remove the current row for this event from the event table
 				let dataRow = document.getElementById(requestObj.id);
+				let eventTable = dataRow.parentNode;
+				eventTable.removeChild(dataRow);
+				
+				// Add a new row for this event to the event table
+				addEventTableRow(newInsertIdx, requestObj.id, requestObj.title, requestObj.start, requestObj.end, requestObj.building, requestObj.roomNum, 'm');
+				
+				/*
 				dataRow.children[0].innerHTML = requestObj.title;
 				dataRow.children[1].innerHTML = requestObj.start + "-" + requestObj.end;
 				dataRow.children[2].innerHTML = requestObj.building;
 				dataRow.children[3].innerHTML = requestObj.roomNum;
+				*/
 			})
 			.catch(error => {
 				console.log(error);
@@ -96,7 +115,7 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 });
 
 // Add event to the event table
-function addEventTableRow(mid, title, start, end, building, roomNum, eventType){
+function addEventTableRow(insertidx, mid, title, start, end, building, roomNum, eventType){
 	// Retrieve the table from the DOM
 	let eventTable = document.querySelector("#eventlist table");
 	
@@ -145,14 +164,14 @@ function addEventTableRow(mid, title, start, end, building, roomNum, eventType){
 			// To fill in the start time
 			let time_ampm = start_end[0].split(" "); // e.g., ["12:00", "AM"]
 			let hr_min = time_ampm[0].split(":"); //e.g., ["12", "00"]
-			formElem.querySelector("#starthr").selectedIndex = hrValues.indexOf(hr_min[0]);
+			formElem.querySelector("#starthr").selectedIndex = hrValues.indexOf("" + parseInt(hr_min[0]));
 			formElem.querySelector("#startmin").selectedIndex = minValues.indexOf(hr_min[1]);
 			formElem.querySelector("#startampm").selectedIndex = AmPmValues.indexOf(time_ampm[1]);
 			
 			// To fill in the end time
 			time_ampm = start_end[1].split(" "); // e.g., ["1:00", "AM"]
 			hr_min = time_ampm[0].split(":"); //e.g., ["1", "00"]
-			formElem.querySelector("#endhr").selectedIndex = hrValues.indexOf(hr_min[0]);
+			formElem.querySelector("#endhr").selectedIndex = hrValues.indexOf("" + parseInt(hr_min[0]));
 			formElem.querySelector("#endmin").selectedIndex = minValues.indexOf(hr_min[1]);
 			formElem.querySelector("#endampm").selectedIndex = AmPmValues.indexOf(time_ampm[1]);
 			
@@ -185,6 +204,10 @@ function addEventTableRow(mid, title, start, end, building, roomNum, eventType){
 				})
 				.then(data => {
 					console.log(data.success);
+					
+					// Remove this event's times from the events object
+					events.removeEventTimes(dataRow.id);
+					
 					// Remove the corresponding row from the assignment table
 					let eventTable = dataRow.parentNode;
 					eventTable.removeChild(dataRow);
@@ -209,6 +232,12 @@ function addEventTableRow(mid, title, start, end, building, roomNum, eventType){
 		dataRow.appendChild(delTd);
 	}
 	
-	// Append table row to the table
-	eventTable.appendChild(dataRow);
+	// Make the dataRow a child of the event table
+	// If there is no data in the table (only the header row), append event row to the table
+	if(eventTable.children.length <= 1){
+		eventTable.appendChild(dataRow);
+	}
+	else{ //Otherwise, add the event at the specified index given by insertidx 
+		eventTable.insertBefore(dataRow, eventTable.children[insertidx+1]); //(+1 to account for header row)
+	}
 };

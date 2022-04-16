@@ -1,34 +1,5 @@
 // daily_schedule_listeners.js
 
-var courseIds = {
-	cids: [],
-	simpleCids: [],
-	addCourse: function(cid){
-		this.cids.push(cid);
-		this.simpleCids.push(cid.split("*", 2).join(' '));
-	},
-	getCids: function(){return this.cids;},
-	getSimpleCids: function(){return this.simpleCids;},
-	getCidFromSimple: function(simpleCid){
-		let idx = this.simpleCids.indexOf(simpleCid);
-		let cid = null;
-		if(idx !== -1){
-			cid = this.cids[idx];
-		}
-		return cid;
-	},
-	getSimpleFromCid: function(cid){
-		let idx = this.cids.indexOf(cid);
-		let simpleCid = null;
-		if(idx !== -1){
-			simpleCid = this.simpleCids[idx];
-		}
-		return simpleCid;
-	},
-	getCidIdx: function(cid){return this.cids.indexOf(cid);},
-	getSimpleIdx: function(simpleCid){return this.simpleCids.indexOf(simpleCid);}
-};
-
 // Gets the date of the daily schedule from the url or constructs it if not provided
 function getCurrentDate(){
 	let url = window.location.href;
@@ -145,8 +116,15 @@ document.addEventListener('DOMContentLoaded', e => {
 			// Makes sure we are not double-including courses
 			if((rec.dow.indexOf(selectDayOfWeek) !== -1) && (courseIds.getCidIdx(rec.cid) === -1)){
 				courseIds.addCourse(rec.cid); //add course id
+				// Get the simple, user-friendly course id (i.e., CSCE*494*1*SP22 => CSCE 494)
 				let simpleCid = courseIds.getSimpleFromCid(rec.cid);
-				addEventTableRow("", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
+				
+				// Add the event's times to the events object in order to get back where the event
+				// falls in relation to other events chronologically
+				let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
+				
+				// Create a row in the event table at the chronological index for this event
+				addEventTableRow(insertIdx, "", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
 				
 				// Add each class id to the select options for "associated with" under assignment
 				let selectOption = document.createElement("option");
@@ -160,9 +138,15 @@ document.addEventListener('DOMContentLoaded', e => {
 		console.log(meetingData);
 		meetingData.forEach(rec => {
 			console.log(rec);
-			addEventTableRow(rec.mid, rec.title, rec.start, rec.end, rec.building, rec.roomNum, 'm');
+			
+			// Add the event's times to the events object in order to get back where the event
+			// falls in relation to other events chronologically
+			let insertIdx = events.addEventTimes(rec.mid, rec.start, rec.end);
+			
+			// Create a row in the event table at the chronological index for this event
+			addEventTableRow(insertIdx, rec.mid, rec.title, rec.start, rec.end, rec.building, rec.roomNum, 'm');
 		});
-		
+				
 		// Handle assignment data
 		console.log(assignmentData);
 		assignmentData.forEach(rec => {

@@ -148,7 +148,7 @@ p{
 
  #current{
 	width: 100%;
-	height: 65%;
+	height: 80%;  /*was at 65% */
  }
 
  #showRooms{

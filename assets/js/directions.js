@@ -375,6 +375,8 @@ createRoute.addEventListener("click", function(e){
     btn.addEventListener("onmousedown", stopEvent, false);
     btn.addEventListener("click", nextDirection);
 
+
+
     directions.innerHTML = path[0];
     index = 0;
     function stopEvent(ev) {
@@ -394,11 +396,87 @@ createRoute.addEventListener("click", function(e){
         }
     }
 
+    //image cohesion - next btn
+    //gets initial instruction when create route is clicked
+    let instruc = document.getElementById("currentInstruction").innerHTML;
+    document.getElementById("createRoute").onclick = function() {
+        instruc = document.getElementById("currentInstruction").innerHTML;
+        console.log("create route handler");
+        console.log(instruc);
+    }
+    
+    var prevpicStack = [];
+    var prevsrcStack = [];
+    var boolArrived;
+    //next btn listener
+    document.getElementById("next").onclick = function() {
+        if(!boolArrived){
+            prevpicStack.push(curr);
+            prevsrcStack.push(pic.src);
+            
+            switch (instruc){
+                case "Go Straight":
+                    pic.src = curr.attributes.forwardImg.value;
+                    curr = window[curr.attributes.forwardVar.value]; //sets curr to pic it changes to
+                    break;
+                case "Turn Right":
+                    pic.src = curr.attributes.rightImg.value;
+                    curr = window[curr.attributes.rightVar.value];
+                    break;
+                case "Turn Left":
+                    pic.src = curr.attributes.leftImg.value;
+                    curr = window[curr.attributes.leftVar.value];
+                    break;
+                case "Go Upstairs":
+                    pic.src = curr.attributes.upImg.value;
+                    curr = window[curr.attributes.upVar.value];
+                    break;
+                case "Go Downstairs":
+                    pic.src = curr.attributes.downImg.value;
+                    curr = window[curr.attributes.downVar.value];
+                    break;
+                default:
+                    console.log("invalid instruction / done");
+                    break;
+                }
+                //grab next instruc for next time is clicked
+                instruc = document.getElementById("currentInstruction").innerHTML;
+                console.log(instruc);
+                if(instruc == "Arrived!"){
+                    boolArrived = true;
+                }
+                //call UIupdate
+                UIupdate();
+        }
+        }
+    //end of next btn image cohesion
+
+
+
     //prev
     btn = document.getElementById("prev");
-
     btn.addEventListener("onmousedown", stopEvent, false);
     btn.addEventListener("click", prevDirection);
+
+
+    //prev button image cohesion
+    document.getElementById("prev").onclick = function(){
+       // curr = prevpic;
+        //pic.src = prevsrc;
+        boolArrived = false;
+        if(prevpicStack === undefined || prevpicStack.length == 0){
+            console.log("no more prev pics");
+            instruc = document.getElementById("currentInstruction").innerHTML;
+            console.log(instruc);
+        }
+        else{
+            curr = prevpicStack.pop();
+            pic.src = prevsrcStack.pop();
+            instruc = document.getElementById("currentInstruction").innerHTML;
+            console.log(instruc);
+        }
+        UIupdate();
+    }
 
 
     function stopEvent(ev) {
@@ -415,6 +493,50 @@ createRoute.addEventListener("click", function(e){
     }    
         
         
+
+    function UIupdate(){
+        //update room #'s 
+        document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
+        document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
+
+        //hasattribute - directionals - if doesnt, change css to grey out
+        if(!curr.hasAttribute("forwardVar")){
+        document.getElementById("forwardBtn").style = "opacity: 0.1" 
+        }
+        else{
+        document.getElementById("forwardBtn").style = "opacity: 1" 
+        }
+        if(!curr.hasAttribute("leftVar")){
+        document.getElementById("leftBtn").style = "opacity: 0.1" 
+        }
+        else{
+        document.getElementById("leftBtn").style = "opacity: 1" 
+        }
+        if(!curr.hasAttribute("rightVar")){
+        document.getElementById("rightBtn").style = "opacity: 0.1" 
+        }
+        else{
+        document.getElementById("rightBtn").style = "opacity: 1" 
+        }
+        if(!curr.hasAttribute("backwardVar")){
+        document.getElementById("backwardBtn").style = "opacity: 0.1" 
+        }
+        else{
+        document.getElementById("backwardBtn").style = "opacity: 1" 
+        }
+        if(!curr.hasAttribute("upVar")){
+        document.getElementById("up").style = "opacity: 0.1" 
+        }
+        else{
+        document.getElementById("up").style = "opacity: 1" 
+        }
+        if(!curr.hasAttribute("downVar")){
+        document.getElementById("down").style = "opacity: 0.1" 
+        }
+        else{
+        document.getElementById("down").style = "opacity: 1" 
+        }
+    }
 });
 
 

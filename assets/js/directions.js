@@ -222,7 +222,7 @@ createRoute.addEventListener("click", function(e){
     }
     //SE ENTRANCE
     if (entrance == "f1 se"){
-        //FLOOR 0
+        //FLOOR 0 - PROBLEM WITH ROUTING - SEE NOTES
         if (destination == "034" || destination == "036"){
             location.setAttribute("destination", "f0 ne");
         }

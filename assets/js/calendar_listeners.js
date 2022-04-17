@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', e => {
 
 // Click on a day of the calendar
 document.querySelector("#calendar tbody").addEventListener('click', e=>{
+	// Clear any events stored
+	events.clear();
+	
 	const tableElement = e.target;
 	if((tableElement !== null) && tableElement.tagName.toLowerCase() === "td"){
 		//add clicked date to top of event div

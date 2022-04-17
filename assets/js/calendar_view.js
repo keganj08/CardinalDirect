@@ -62,7 +62,7 @@ function populateCalendar(month_txt, month, year){
 	}
 }
 
-function addEventToTable(eventTitle, startTime, endTime){
+function addEventToTable(insertidx, eventTitle, startTime, endTime){
 	// Retrieve the table from the DOM
 	const eventTable = document.querySelector("#showEvents table");
 	
@@ -79,8 +79,14 @@ function addEventToTable(eventTitle, startTime, endTime){
 	dataRow.appendChild(dataTitle);
 	dataRow.appendChild(dataTime);
 	
-	// Append table row to the table
-	eventTable.appendChild(dataRow);
+	// Make the dataRow a child of the event table
+	// If there is no data in the table, append event row to the table
+	if(eventTable.children.length == 0){
+		eventTable.appendChild(dataRow);
+	}
+	else{ //Otherwise, add the event at the specified index given by insertidx 
+		eventTable.insertBefore(dataRow, eventTable.children[insertidx]);
+	}
 }
 
 function getCurrentDate(){
@@ -153,16 +159,23 @@ function getEvents(formattedDate){
 			// the given day
 			if((rec.dow.indexOf(selectDayOfWeek)!== -1) && (courseIds.indexOf(simpleCid) === -1)){
 				courseIds.push(simpleCid); //add course id
+				// Find position to insert this event to maintain chronological order
+				let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
 				// Add event to "showEvents" table
-				addEventToTable(simpleCid + " " + rec.name, rec.startTime, rec.endTime);
+				addEventToTable(insertIdx, simpleCid + " " + rec.name, rec.startTime, rec.endTime);
 			}
 		}
 		
 		// Handle meeting data	
 		console.log(meetingData);
 		meetingData.forEach(rec => {
-			addEventToTable(rec.title, rec.start, rec.end);
+			// Find position to insert this event to maintain chronological order
+			let insertIdx = events.addEventTimes(rec.mid, rec.start, rec.end);
+			// Add event to "showEvents" table
+			addEventToTable(insertIdx, rec.title, rec.start, rec.end);
 		});
+		
+		events.print();
 		
 		//If there are events to display, make the table visible. 
 		//Otherwise, show the "No Events" message

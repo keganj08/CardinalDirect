@@ -222,6 +222,24 @@ createRoute.addEventListener("click", function(e){
     }
     //SE ENTRANCE
     if (entrance == "f1 se"){
+        //FLOOR 0
+        if (destination == "034" || destination == "036"){
+            location.setAttribute("destination", "f0 ne");
+        }
+        if (destination == "013" || destination == "015" || destination == "038" || destination == "040" || destination == "042"){
+            location.setAttribute("destination", "f0  w");
+        }
+        if (destination == "010" || destination == "005"){
+            location.setAttribute("destination", "f0 se");
+        }
+        if (destination == "002"){
+            location.setAttribute("destination", "f0 sw");
+        }
+        if (destination == "028" || destination == "026" || destination == "024" || destination == "022" || 
+                    destination == "020"){
+            location.setAttribute("destination", "f0  e");
+        }
+        //FLOOR 1
         if (destination == "104" || destination == "106"){
             alert("You are already here.");
         }
@@ -233,16 +251,48 @@ createRoute.addEventListener("click", function(e){
         destination == "138" || destination == "144" || destination == "148" || destination == "150"){
             location.setAttribute("destination", "f1  e");
         }
-        if (destination == "113" || destination == "115" || destination == "119" || destination == "121" || destination == "101" ){
+        if (destination == "113" || destination == "115" || destination == "119" || destination == "121"){
             location.setAttribute("destination", "f1  w");
             
         }
         if (destination == "154" || destination == "156"){
             location.setAttribute("destination", "f1 ne");
         }
+        //FLOOR 2
+        if (destination == "254" || destination == "256"){
+            location.setAttribute("destination", "f2 ne");
+        }
+        if (destination == "232" || destination == "234" || destination == "236" || destination == "238" || 
+        destination == "213" || destination == "215" || destination == "242" || destination == "244"){
+            location.setAttribute("destination", "f2  e");
+        }
+        if (destination == "205" || destination == "216" || destination == "218" || destination == "222" || destination == "224" || destination == "226" ||
+        destination == "228"){
+            location.setAttribute("destination", "f2 se");
+        }
+        if (destination == "217" || destination == "219" || destination == "221" || destination == "223"){
+            location.setAttribute("destination", "f2  w");  
+        }
+        //FLOOR 3
+        if (destination == "354" || destination == "356"){
+            location.setAttribute("destination", "f3 ne");
+        }
+        if (destination == "317" || destination == "315" || destination == "313" || destination == "332" || destination == "334" || destination == "336" ||
+        destination == "338" || destination == "342" || destination == "344" || destination == "348" || destination == "350" || destination == "352"){
+            location.setAttribute("destination", "f3  e");
+        }
+        if (destination == "319" || destination == "321" || destination == "323" || destination == "325"){
+            location.setAttribute("destination", "f3  w");  
+        }
+        if (destination == "307" || destination == "328" || destination == "326" || destination == "324" || destination == "322" || destination == "318" ||
+        destination == "316" || destination == "312" || destination == "310" || destination == "308"){
+            location.setAttribute("destination", "f3 se");
+        }
+        if (destination == "301"){
+            location.setAttribute("destination", "f3 se");  
+        } 
     }
     
-
     console.log(location);
     console.log(destination);
     
@@ -251,7 +301,6 @@ createRoute.addEventListener("click", function(e){
     let path = wsc.getPathTo(location.getAttribute("destination"));
 
     console.log(path);//array
-
 
     if(path.length > 1){
         for (let i = 0; i < path.length-1; i++){
@@ -290,10 +339,7 @@ createRoute.addEventListener("click", function(e){
                             }
                         }
                     }
-                    
-
                 }  
-            
                 //NW corner
                 if (path[i].includes("nw")){
                     if (path[i+1].includes("ne")){
@@ -332,8 +378,17 @@ createRoute.addEventListener("click", function(e){
                         if(path[i].charAt(1) === path[i+1].charAt(1)){//if on the same floor
                             path[i] = "Turn Right";
                             path[i+1] = "Go Straight";
-                            if(path[i+2].includes("ne")){
-                                path[i+2] = "Turn Left";
+                            if (destination == "254" || destination == "256"){
+                                path[i+2] = "Go Straight";
+                                path[i+3] = "Go Upstairs";
+                            }
+                            if(path[i+2] != null && path[i+2].includes("ne")){
+                                if(destination == "354" || destination == "356"){
+                                    path[i+2] = "Go Straight"
+                                }
+                                else{
+                                    path[i+2] = "Turn Left";
+                                }
                             }
                             if(path[i+2] != null && path[i+2].includes("w",4)){
                                 path[i+2] = "Turn Left";
@@ -342,17 +397,55 @@ createRoute.addEventListener("click", function(e){
                                     path.length+=1;
                                     path[i+4] = "Turn Right";
                                 }
+                                if (destination == "217" || destination == "219"){
+                                    path.length+=1;
+                                    path[i+4] = "Go Upstairs";
+                                    path.length+=1;
+                                    path[i+5] = "Turn Right";
+                                }
+                                if (destination == "221" || destination == "223"){
+                                    path.length+=1;
+                                    path[i+4] = "Go Upstairs";
+                                    path.length+=1;
+                                    path[i+5] = "Turn Left";
+                                }
+                                if (destination == "319" || destination == "321"){
+                                    path.length+=1;
+                                    path[i+4] = "Go Upstairs";
+                                    path.length+=1;
+                                    path[i+5] = "Go Upstairs";
+                                    path.length+=1;
+                                    path[i+6] = "Turn Right";
+                                }
+                                if (destination == "323" || destination == "325"){
+                                    path.length+=1;
+                                    path[i+4] = "Go Upstairs";
+                                    path.length+=1;
+                                    path[i+5] = "Go Upstairs";
+                                    path.length+=1;
+                                    path[i+6] = "Turn Left";
+                                }
                                 else{
                                     path.length+=1;
                                     path[i+4] = "Turn Left";
                                 }
                             }
                         }
-                        if(path[i+2] != null && parseInt(path[i].charAt(1)) < parseInt(path[i+1].charAt(1)) && path[i+1].charAt(1) < parseInt(path[i+2].charAt(1))){
+                        if(path[i+2] != null && parseInt(path[i].charAt(1)) < parseInt(path[i+1].charAt(1)) && parseInt(path[i+1].charAt(1)) < parseInt(path[i+2].charAt(1))){
                             path[i] = "Go Upstairs";
                             path[i+1] = "Go Upstairs";
+                            if (destination == "301"){
+                                path[i+2] = "Arrived!";
+                            }
+                            if (destination == "307" || destination == "328" || destination == "326" || destination == "324" || destination == "322" || destination == "318" ||
+                            destination == "316"){
+                                path[i+2] = "Turn Right";
+                            }
+                            if (destination == "312" || destination == "310" || destination == "308"){
+                                path[i+2] = "Turn Left";
+                            }
                         }
-                        if(parseInt(path[i-1].charAt(1)) < parseInt(path[i].charAt(1))){
+                        if(path[i-1] != null && parseInt(path[i-1].charAt(1)) < parseInt(path[i].charAt(1))){
                             path[i] = "Go Upstairs";
                             
                         }
@@ -392,6 +485,10 @@ createRoute.addEventListener("click", function(e){
         if (path[i] != null && path[i+1] != null && path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
             if(parseInt(path[i].charAt(1)) < parseInt(path[i+1].charAt(1))) {
                 path[i] = "Go Upstairs";
+                if (destination == "205" || destination == "216" || destination == "218" || destination == "222" || destination == "224" || destination == "226" ||
+                destination == "228"){
+                    path[i+1] = "Turn Right";
+                }
                 if (destination == "254" || destination == "256"){
                     path[i+1] = "Arrived!";
                     if (path[i+2] != null){
@@ -412,14 +509,21 @@ createRoute.addEventListener("click", function(e){
                 }
                 if (destination == "232" || destination == "234" || destination == "236" || destination == "238" || 
                 destination == "213" || destination == "215" || destination == "242" || destination == "244"){
-                    path[i+1] = "Turn Left";
+                    if(path[i+1].includes("se")){
+                        path[i+1] = "Turn Right"
+                        if(path[i+2] != null && path[i+2].includes(" e")){
+                            path[i+2] = "Go Straight"
+                        }
+                    }
+                    else{
+                        path[i+1] = "Turn Left";
+                    }
                 }
-                if (destination == "323" || destination == "325"){
+                if (destination == "323" || destination == "325" ){
                     path[i+1] = "Go Upstairs"; 
                     path[i+2] = "Turn Right"; 
                 }
-                
-                //figure out 301
+              
 
 
             }
@@ -450,17 +554,13 @@ createRoute.addEventListener("click", function(e){
     if (path[0].includes("se") && path.length == 1){
         path[0] = "Turn Right";  
     }
- 
-    
+  
     //Click through directions-->
     directions = document.getElementById("currentInstruction");
     btn = document.getElementById("next");
 
-
     btn.addEventListener("onmousedown", stopEvent, false);
     btn.addEventListener("click", nextDirection);
-
-
 
     directions.innerHTML = path[0];
     index = 0;

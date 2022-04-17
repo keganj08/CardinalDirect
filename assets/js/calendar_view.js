@@ -174,9 +174,7 @@ function getEvents(formattedDate){
 			// Add event to "showEvents" table
 			addEventToTable(insertIdx, rec.title, rec.start, rec.end);
 		});
-		
-		events.print();
-		
+				
 		//If there are events to display, make the table visible. 
 		//Otherwise, show the "No Events" message
 		if(courseIds.length > 0 || meetingData.length > 0){

@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			// Create a row in the event table at the chronological index for this event
 			addEventTableRow(insertIdx, rec.mid, rec.title, rec.start, rec.end, rec.building, rec.roomNum, 'm');
 		});
-				
+						
 		// Handle assignment data
 		console.log(assignmentData);
 		assignmentData.forEach(rec => {

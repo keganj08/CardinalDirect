@@ -2,7 +2,11 @@
 
 // Event Handler for Assignment "Add" Button
 document.querySelector("#assignment-add-btn").addEventListener('click', e => {
+	// Show new assignment form div
 	document.getElementById("newassignment").style.display = "block";
+	// Hide add Button
+	e.target.style.display = "none";
+	// Set id of new assignment form
 	document.querySelector("#newassignment form").id = "new";
 });
 
@@ -40,8 +44,15 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				return response.json();
 			})
 			.then(data => {
-				formElem.style.display = "none";
-				document.getElementById("assignmentlist").style.display = "block";
+				// Hide new assignment form div
+				document.getElementById("newassignment").style.display = "none";
+				// Show the assignment table
+				document.querySelector("#assignmentlist table").style.display = "block";
+				// Make sure there is no message saying no assignments due
+				document.getElementById("assignment-messages").innerHTML = "";
+				// Show the assignment add button
+				document.querySelector("#assignment-add-btn").style.display = "block";
+				
 				let id = data.id.substring(0, data.id.length);
 				addAssignmentTableRow(id, requestObj.title, requestObj.dueTime, requestObj.cid);
 			})
@@ -78,7 +89,11 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 			})
 			.then(data => {
 				console.log(data);
-				formElem.style.display = "none";
+				// Hide new assignment form div
+				document.getElementById("newassignment").style.display = "none";
+				// Show the assignment add button
+				document.querySelector("#assignment-add-btn").style.display = "block";
+				// Update the row in the table with the new values
 				let dataRow = document.getElementById(requestObj.id);
 				dataRow.children[0].innerHTML = requestObj.title;
 				dataRow.children[1].innerHTML = requestObj.dueTime;
@@ -112,13 +127,16 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 	// Event listener when click update and autofill assignment form
 	updateTd.addEventListener('click', e => {
 		let dataRow = e.target.parentNode;
+		// Show the new assignment form div
 		document.getElementById("newassignment").style.display = "block";
+		// Hide the add assignment button 
+		document.getElementById("assignment-add-btn").style.display = "none";
 		let formElem = document.querySelector("#newassignment form");
 		formElem.id = dataRow.id;
 		
 		/* Fill in the form inputs with the current assignment data*/
 		// Fill in the title
-		formElem.querySelector("#title").innerHTML = dataRow.children[0].innerHTML;
+		formElem.querySelector("#title").value = dataRow.children[0].innerHTML;
 		
 		// Fill in the due time
 		let dueHrValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
@@ -162,14 +180,9 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 				assigTable.removeChild(dataRow);
 				if(assigTable.children.length === 1){ // only tbody is left as a table child
 					// Hide the assignment table
-					assigTable.parentNode.style.display = "none";
-					
-					/* May Need to Convert and Use
-					// Add a paragraph saying you have no classes to the DOM
-					let noClassP = document.createElement("p");
-					noClassP.innerHTML = "You have no current classes";
-					document.getElementById("classdiv").appendChild(noClassP);
-					*/
+					assigTable.style.display = "none";
+					// Show a message saying there are no assignments due
+					document.getElementById("assignment-messages").innerHTML = "No Assignments Due";
 				}
 			})
 			.catch(error => {

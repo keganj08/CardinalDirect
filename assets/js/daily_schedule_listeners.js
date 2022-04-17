@@ -94,12 +94,25 @@ document.addEventListener('DOMContentLoaded', e => {
 		const assignmentData = allResponses[2]; //Response from assignments fetch
 		const todoData = allResponses[3]; //Response from to do lists fetch
 		
-		//If there are event or assignment data to display, make the tables visible
-		if(classData.length > 0 || meetingData.length > 0){
-			document.getElementById("eventlist").style.display = "block";
+		// If there are event or assignment data to display, make the tables visible
+		// Display messages if there are no data
+		if(meetingData.length > 0){
+			document.querySelector("#eventlist table").style.display = "block";
+		}
+		else{
+			// Display message saying there are no events
+			document.getElementById("event-messages").innerHTML = "No Events";
 		}
 		if(assignmentData.length > 0){
-			document.getElementById("assignmentlist").style.display = "block";
+			document.querySelector("#assignmentlist table").style.display = "block";
+		}
+		else{
+			// Display message saying there are no assignments
+			document.getElementById("assignment-messages").innerHTML = "No Assignments Due";
+		}
+		if(todoData.length == 0){
+			// Display message saying there are no assignments
+			document.getElementById("todo-messages").innerHTML = "Nothing To Do";
 		}
 		
 		// Handle class data
@@ -114,23 +127,32 @@ document.addEventListener('DOMContentLoaded', e => {
 			let rec = classData[i];
 			console.log("Rec:" + rec.cid);
 			// Makes sure we are not double-including courses
-			if((rec.dow.indexOf(selectDayOfWeek) !== -1) && (courseIds.getCidIdx(rec.cid) === -1)){
+			if(courseIds.getCidIdx(rec.cid) === -1){
 				courseIds.addCourse(rec.cid); //add course id
 				// Get the simple, user-friendly course id (i.e., CSCE*494*1*SP22 => CSCE 494)
 				let simpleCid = courseIds.getSimpleFromCid(rec.cid);
-				
-				// Add the event's times to the events object in order to get back where the event
-				// falls in relation to other events chronologically
-				let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
-				
-				// Create a row in the event table at the chronological index for this event
-				addEventTableRow(insertIdx, "", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
 				
 				// Add each class id to the select options for "associated with" under assignment
 				let selectOption = document.createElement("option");
 				selectOption.value = rec.cid;
 				selectOption.innerHTML = simpleCid;
 				assigFormCidSelect.appendChild(selectOption);
+				
+				// Test if this course is being held on the given day
+				if(rec.dow.indexOf(selectDayOfWeek) !== -1){
+					// In case there are no other meetings, since we now have a record to put in the
+					// event table, make sure the table is visible and the message does not say "No Events"
+					document.querySelector("#eventlist table").style.display = "block";
+					document.getElementById("event-messages").innerHTML = "";
+					
+					// Add the event's times to the events object in order to get back where the event
+					// falls in relation to other events chronologically
+					let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
+					
+					// Create a row in the event table at the chronological index for this event
+					addEventTableRow(insertIdx, "", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
+				}
+				
 			}
 		}
 		
@@ -171,12 +193,16 @@ document.addEventListener('DOMContentLoaded', e => {
 	
 });
 
+
+// Click the left button to change the date of the daily schedule to the previous date
 document.getElementById("left_button").addEventListener('click', e => {
+	// Get the previous date as a well-formatted string
 	let yesterday = new Date(getCurrentDate() + "T12:00:00Z");
 	yesterday.setDate(yesterday.getDate()-1);
 	let month = ("0" + (yesterday.getMonth() + 1)).slice(-2);
 	let date = ("0" + yesterday.getDate()).slice(-2);
 	let datestring = yesterday.getFullYear() + '-' + month + '-' + date;
+	// Add the date string to the url and pull up the page
 	let url = window.location.href;
 	let idx = url.indexOf("&date=");
 	if(idx !== -1){
@@ -187,12 +213,15 @@ document.getElementById("left_button").addEventListener('click', e => {
 	}
 });
 
+// Click the left button to change the date of the daily schedule to the next date
 document.getElementById("right_button").addEventListener('click', e => {
+	// Get the next date as a well-formatted string
 	let tomorrow = new Date(getCurrentDate() + "T12:00:00Z");
 	tomorrow.setDate(tomorrow.getDate()+1);
 	let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
 	let date = ("0" + tomorrow.getDate()).slice(-2);
 	let datestring = tomorrow.getFullYear() + '-' + month + '-' + date;
+	// Add the date string to the url and pull up the page
 	let url = window.location.href;
 	let idx = url.indexOf("&date=");
 	if(idx !== -1){

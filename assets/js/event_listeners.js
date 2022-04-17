@@ -2,7 +2,11 @@
 
 // Event Handler for Event "Add" Button
 document.querySelector("#event-add-btn").addEventListener('click', e => {
+	// Show the new event form div
 	document.getElementById("newevent").style.display = "block";
+	// Hide the add button
+	e.target.style.display = "none";
+	// Set the new event form's id
 	document.querySelector("#newevent form").id = "new";
 });
 
@@ -27,6 +31,9 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 			"mode" : 'a'
 		};
 		
+		// Make sure that message area does not say No Events
+		document.getElementById("event-messages").innerHTML = "";
+		
 		console.log(requestObj);
 		
 		//Send request to server to add a new meeting to meeting database
@@ -42,8 +49,13 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 				return response.json();
 			})
 			.then(data => {
-				formElem.style.display = "none";
-				document.getElementById("eventlist").style.display = "block";
+				// Hide the new event form div
+				document.getElementById("newevent").style.display = "none";
+				// Show the event list
+				document.querySelector("#eventlist table").style.display = "block";
+				// Show the event add button
+				document.getElementById("event-add-btn").style.display = "block";
+				
 				let id = data.id.substring(0, data.id.length);
 				
 				// Add the event's times to the events object in order to get back where the event
@@ -58,7 +70,7 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 			});
 	}
 	else{
-		console.log("Assignment Form Submit - Update");
+		console.log("Event Form Submit - Update");
 		// update assignment in database
 		let formData = new FormData(formElem);
 		let formDataObj = Object.fromEntries(formData);
@@ -88,7 +100,10 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 			})
 			.then(data => {
 				console.log(data);
-				formElem.style.display = "none";
+				// Hide the new event form div
+				document.getElementById("newevent").style.display = "none";
+				// Show the event add button
+				document.getElementById("event-add-btn").style.display = "block";
 				
 				// Get new index of event's placement in chronological order of events
 				let newInsertIdx = events.updateEventTimes(requestObj.id, requestObj.start, requestObj.end);
@@ -142,18 +157,23 @@ function addEventTableRow(insertidx, mid, title, start, end, building, roomNum, 
 	// Allow for updating and deleting non-class events (classes cannot be updated here)
 	if(eventType === 'm'){
 		let updateTd = document.createElement("td");
+		// Add Edit icon to update table element
 		updateTd.classList.add('edit-icon');
+		// Hide the event add button
+		document.getElementById("event-add-btn").style.display = "block";
+		
 		// Event listener when click update and autofill assignment form
 		updateTd.addEventListener('click', e => {
 			console.log("Click Update Event");
 			let dataRow = e.target.parentNode;
+			// Show the new event form div
 			document.getElementById("newevent").style.display = "block";
 			let formElem = document.querySelector("#newevent form");
 			formElem.id = dataRow.id;
 			
 			/* Fill in the form inputs with the current assignment data*/
 			// Fill in the title
-			formElem.querySelector("#title").innerHTML = dataRow.children[0].innerHTML;
+			formElem.querySelector("#title").value = dataRow.children[0].innerHTML;
 			
 			// Fill in the start and end times
 			let hrValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
@@ -176,13 +196,14 @@ function addEventTableRow(insertidx, mid, title, start, end, building, roomNum, 
 			formElem.querySelector("#endampm").selectedIndex = AmPmValues.indexOf(time_ampm[1]);
 			
 			// Fill in the building
-			formElem.querySelector("#building").innerHTML = dataRow.children[2].innerHTML;
+			formElem.querySelector("#building").value = dataRow.children[2].innerHTML;
 			
 			// Fill in the roomNum
-			formElem.querySelector("#roomNum").innerHTML = dataRow.children[3].innerHTML;
+			formElem.querySelector("#roomNum").value = dataRow.children[3].innerHTML;
 		});
 	
 		let delTd = document.createElement("td");
+		// Add Trash icon to delete table element
 		delTd.classList.add('trash-icon');
 		// Event listener to delete assignment
 		delTd.addEventListener('click', e => {
@@ -215,12 +236,8 @@ function addEventTableRow(insertidx, mid, title, start, end, building, roomNum, 
 						// Hide the assignment table
 						eventTable.style.display = "none";
 						
-						/* May Need to Convert and Use
-						// Add a paragraph saying you have no classes to the DOM
-						let noClassP = document.createElement("p");
-						noClassP.innerHTML = "You have no current classes";
-						document.getElementById("classdiv").appendChild(noClassP);
-						*/
+						// Display message saying there are no events
+						document.getElementById("event-messages").innerHTML = "No Events";
 					}
 				})
 				.catch(error => {

@@ -20,8 +20,12 @@ function createToDoList(){
 			return response.json();
 		})
 		.then(data => {
+			// Set the todo list table id
 			let id = data.id.substring(0, data.id.length);
 			todoListTable.id=id;
+			
+			// Make sure the todo message div does not say Nothing To DO
+			document.getElementById("todo-messages").innerHTML = "";
 		})
 		.catch(error => {
 			console.log(error);
@@ -46,6 +50,9 @@ function deleteToDoList(){
 		})
 		.then(data => {
 			todoListTable.id = "";
+			
+			// Make sure the todo message div does not say Nothing To DO
+			document.getElementById("todo-messages").innerHTML = "Nothing To Do";
 		})
 		.catch(error => {
 			console.log(error);
@@ -206,14 +213,6 @@ function addToDoListItem(description, isComplete){
 					// Hide the to-do list table
 					//todoTable.parentNode.style.display = "none";
 					deleteToDoList();
-				
-					
-					/* May Need to Convert and Use
-					// Add a paragraph saying you have no classes to the DOM
-					let noClassP = document.createElement("p");
-					noClassP.innerHTML = "You have no current classes";
-					document.getElementById("classdiv").appendChild(noClassP);
-					*/
 				}
 			})
 			.catch(error => {

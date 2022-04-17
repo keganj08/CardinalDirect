@@ -29,8 +29,9 @@
 			<div id="bottom">
 				<h3>Events</h3>
 				<!--Events are listed here-->
-				<div id="eventlist" class="schedule-item-table">
-					<table>
+				<div id="event-messages"></div>
+				<div id="eventlist">
+					<table class="schedule-item-table">
 						<tr>
 							<th>Event</th>
 							<th>Time</th>
@@ -38,9 +39,9 @@
 							<th>Room</th>
 						</tr>
 					</table>
-				</div>
-				<div>
-					<button id="event-add-btn" class="add-icon" type="button"></button>
+					<div>
+						<button id="event-add-btn" class="add-icon" type="button"></button>
+					</div>
 				</div>
 				<div id="newevent" class="new-schedule-item-form">
 					<form>
@@ -125,21 +126,19 @@
 						<button type="submit">Done</button>
 					</form>
 				</div>
-				<!--<button type="button" onclick="window.open('events.html','popUpWindow','height=500,width=425,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">Add</button>-->
 			</div>
 			<div id="assignments">
 				<h3>Assignments Due Today</h3>
 				<!--Assignments are listed here-->
-				<div id="assignmentlist" class="schedule-item-table">
-					<table>
+				<div id="assignment-messages"></div>
+				<div id="assignmentlist">
+					<table class="schedule-item-table">
 						<tr>
 							<th> Assignment </th>
 							<th> Due </th>
 							<th> Course </th>
 						</tr>
 					</table>
-				</div>
-				<div>
 					<button id="assignment-add-btn" class="add-icon" type="button"></button>
 				</div>
 				<div id="newassignment" class="new-schedule-item-form">
@@ -194,11 +193,11 @@
 			</div>
 			<div id="tasks">
 				<h3>To-Do List</h3>
+				<div id="todo-messages"></div>
 				<div id="todolist">
 					<table></table>
 					<button type="button" class="add-icon"></button>
 				</div>
-				
 				<div id="newtodo">
 					<form  action="#">
 						<input type="text" name="description" id="description" placeholder="Add a new task..." />

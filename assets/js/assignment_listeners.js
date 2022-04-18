@@ -22,7 +22,7 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 		let formDataObj = Object.fromEntries(formData);
 		let requestObj = {
 			"title" : formDataObj.title,
-			"dueTime" : "" + formDataObj.duehr + ":" + formDataObj.duemin + " " + formDataObj.dueampm,
+			"dueTime" : ("0" + formDataObj.duehr).slice(-2) + ":" + formDataObj.duemin + " " + formDataObj.dueampm,
 			"email" : getUserEmail(),
 			"cid" : formDataObj.cid,
 			"dueDate" : getCurrentDate(),
@@ -54,7 +54,12 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				document.querySelector("#assignment-add-btn").style.display = "block";
 				
 				let id = data.id.substring(0, data.id.length);
-				addAssignmentTableRow(id, requestObj.title, requestObj.dueTime, requestObj.cid);
+				
+				// Get index within chronological order of this assignment
+				let insertIdx = assignments.addDueTime(id, requestObj.dueTime);
+				
+				// Add a row for this assignment in the assignment table
+				addAssignmentTableRow(insertIdx, id, requestObj.title, requestObj.dueTime, requestObj.cid);
 			})
 			.catch(error => {
 				console.log(error);
@@ -68,12 +73,14 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 		let requestObj = {
 			"id" : formElem.id,
 			"title" : formDataObj.title,
-			"dueTime" : "" + formDataObj.duehr + ":" + formDataObj.duemin + " " + formDataObj.dueampm,
+			"dueTime" : ("0" + formDataObj.duehr).slice(-2) + ":" + formDataObj.duemin + " " + formDataObj.dueampm,
 			"email" : getUserEmail(),
 			"cid" : formDataObj.cid,
 			"dueDate" : getCurrentDate(),
 			"mode" : 'u'
-		};		
+		};
+		
+		console.log(requestObj);
 		
 		//Send request to server to update an existing assignment in assignment database
 		fetch('http://127.0.0.1:3000/assignments', {
@@ -93,11 +100,24 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				document.getElementById("newassignment").style.display = "none";
 				// Show the assignment add button
 				document.querySelector("#assignment-add-btn").style.display = "block";
-				// Update the row in the table with the new values
+				
+				// Get the new index of the row for this assignment (this will only be different
+				// if the due time changed
+				let newInsertIdx = assignments.updateDueTime(requestObj.id, requestObj.dueTime);
+				
+				// Delete the row in the assignment table with the old values
 				let dataRow = document.getElementById(requestObj.id);
+				let assigTable = dataRow.parentNode;
+				assigTable.removeChild(dataRow);
+				
+				// Add a new row for this assignment in the assignment table
+				addAssignmentTableRow(newInsertIdx, requestObj.id, requestObj.title, requestObj.dueTime, requestObj.cid); 
+				
+				/*
 				dataRow.children[0].innerHTML = requestObj.title;
 				dataRow.children[1].innerHTML = requestObj.dueTime;
 				dataRow.children[2].innerHTML = courseIds.getSimpleFromCid(requestObj.cid);
+				*/
 			})
 			.catch(error => {
 				console.log(error);
@@ -106,7 +126,7 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 });
 
 // Add assignment to the assignment table
-function addAssignmentTableRow(aid, title, dueTime, cid){
+function addAssignmentTableRow(insertidx, aid, title, dueTime, cid){
 	// Retrieve the table from the DOM
 	let assigTable = document.querySelector("#assignmentlist table");
 	
@@ -144,7 +164,7 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 		let dueAmPmValues = ["AM", "PM"];
 		let time_ampm = dataRow.children[1].innerHTML.split(" "); // e.g., ["12:00", "AM"]
 		let hr_min = time_ampm[0].split(":"); //e.g., ["12", "00"]
-		formElem.querySelector("#duehr").selectedIndex = dueHrValues.indexOf(hr_min[0]);
+		formElem.querySelector("#duehr").selectedIndex = dueHrValues.indexOf("" + parseInt(hr_min[0]));
 		formElem.querySelector("#duemin").selectedIndex = dueMinValues.indexOf(hr_min[1]);
 		formElem.querySelector("#dueampm").selectedIndex = dueAmPmValues.indexOf(time_ampm[1]);
 		
@@ -175,6 +195,8 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 			})
 			.then(data => {
 				console.log(data.success);
+				// Remove the assignment from the assignment object
+				assignments.removeDueTime(dataRow.id);
 				// Remove the corresponding row from the assignment table
 				let assigTable = dataRow.parentNode;
 				assigTable.removeChild(dataRow);
@@ -200,4 +222,13 @@ function addAssignmentTableRow(aid, title, dueTime, cid){
 	
 	// Append table row to the table
 	assigTable.appendChild(dataRow);
+	
+	// Make the dataRow a child of the assignment table
+	// If there is no data in the table (only the header row), append assignment row to the table
+	if(assigTable.children.length <= 1){
+		assigTable.appendChild(dataRow);
+	}
+	else{ //Otherwise, add the assignment at the specified index given by insertidx 
+		assigTable.insertBefore(dataRow, assigTable.children[insertidx+1]); //(+1 to account for header row)
+	}
 };

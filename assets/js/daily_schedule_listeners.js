@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			
 			// Add the event's times to the events object in order to get back where the event
 			// falls in relation to other events chronologically
-			let insertIdx = events.addEventTimes(rec.mid, rec.start, rec.end);
+			let insertIdx = events.addEventTimes("" + rec.mid, rec.start, rec.end);
 			
 			// Create a row in the event table at the chronological index for this event
 			addEventTableRow(insertIdx, rec.mid, rec.title, rec.start, rec.end, rec.building, rec.roomNum, 'm');
@@ -173,7 +173,13 @@ document.addEventListener('DOMContentLoaded', e => {
 		console.log(assignmentData);
 		assignmentData.forEach(rec => {
 			console.log(rec);
-			addAssignmentTableRow(rec.aid, rec.title, rec.dueTime, rec.cid);
+			
+			// Add the assignment's due time to the assignments object in order to receive
+			// the chronological position of this assignment in relation to other assignments
+			let insertIdx = assignments.addDueTime("" + rec.aid, rec.dueTime);
+			
+			// Create a row in the assignment table at the chronological index for this assignment
+			addAssignmentTableRow(insertIdx, rec.aid, rec.title, rec.dueTime, rec.cid);
 		});
 			
 		// Handle to-do list data

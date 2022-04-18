@@ -40,10 +40,10 @@ var events = {
 	startTimes: [],
 	// Contains the end time of each event
 	endTimes: [],
-	// Adds the given event id, start time, and end time to the respective listStyleType
+	// Adds the given event id, start time, and end time to the respective list
 	// Returns the index at which the event belongs to maintain chronological order
 	addEventTimes: function(id, startStr, endStr){
-		// Convert the start and end times, currently in 12-hr AM/PM format into 24-hr format
+		// Convert the start and end times, currently in 12-hr AM/PM format, into 24-hr format
 		let start = this.getFormattedDateStringFromAmPM(startStr);
 		let end = this.getFormattedDateStringFromAmPM(endStr);
 		// Find the index at which the event belongs in chronological order
@@ -78,7 +78,7 @@ var events = {
 		this.startTimes.splice(delidx, 1);
 		this.endTimes.splice(delidx, 1);
 	},
-	// Convert the start and end times, currently in 12-hr AM/PM format into 24-hr format
+	// Convert the given time, currently in 12-hr AM/PM format, into 24-hr format
 	getFormattedDateStringFromAmPM: function(timeStr){
 		let time_ampm = timeStr.split(" "); // 12:00 AM => [12:00, AM]
 		let hr_min = time_ampm[0].split(":"); // 12:00 => [12, 00]

@@ -191,6 +191,8 @@ document.addEventListener('DOMContentLoaded', e => {
 			console.log(rec);
 			addToDoListItem(rec.description, rec.isComplete);
 		});
+		// Calculate the % completed for the progress bar
+		calculateProgress();
 		
 	})
 	.catch(error => {

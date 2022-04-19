@@ -30,7 +30,7 @@ function createToDoList(){
 		.catch(error => {
 			console.log(error);
 		});
-};
+}
 
 // Deletes a to-do list
 function deleteToDoList(){
@@ -57,7 +57,7 @@ function deleteToDoList(){
 		.catch(error => {
 			console.log(error);
 		});
-};
+}
 
 // Event Handler for To-do list "Add" Button
 document.querySelector("#todolist button").addEventListener('click', e => {
@@ -114,6 +114,7 @@ document.querySelector("#newtodo form").addEventListener('submit', e => {
 				formElem.parentNode.style.display = "none"; // Hide the new to-do item form
 				document.querySelector("#todolist button").style.display = "block"; //Show the add button
 				addToDoListItem(requestObj.description, requestObj.isComplete); // add item to to-do list table
+				calculateProgress(); // Update the progress bar
 			})
 			.catch(error => {
 				console.log(error);
@@ -170,6 +171,8 @@ function addToDoListItem(description, isComplete){
 				.then(data => {
 					e.target.classList.remove('circle-icon');
 					e.target.classList.add('check-mark-icon');
+					// Update the progress bar
+					calculateProgress();
 				})
 				.catch(error => {
 					console.log(error);
@@ -209,6 +212,9 @@ function addToDoListItem(description, isComplete){
 				let todoTable = dataRow.parentNode;
 				todoTable.removeChild(dataRow);
 				
+				// Update the progress bar
+				calculateProgress();
+				
 				if(todoTable.children.length === 0){ // table is empty
 					// Hide the to-do list table
 					//todoTable.parentNode.style.display = "none";
@@ -228,7 +234,27 @@ function addToDoListItem(description, isComplete){
 	
 	// Append table row to the table
 	todoListTable.appendChild(todo_item);
-};
+}
+
+// Calculates the percent of to-do list items completed and updates the progress bar
+function calculateProgress(){
+	let todoTable = document.querySelector("#todolist table");
+	let total = todoTable.children.length;
+	let completeNum = 0;
+	let i=0;
+	for(i=0; i<total; i++){
+		let todoRow = todoTable.children[i];
+		// If the first table data entry of the row has a check mark icon,
+		// add to the number of tasks that are complete.
+		if(todoRow.children[0].classList.contains("check-mark-icon")){
+			completeNum += 1;
+		}
+	}
+	let progressBar = document.querySelector(".progress-bar");
+	let percent = Math.floor(100 * completeNum / total);
+	progressBar.style.width = "" + percent + "%";
+	progressBar.innerHTML = "" + percent + "% Complete";
+}
 
 
 /*

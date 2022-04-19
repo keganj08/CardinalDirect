@@ -248,6 +248,10 @@ li:last-child {
 	display: inline-block;
 }
 
+.progress-bar {
+	width: 0%;
+}
+
 /* Icons */
 .add-icon {
 	background-image: url('../images/icons/add.jpg');

@@ -3,19 +3,42 @@
 //TODO add user to url
 
 document.getElementById("ne").onclick = function(){
-    window.location.href = "Interior.html?entrance=ne";
+	let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+    window.location.href = "Interior.html?"+user+"&entrance=ne";
 }
 
-document.getElementById("nw").onclick = function(){
-    window.location.href = "Interior.html?entrance=nw";
+document.getElementById("nw").onclick = function(){let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+    window.location.href = "Interior.html?"+user+"&entrance=nw";
 }
 
 document.getElementById("se").onclick = function(){
-    window.location.href = "Interior.html?entrance=se";
+    let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+    window.location.href = "Interior.html?"+user+"&entrance=se";
 }
 
 document.getElementById("sw").onclick = function(){
-    window.location.href = "Interior.html?entrance=sw";
+    let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+    window.location.href = "Interior.html?"+user+"&entrance=sw";
 }
 
 
@@ -57,6 +80,17 @@ document.addEventListener('DOMContentLoaded', e => {
 		});		
 	}
 });
+
+document.getElementById("back-button").addEventListener('click', e => {
+	let url = window.location.href;
+	let idx = url.indexOf("?user=");
+	let user = "";
+	if(idx !== -1){
+		user = url.substr(idx);
+	}
+	window.location.href = 'main_landing.html' + user;
+});
+
 //"Logout" button
 document.getElementById("logout").addEventListener('click', e => {
 	let url = window.location.href;

@@ -36,16 +36,23 @@ document.addEventListener('DOMContentLoaded', e => {
 		});		
 	}
 });
-//"Logout" button
-document.getElementById("logout").addEventListener('click', e => {
+document.getElementById("backButton").addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
+	let endidx = url.indexOf("&entrance=");
 	let user = "";
-	if(idx !== -1){
+	if(idx !== -1 && endidx === -1){ // There is no date in the url
 		user = url.substr(idx);
 	}
-	window.location.href = 'login.html';
+	else if(idx !== -1 && endidx !== -1){ // There is a date in the url
+		user = url.substring(idx, endidx);
+	}
+	window.location.href = 'choose_entrance.html' + user;
 });
+
+//"Logout" button
+document.getElementById("logout").addEventListener('click', e => {window.location.href = 'login.html';});
+
 
 
 var curr;

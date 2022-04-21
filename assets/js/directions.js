@@ -482,12 +482,13 @@ createRoute.addEventListener("click", function(e){
                                     path[i+3] = "Go Downstairs"
                                     
                                 }
+                               
+                                if(destination == "354" || destination == "356"){
+                                    path[i+2] = "Go Straight"
+                                }
                                 if (destination == "154" || destination == "156"){
                                     path[i+2] = "Go Straight";
                                     path[i+3] = "Turn Left";
-                                }
-                                if(destination == "354" || destination == "356"){
-                                    path[i+2] = "Go Straight"
                                 }
 
                                 else{

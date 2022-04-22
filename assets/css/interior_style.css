@@ -89,7 +89,7 @@ p{
 .interior{
 	
 	display: grid; 
-	grid-template-rows: 0.15fr 0.65fr;
+	grid-template-rows: 0.15fr 1fr;
 	grid-template-columns: 0.15fr 1fr 0.15fr;
 	gap: 0px;
 	height: 100%;

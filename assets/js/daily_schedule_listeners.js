@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			document.getElementById("event-messages").innerHTML = "No Events";
 		}
 		if(assignmentData.length > 0){
-			document.querySelector("#assignmentlist table").style.display = "block";
+			document.querySelector("#assignmentlist").style.display = "block";
 		}
 		else{
 			// Display message saying there are no assignments
@@ -176,10 +176,10 @@ document.addEventListener('DOMContentLoaded', e => {
 			
 			// Add the assignment's due time to the assignments object in order to receive
 			// the chronological position of this assignment in relation to other assignments
-			let insertIdx = assignments.addDueTime("" + rec.aid, rec.dueTime);
+			let insertIdx = assignments.addDueTime("aid" + rec.aid, rec.dueTime);
 			
 			// Create a row in the assignment table at the chronological index for this assignment
-			addAssignmentTableRow(insertIdx, rec.aid, rec.title, rec.dueTime, rec.cid);
+			addAssignmentCard(insertIdx, "aid" + rec.aid, rec.title, rec.dueTime, rec.cid);
 		});
 			
 		// Handle to-do list data

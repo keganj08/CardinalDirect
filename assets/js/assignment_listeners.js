@@ -46,20 +46,20 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 			.then(data => {
 				// Hide new assignment form div
 				document.getElementById("newassignment").style.display = "none";
-				// Show the assignment table
-				document.querySelector("#assignmentlist table").style.display = "block";
+				// Show the assignment card container
+				document.querySelector("#assignmentlist").style.display = "block";
 				// Make sure there is no message saying no assignments due
 				document.getElementById("assignment-messages").innerHTML = "";
 				// Show the assignment add button
 				document.querySelector("#assignment-add-btn").style.display = "block";
 				
-				let id = data.id.substring(0, data.id.length);
+				let id = "aid" + data.id.substring(0, data.id.length);
 				
 				// Get index within chronological order of this assignment
 				let insertIdx = assignments.addDueTime(id, requestObj.dueTime);
 				
 				// Add a row for this assignment in the assignment table
-				addAssignmentTableRow(insertIdx, id, requestObj.title, requestObj.dueTime, requestObj.cid);
+				addAssignmentCard(insertIdx, id, requestObj.title, requestObj.dueTime, requestObj.cid);
 			})
 			.catch(error => {
 				console.log(error);
@@ -71,7 +71,7 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 		let formData = new FormData(formElem);
 		let formDataObj = Object.fromEntries(formData);
 		let requestObj = {
-			"id" : formElem.id,
+			"id" : formElem.id.substring(3),
 			"title" : formDataObj.title,
 			"dueTime" : ("0" + formDataObj.duehr).slice(-2) + ":" + formDataObj.duemin + " " + formDataObj.dueampm,
 			"email" : getUserEmail(),
@@ -101,23 +101,17 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				// Show the assignment add button
 				document.querySelector("#assignment-add-btn").style.display = "block";
 				
-				// Get the new index of the row for this assignment (this will only be different
+				// Get the new index of the card for this assignment (this will only be different
 				// if the due time changed
-				let newInsertIdx = assignments.updateDueTime(requestObj.id, requestObj.dueTime);
+				let newInsertIdx = assignments.updateDueTime("aid" + requestObj.id, requestObj.dueTime);
 				
-				// Delete the row in the assignment table with the old values
-				let dataRow = document.getElementById(requestObj.id);
-				let assigTable = dataRow.parentNode;
-				assigTable.removeChild(dataRow);
+				// Delete the card in the assignment card container with the old values
+				let assigCard = document.getElementById("aid" + requestObj.id);
+				let assigContainer = assigCard.parentNode;
+				assigContainer.removeChild(assigCard);
 				
-				// Add a new row for this assignment in the assignment table
-				addAssignmentTableRow(newInsertIdx, requestObj.id, requestObj.title, requestObj.dueTime, requestObj.cid); 
-				
-				/*
-				dataRow.children[0].innerHTML = requestObj.title;
-				dataRow.children[1].innerHTML = requestObj.dueTime;
-				dataRow.children[2].innerHTML = courseIds.getSimpleFromCid(requestObj.cid);
-				*/
+				// Add a new card for this assignment in the assignment card container
+				addAssignmentCard(newInsertIdx, "aid" + requestObj.id, requestObj.title, requestObj.dueTime, requestObj.cid); 
 			})
 			.catch(error => {
 				console.log(error);
@@ -125,67 +119,79 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 	}
 });
 
-// Add assignment to the assignment table
-function addAssignmentTableRow(insertidx, aid, title, dueTime, cid){
+
+// Add assignment to the assignment container
+function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 	// Retrieve the table from the DOM
-	let assigTable = document.querySelector("#assignmentlist table");
+	let assigContainer = document.querySelector("#assignmentlist");
 	
-	// Create the table row
-	let dataRow = document.createElement("tr");
-	dataRow.id = aid;
+	// Create the assignment card
+	let assigCard = document.createElement("div");
+	assigCard.id = aid;
+	assigCard.classList.add("card");
+	assigCard.classList.add("card-width");
 	
-	// Create the table data for the given information
-	let dataTitle = document.createElement("td");
-	dataTitle.innerHTML = title;
-	let dataDue = document.createElement("td");
-	dataDue.innerHTML = dueTime;
-	let dataCid = document.createElement("td");
-	dataCid.innerHTML = courseIds.getSimpleFromCid(cid);
+	// Create the assignment card head using the given title
+	let assigTitle = document.createElement("div");
+	assigTitle.innerHTML = courseIds.getSimpleFromCid(cid) + ": " + title;
+	assigTitle.classList.add("card-header");
+	// Create the assignment card body using the given information
+	let assigBody = document.createElement("div");
+	assigBody.classList.add("card-body");
+	let assigDue = document.createElement("p");
+	assigDue.innerHTML = "Due: " + dueTime;
+	assigDue.classList.add("card-text");
 	
-	let updateTd = document.createElement("td");
-	updateTd.classList.add('edit-icon');
+	let updateBtn = document.createElement("button");
+	updateBtn.classList.add('edit-icon');
 	// Event listener when click update and autofill assignment form
-	updateTd.addEventListener('click', e => {
-		let dataRow = e.target.parentNode;
+	updateBtn.addEventListener('click', e => {
+		let thisAssigBody = e.target.parentNode;
+		console.log(thisAssigBody.children);
+		let thisAssigCard = thisAssigBody.parentNode;
 		// Show the new assignment form div
 		document.getElementById("newassignment").style.display = "block";
 		// Hide the add assignment button 
 		document.getElementById("assignment-add-btn").style.display = "none";
 		let formElem = document.querySelector("#newassignment form");
-		formElem.id = dataRow.id;
+		formElem.id = thisAssigCard.id;
 		
-		/* Fill in the form inputs with the current assignment data*/
+		// Fill in the form inputs with the current assignment data
+		let cid_title = thisAssigCard.children[0].innerHTML.split(": ");
+		
 		// Fill in the title
-		formElem.querySelector("#title").value = dataRow.children[0].innerHTML;
+		formElem.querySelector("#title").value = cid_title[1];
 		
 		// Fill in the due time
 		let dueHrValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
 		let dueMinValues = ["00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"];
 		let dueAmPmValues = ["AM", "PM"];
-		let time_ampm = dataRow.children[1].innerHTML.split(" "); // e.g., ["12:00", "AM"]
+		// Get the time from the assignment card. Account for "Due: " in the string
+		let time_ampm = thisAssigBody.children[0].innerHTML.substring(5).split(" "); // e.g., ["12:00", "AM"]
 		let hr_min = time_ampm[0].split(":"); //e.g., ["12", "00"]
 		formElem.querySelector("#duehr").selectedIndex = dueHrValues.indexOf("" + parseInt(hr_min[0]));
 		formElem.querySelector("#duemin").selectedIndex = dueMinValues.indexOf(hr_min[1]);
 		formElem.querySelector("#dueampm").selectedIndex = dueAmPmValues.indexOf(time_ampm[1]);
 		
 		// Fill in the associated class
-		let courseIdx = courseIds.getSimpleIdx(dataRow.children[2].innerHTML);
+		let courseIdx = courseIds.getSimpleIdx(cid_title[0]);
 		formElem.querySelector("#cid").selectedIndex = courseIdx;
 	});
 	
-	let delTd = document.createElement("td");
-	delTd.classList.add('trash-icon');
+	let delBtn = document.createElement("button");
+	delBtn.classList.add('trash-icon');
 	// Event listener to delete assignment
-	delTd.addEventListener('click', e => {
+	delBtn.addEventListener('click', e => {
 		console.log("Delete Event - Click");
-		let dataRow = e.target.parentNode;
+		let thisAssigBody = e.target.parentNode;
+		let thisAssigCard = thisAssigBody.parentNode;
 		
 		//Send request to server to delete an existing assignment from assignment database
 		
 		fetch('http://127.0.0.1:3000/assignments', {
 			method : 'POST',
 			headers: {'Content-Type': 'application/json'},
-			body : JSON.stringify({"id" : dataRow.id, "mode" : 'd'})
+			body : JSON.stringify({"id" : thisAssigCard.id.substring(3), "mode" : 'd'})
 			})
 			.then(response => {
 				if (!response.ok){
@@ -196,13 +202,13 @@ function addAssignmentTableRow(insertidx, aid, title, dueTime, cid){
 			.then(data => {
 				console.log(data.success);
 				// Remove the assignment from the assignment object
-				assignments.removeDueTime(dataRow.id);
-				// Remove the corresponding row from the assignment table
-				let assigTable = dataRow.parentNode;
-				assigTable.removeChild(dataRow);
-				if(assigTable.children.length === 1){ // only tbody is left as a table child
+				assignments.removeDueTime(thisAssigCard.id);
+				// Remove the corresponding card from the assignment card container
+				let assigContainer = document.getElementById("assignmentlist");
+				assigContainer.removeChild(thisAssigCard);
+				if(assigContainer.children.length === 0){ // the assignment card container is empty
 					// Hide the assignment table
-					assigTable.style.display = "none";
+					assigContainer.style.display = "none";
 					// Show a message saying there are no assignments due
 					document.getElementById("assignment-messages").innerHTML = "No Assignments Due";
 				}
@@ -212,23 +218,19 @@ function addAssignmentTableRow(insertidx, aid, title, dueTime, cid){
 			});
 	});
 	
-	// Append table data elements to the table row
-	dataRow.appendChild(dataTitle);
-	dataRow.appendChild(dataDue);
-	dataRow.appendChild(dataCid);
-	dataRow.appendChild(updateTd);
-	dataRow.appendChild(delTd);
-
+	// Append card elements to the assignment card
+	assigBody.appendChild(assigDue);
+	assigBody.appendChild(updateBtn);
+	assigBody.appendChild(delBtn);
+	assigCard.appendChild(assigTitle);
+	assigCard.appendChild(assigBody);
 	
-	// Append table row to the table
-	assigTable.appendChild(dataRow);
-	
-	// Make the dataRow a child of the assignment table
-	// If there is no data in the table (only the header row), append assignment row to the table
-	if(assigTable.children.length <= 1){
-		assigTable.appendChild(dataRow);
+	// Make the assignment card a child of the assignment card container
+	// If there assignment cards in the assignment card container, append assignment row to the table
+	if(assigContainer.children.length === 0){
+		assigContainer.appendChild(assigCard);
 	}
-	else{ //Otherwise, add the assignment at the specified index given by insertidx 
-		assigTable.insertBefore(dataRow, assigTable.children[insertidx+1]); //(+1 to account for header row)
+	else{ //Otherwise, add the assignment card at the specified index given by insertidx 
+		assigContainer.insertBefore(assigCard, assigContainer.children[insertidx]);
 	}
 };

@@ -124,16 +124,11 @@
 				<h3>Assignments Due Today</h3>
 				<!--Assignments are listed here-->
 				<div id="assignment-messages"></div>
-				<div id="assignmentlist">
-					<table class="schedule-item-table">
-						<tr>
-							<th> Assignment </th>
-							<th> Due </th>
-							<th> Course </th>
-						</tr>
-					</table>
+				<div id="assignmentlist"></div>
+				<div>
 					<button id="assignment-add-btn" class="add-icon" type="button"></button>
 				</div>
+				
 				<div id="newassignment" class="new-schedule-item-form">
 					<form>
 						<label for="title">Assignment</label>
@@ -180,9 +175,6 @@
 						<button type="submit">Done</button>
 					</form>
 				</div>
-				
-				<!--<button type="button" onclick = "window.location.href = 'assignments.html';">Add</button>-->
-				<!--<button type="button" onclick="window.open('assignments.html','popUpWindow','height=500,width=425,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">Add</button>-->
 			</div>
 			<div id="tasks">
 				<h3>To-Do List</h3>
@@ -197,7 +189,6 @@
 				<div id="newtodo">
 					<form  action="#">
 						<input type="text" name="description" id="description" placeholder="Add a new task..." />
-							<!--<button id="push"> Add </button>-->
 						<button type="submit">Add</button>
 					</form> 
 				</div>

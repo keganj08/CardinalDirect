@@ -159,24 +159,15 @@ function addEventCard(insertidx, mid, title, start, end, building, roomNum, even
 	// Allow for updating and deleting non-class events (classes cannot be updated here)
 	if(eventType === 'm'){
 		let updateBtn = document.createElement("button");
-		let updateIcon = document.createElement("i");
-		// Add Edit image to icon
-		updateIcon.classList.add('bi', 'bi-pencil-square');
-		// Append Edit icon to update button
-		updateBtn.appendChild(updateIcon);
+		// Add Edit icon to update button
+		updateBtn.classList.add("edit-icon");
 		// Hide the event add button
 		document.getElementById("event-add-btn").style.display = "block";
 		
 		// Event listener when click update and autofill event form
 		updateBtn.addEventListener('click', e => {
 			console.log("Click Update Event");
-			let thisEventBody;
-			if(e.target.nodeName === "I"){ // It is the icon
-				thisEventBody = e.target.parentNode.parentNode;
-			}
-			else{ // It is the button element
-				thisEventBody = e.target.parentNode;
-			}
+			let thisEventBody = e.target.parentNode;
 			let thisEventCard = thisEventBody.parentNode;
 			
 			// Show the new event form div
@@ -218,21 +209,12 @@ function addEventCard(insertidx, mid, title, start, end, building, roomNum, even
 		});
 	
 		let delBtn = document.createElement("button");
-		let delIcon = document.createElement("i");
-		// Add Trash image to icon
-		delIcon.classList.add('bi', 'bi-trash3-fill');
 		// Add Trash icon to delete button
-		delBtn.appendChild(delIcon);
+		delBtn.classList.add("trash-icon");
 		// Event listener to delete event
 		delBtn.addEventListener('click', e => {
 			console.log("Delete Event - Click");
-			let thisEventBody;
-			if(e.target.nodeName === "I"){ // It is the icon
-				thisEventBody = e.target.parentNode.parentNode;
-			}
-			else{ // It is the button element
-				thisEventBody = e.target.parentNode;
-			}
+			let thisEventBody = e.target.parentNode;
 			let thisEventCard = thisEventBody.parentNode;
 			
 			//Send request to server to delete an existing event from event database
@@ -286,136 +268,3 @@ function addEventCard(insertidx, mid, title, start, end, building, roomNum, even
 		eventContainer.insertBefore(eventCard, eventContainer.children[insertidx]);
 	}
 };
-
-
-/*
-// Add event to the event table
-function addEventTableRow(insertidx, mid, title, start, end, building, roomNum, eventType){
-	// Retrieve the table from the DOM
-	let eventTable = document.querySelector("#eventlist table");
-	
-	// Create the table row
-	let dataRow = document.createElement("tr");
-	dataRow.id = mid;
-	
-	// Create the table data for the given information
-	let dataTitle = document.createElement("td");
-	dataTitle.innerHTML = title;
-	let dataTime = document.createElement("td");
-	dataTime.innerHTML = start + "-" + end;
-	let dataBuilding = document.createElement("td");
-	dataBuilding.innerHTML = building;
-	let dataRoom = document.createElement("td");
-	dataRoom.innerHTML = roomNum;
-	
-	// Append table data elements to the table row
-	dataRow.appendChild(dataTitle);
-	dataRow.appendChild(dataTime);
-	dataRow.appendChild(dataBuilding);
-	dataRow.appendChild(dataRoom);
-	
-	// Allow for updating and deleting non-class events (classes cannot be updated here)
-	if(eventType === 'm'){
-		let updateTd = document.createElement("td");
-		// Add Edit icon to update table element
-		updateTd.classList.add('edit-icon');
-		// Hide the event add button
-		document.getElementById("event-add-btn").style.display = "block";
-		
-		// Event listener when click update and autofill assignment form
-		updateTd.addEventListener('click', e => {
-			console.log("Click Update Event");
-			let dataRow = e.target.parentNode;
-			// Show the new event form div
-			document.getElementById("newevent").style.display = "block";
-			let formElem = document.querySelector("#newevent form");
-			formElem.id = dataRow.id;
-/*			
-			/* Fill in the form inputs with the current event data*/
-			// Fill in the title
-/*			formElem.querySelector("#title").value = dataRow.children[0].innerHTML;
-			
-			// Fill in the start and end times
-			let hrValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
-			let minValues = ["00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"];
-			let AmPmValues = ["AM", "PM"];
-			let start_end = dataRow.children[1].innerHTML.split("-"); // e.g., ["12:00 AM", "1:00 AM"] 
-			
-			// To fill in the start time
-			let time_ampm = start_end[0].split(" "); // e.g., ["12:00", "AM"]
-			let hr_min = time_ampm[0].split(":"); //e.g., ["12", "00"]
-			formElem.querySelector("#starthr").selectedIndex = hrValues.indexOf("" + parseInt(hr_min[0]));
-			formElem.querySelector("#startmin").selectedIndex = minValues.indexOf(hr_min[1]);
-			formElem.querySelector("#startampm").selectedIndex = AmPmValues.indexOf(time_ampm[1]);
-			
-			// To fill in the end time
-			time_ampm = start_end[1].split(" "); // e.g., ["1:00", "AM"]
-			hr_min = time_ampm[0].split(":"); //e.g., ["1", "00"]
-			formElem.querySelector("#endhr").selectedIndex = hrValues.indexOf("" + parseInt(hr_min[0]));
-			formElem.querySelector("#endmin").selectedIndex = minValues.indexOf(hr_min[1]);
-			formElem.querySelector("#endampm").selectedIndex = AmPmValues.indexOf(time_ampm[1]);
-			
-			// Fill in the building
-			formElem.querySelector("#building").value = dataRow.children[2].innerHTML;
-			
-			// Fill in the roomNum
-			formElem.querySelector("#roomNum").value = dataRow.children[3].innerHTML;
-		});
-	
-		let delTd = document.createElement("td");
-		// Add Trash icon to delete table element
-		delTd.classList.add('trash-icon');
-		// Event listener to delete assignment
-		delTd.addEventListener('click', e => {
-			console.log("Delete Event - Click");
-			let dataRow = e.target.parentNode;
-			
-			//Send request to server to delete an existing assignment from assignment database
-			
-			fetch('http://127.0.0.1:3000/meetings', {
-				method : 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body : JSON.stringify({"id" : dataRow.id, "mode" : 'd'})
-				})
-				.then(response => {
-					if (!response.ok){
-						throw new Error('HTTP error: ${response.status}');
-					}
-					return response.json();
-				})
-				.then(data => {
-					console.log(data.success);
-					
-					// Remove this event's times from the events object
-					events.removeEventTimes(dataRow.id);
-					
-					// Remove the corresponding row from the assignment table
-					let eventTable = dataRow.parentNode;
-					eventTable.removeChild(dataRow);
-					if(eventTable.children.length === 1){ // only tbody is left as a table child
-						// Hide the assignment table
-						eventTable.style.display = "none";
-						
-						// Display message saying there are no events
-						document.getElementById("event-messages").innerHTML = "No Events";
-					}
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		});
-		
-		dataRow.appendChild(updateTd);
-		dataRow.appendChild(delTd);
-	}
-	
-	// Make the dataRow a child of the event table
-	// If there is no data in the table (only the header row), append event row to the table
-	if(eventTable.children.length <= 1){
-		eventTable.appendChild(dataRow);
-	}
-	else{ //Otherwise, add the event at the specified index given by insertidx 
-		eventTable.insertBefore(dataRow, eventTable.children[insertidx+1]); //(+1 to account for header row)
-	}
-};
-*/

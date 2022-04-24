@@ -25,9 +25,6 @@ document.querySelector("#left_cal_button").addEventListener('click', e => {
 document.addEventListener('DOMContentLoaded', e => {
 	// Populate the calendar with the current month
 	calendar.initialize();
-	
-	// Update the "showEvents" div with the selected day's events
-	getEvents(getCurrentDate());
 });
 
 // Click on a day of the calendar
@@ -74,7 +71,7 @@ document.getElementById("back-button").addEventListener('click', e => {
 	let idx = url.indexOf("?user=");
 	let user = "";
 	if(idx !== -1){
-		user = url.substr(idx);
+		user = url.substring(idx);
 	}
 	window.location.href = 'scheduler_landing.html' + user;
 });

@@ -5,7 +5,7 @@ function getUserEmail(){
 	let idx = url.indexOf("?user=");
 	let email = "";
 	if(idx !== -1){
-		email = url.substr(idx + 6) + "@noctrl.edu";
+		email = url.substring(idx + 6) + "@noctrl.edu";
 	}
 	return email;
 }
@@ -60,37 +60,45 @@ function populateCalendar(month_txt, month, year){
 		tableVals[firstDayOfMonth].classList.add("selected");
 		document.getElementById('eventDate').innerHTML = 1 + " " + month_txt + " " + year;
 	}
+	
+	// Update the "showEvents" div with the selected day's events
+	getEvents(getSelectedDate());
 }
 
-function addEventToTable(insertidx, eventTitle, startTime, endTime){
-	// Retrieve the table from the DOM
-	const eventTable = document.querySelector("#showEvents table");
+function addEventCard(insertidx, title, startTime, endTime){
+	// Retrieve the event card container from the DOM
+	const eventContainer = document.querySelector("#eventlist");
 	
-	// Create the table row
-	let dataRow = document.createElement("tr");
+	// Create the event card
+	let eventCard = document.createElement("div");
+	eventCard.classList.add("card", "card-width");
 	
-	// Create the table data for the given information
-	let dataTitle = document.createElement("td");
-	dataTitle.innerHTML = eventTitle;
-	let dataTime = document.createElement("td");
-	dataTime.innerHTML = startTime + "-" + endTime;
+	// Create the event card title and body for the given information
+	let eventTitle = document.createElement("div");
+	eventTitle.innerHTML = title;
+	eventTitle.classList.add("card-header");
+	let eventBody = document.createElement("div");
+	eventBody.classList.add("card-body");
+	let eventTime = document.createElement("p");
+	eventTime.innerHTML = startTime + "-" + endTime;
+	eventTime.classList.add("card-text");
 	
-	// Append table data elements to the table row
-	dataRow.appendChild(dataTitle);
-	dataRow.appendChild(dataTime);
+	// Append card title and body elements to the event card
+	eventBody.appendChild(eventTime);
+	eventCard.appendChild(eventTitle);
+	eventCard.appendChild(eventBody);
 	
-	// Make the dataRow a child of the event table
-	// If there is no data in the table, append event row to the table
-	if(eventTable.children.length == 0){
-		eventTable.appendChild(dataRow);
+	// Make the event card a child of the event card container
+	// If there are no cards in the container, append event card to the container
+	if(eventContainer.children.length == 0){
+		eventContainer.appendChild(eventCard);
 	}
 	else{ //Otherwise, add the event at the specified index given by insertidx 
-		eventTable.insertBefore(dataRow, eventTable.children[insertidx]);
+		eventContainer.insertBefore(eventCard, eventContainer.children[insertidx]);
 	}
 }
 
 function getCurrentDate(){
-	//Will need to handle when get to this page from calendar
 	let today = new Date();
 	let month = ("0" + (today.getMonth() + 1)).slice(-2);
     let date = ("0" + today.getDate()).slice(-2);
@@ -98,7 +106,6 @@ function getCurrentDate(){
 }
 
 function getSelectedDate(){
-	//Will need to handle when get to this page from calendar
 	let month = ("0" + (calendar.getMonth() + 1)).slice(-2);
 	let eventDateSplit = document.getElementById("eventDate").innerHTML.split(" ");
     let date = ("0" + eventDateSplit[0]).slice(-2);
@@ -108,9 +115,9 @@ function getSelectedDate(){
 
 function getEvents(formattedDate){
 	// Empty the "showEvents" table contents
-	let eventTable = document.querySelector("#showEvents table");
-	while (eventTable.firstChild) {
-	  eventTable.removeChild(eventTable.firstChild);
+	let eventContainer = document.querySelector("#eventlist");
+	while (eventContainer.firstChild) {
+	  eventContainer.removeChild(eventContainer.firstChild);
 	}
 	
 	Promise.all([
@@ -162,7 +169,7 @@ function getEvents(formattedDate){
 				// Find position to insert this event to maintain chronological order
 				let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
 				// Add event to "showEvents" table
-				addEventToTable(insertIdx, simpleCid + " " + rec.name, rec.startTime, rec.endTime);
+				addEventCard(insertIdx, simpleCid + " " + rec.name, rec.startTime, rec.endTime);
 			}
 		}
 		
@@ -172,18 +179,18 @@ function getEvents(formattedDate){
 			// Find position to insert this event to maintain chronological order
 			let insertIdx = events.addEventTimes(rec.mid, rec.start, rec.end);
 			// Add event to "showEvents" table
-			addEventToTable(insertIdx, rec.title, rec.start, rec.end);
+			addEventCard(insertIdx, rec.title, rec.start, rec.end);
 		});
 				
 		//If there are events to display, make the table visible. 
 		//Otherwise, show the "No Events" message
 		if(courseIds.length > 0 || meetingData.length > 0){
 			document.getElementById("messageDiv").style.display = "none";
-			document.querySelector("#showEvents table").style.display = "block";
+			document.querySelector("#eventlist").style.display = "block";
 		}
 		else{
 			document.getElementById("messageDiv").style.display = "block";
-			document.querySelector("#showEvents table").style.display = "none";
+			document.querySelector("#eventlist").style.display = "none";
 		}
 	})
 	.catch(error => {

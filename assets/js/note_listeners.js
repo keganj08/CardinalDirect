@@ -6,7 +6,7 @@ function getUserEmail(){
 	let idx = url.indexOf("?user=");
 	let email = "";
 	if(idx !== -1){
-		email = url.substr(idx + 6) + "@noctrl.edu";
+		email = url.substring(idx + 6) + "@noctrl.edu";
 	}
 	return email;
 }
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		.then(data => {
 			let i=0;
 			for(i=0; i<data.length; i++){
-				createNoteElement(data[i].nid, data[i].title, data[i].text);
+				createNoteElement("nid" + data[i].nid, data[i].title, data[i].text);
 			}
 		})
 		.catch(error => {
@@ -50,23 +50,23 @@ function createNoteElement(id, title, content){
 	notediv.classList.add("note");
 	
 	let noteform = document.createElement("form");
-	notediv.appendChild(noteform);
+	
 	
 	let notetitle = document.createElement("input");
 	notetitle.name = "title";
 	notetitle.type = "text";
 	notetitle.value = title;
-	noteform.appendChild(notetitle);
+	
 	
 	let notetext = document.createElement("textarea");
 	notetext.name = "text";
 	notetext.value = content;
-	noteform.appendChild(notetext);
+	
 	
 	let savebtn = document.createElement("button");
 	savebtn.innerHTML = "Save";
 	savebtn.type = "submit";
-	noteform.appendChild(savebtn);
+	
 	noteform.addEventListener('submit', e => {
 		//console.log("Save Button - Submit");
 		e.preventDefault();
@@ -96,7 +96,7 @@ function createNoteElement(id, title, content){
 					return response.json();
 				})
 				.then(data => {
-					let id = data.id.substring(0, data.id.length);
+					let id = "nid" + data.id.substring(0, data.id.length);
 					noteDivElem = document.getElementById("new");
 					noteDivElem.id = id;
 				})
@@ -111,7 +111,7 @@ function createNoteElement(id, title, content){
 			let formData = new FormData(formElem);
 			let requestObj = Object.fromEntries(formData);
 			requestObj.email = getUserEmail();
-			requestObj.id = noteid;
+			requestObj.id = noteid.substring(3); // Remove "nid" from note id
 			requestObj.mode = 'u';
 			
 			//Send request to server to update an existing note in note database
@@ -136,9 +136,8 @@ function createNoteElement(id, title, content){
 	});
 	
 	let delbtn = document.createElement("button");
-	delbtn.innerHTML = "Delete";
+	delbtn.classList.add("trash-icon");
 	delbtn.type = "button";
-	noteform.appendChild(delbtn);
 	delbtn.addEventListener('click', function(e){
 		//console.log("Delete Button - Click");
 		let formElem = this.parentElement;
@@ -147,10 +146,11 @@ function createNoteElement(id, title, content){
 		if(noteid !== "new"){	
 			//Send request to server to delete an existing note in note database
 			
+			// Account for the "nid" in the id before send to server
 			fetch('http://127.0.0.1:3000/notes', {
 				method : 'POST',
 				headers: {'Content-Type': 'application/json'},
-				body : JSON.stringify({"id" : noteid, "mode" : 'd'})
+				body : JSON.stringify({"id" : noteid.substring(3), "mode" : 'd'})
 				})
 				.then(response => {
 					if (!response.ok){
@@ -173,27 +173,29 @@ function createNoteElement(id, title, content){
 		}
 	});
 	
-	notesContainer.insertBefore(notediv, addNoteButton);
+	// Append the form fields to the form
+	noteform.appendChild(notetitle);
+	noteform.appendChild(notetext);
+	noteform.appendChild(savebtn);
+	noteform.appendChild(delbtn);
 	
-	//return notediv;
+	// Append the form to the note div
+	notediv.appendChild(noteform);
+	
+	// Add the note div to the notes container
+	notesContainer.insertBefore(notediv, addNoteButton);
 }
-//"Logout" button
-document.getElementById("logout").addEventListener('click', e => {
-	let url = window.location.href;
-	let idx = url.indexOf("?user=");
-	let user = "";
-	if(idx !== -1){
-		user = url.substr(idx);
-	}
-	window.location.href = 'login.html';
-});
 
+//"Logout" button
+document.getElementById("logout").addEventListener('click', e => {window.location.href = 'login.html';});
+
+// When click on Back button, return to the scheduler landing page while keeping the user logged in
 document.getElementById("back-button").addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");
 	let user = "";
 	if(idx !== -1){
-		user = url.substr(idx);
+		user = url.substring(idx);
 	}
 	window.location.href = 'scheduler_landing.html' + user;
 });

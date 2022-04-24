@@ -28,6 +28,10 @@ input{
 	text-align: center;
 }
 
+textarea{
+	resize: none;
+}
+
 button{
 	font-size: 18px;
 	background-color: #ef4048;

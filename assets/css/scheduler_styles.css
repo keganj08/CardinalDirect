@@ -252,6 +252,11 @@ li:last-child {
 	width: 0%;
 }
 
+.card-width{
+	width: min(400px, 100%);
+	margin: auto;
+}
+
 /* Icons */
 .add-icon {
 	background-image: url('../images/icons/add.jpg');

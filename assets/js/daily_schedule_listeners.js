@@ -14,7 +14,7 @@ function getCurrentDate(){
 		datestring = today.getFullYear() + '-' + month + '-' + date;
 	}
 	else{ // Otherwise, we are coming at the daily schedule from the calendar and have a date in the url.
-		datestring = url.substr(dateidx + 6); 
+		datestring = url.substring(dateidx + 6); 
 	}
 	return datestring;
 }
@@ -26,7 +26,7 @@ function getUserEmail(){
 	let endidx = url.indexOf("&date=");
 	let email = "";
 	if(idx !== -1 && endidx === -1){ // There is no date in the url
-		email = url.substr(idx + 6) + "@noctrl.edu";
+		email = url.substring(idx + 6) + "@noctrl.edu";
 	}
 	else if(idx !== -1 && endidx !== -1){ // There is a date in the url
 		email = url.substring(idx + 6, endidx) + "@noctrl.edu";
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		// If there are event or assignment data to display, make the tables visible
 		// Display messages if there are no data
 		if(meetingData.length > 0){
-			document.querySelector("#eventlist table").style.display = "block";
+			document.querySelector("#eventlist").style.display = "block";
 		}
 		else{
 			// Display message saying there are no events
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', e => {
 				if(rec.dow.indexOf(selectDayOfWeek) !== -1){
 					// In case there are no other meetings, since we now have a record to put in the
 					// event table, make sure the table is visible and the message does not say "No Events"
-					document.querySelector("#eventlist table").style.display = "block";
+					document.querySelector("#eventlist").style.display = "block";
 					document.getElementById("event-messages").innerHTML = "";
 					
 					// Add the event's times to the events object in order to get back where the event
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', e => {
 					let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
 					
 					// Create a row in the event table at the chronological index for this event
-					addEventTableRow(insertIdx, "", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
+					addEventCard(insertIdx, "", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
 				}
 				
 			}
@@ -163,10 +163,10 @@ document.addEventListener('DOMContentLoaded', e => {
 			
 			// Add the event's times to the events object in order to get back where the event
 			// falls in relation to other events chronologically
-			let insertIdx = events.addEventTimes("" + rec.mid, rec.start, rec.end);
+			let insertIdx = events.addEventTimes("mid" + rec.mid, rec.start, rec.end);
 			
 			// Create a row in the event table at the chronological index for this event
-			addEventTableRow(insertIdx, rec.mid, rec.title, rec.start, rec.end, rec.building, rec.roomNum, 'm');
+			addEventCard(insertIdx, "mid" + rec.mid, rec.title, rec.start, rec.end, rec.building, rec.roomNum, 'm');
 		});
 						
 		// Handle assignment data
@@ -247,7 +247,7 @@ document.getElementById("back-button").addEventListener('click', e => {
 	let endidx = url.indexOf("&date=");
 	let user = "";
 	if(idx !== -1 && endidx === -1){ // There is no date in the url
-		user = url.substr(idx);
+		user = url.substring(idx);
 	}
 	else if(idx !== -1 && endidx !== -1){ // There is a date in the url
 		user = url.substring(idx, endidx);

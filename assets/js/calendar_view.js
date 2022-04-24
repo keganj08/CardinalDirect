@@ -36,7 +36,7 @@ function populateCalendar(month_txt, month, year){
 	
 	// If the last row of the table is empty, hide it.
 	if(tableVals[35].innerHTML == ""){
-		tableVals[35].parentElement.style.visibility = "hidden";
+		tableVals[35].parentElement.style.visibility = "collapse";
 	}
 	else{
 		tableVals[35].parentElement.style.visibility = "visible";
@@ -109,7 +109,6 @@ function getSelectedDate(){
 	let month = ("0" + (calendar.getMonth() + 1)).slice(-2);
 	let eventDateSplit = document.getElementById("eventDate").innerHTML.split(" ");
     let date = ("0" + eventDateSplit[0]).slice(-2);
-	console.log(calendar.getYear() + '-' + month + '-' + date);
 	return calendar.getYear() + '-' + month + '-' + date;
 }
 

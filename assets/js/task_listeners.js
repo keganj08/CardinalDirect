@@ -22,7 +22,7 @@ function createToDoList(){
 		.then(data => {
 			// Set the todo list table id
 			let id = data.id.substring(0, data.id.length);
-			todoListTable.id=id;
+			todoListTable.id="tid"+id;
 			
 			// Make sure the todo message div does not say Nothing To DO
 			document.getElementById("todo-messages").innerHTML = "";
@@ -34,7 +34,8 @@ function createToDoList(){
 
 // Deletes a to-do list
 function deleteToDoList(){
-	let requestObj = {"id" : todoListTable.id, "mode" : 'd'}
+	// For the id, substring to get rid of "tid"
+	let requestObj = {"id" : todoListTable.id.substring(3), "mode" : 'd'}
 	
 	//Send request to server to add a new to-do list to to-do database
 	fetch('http://127.0.0.1:3000/todo_lists', {
@@ -92,13 +93,14 @@ document.querySelector("#newtodo form").addEventListener('submit', e => {
 	});
 	
 	if(isUnique){ // Only add the to-do item to the database if it is unique
-		requestObj.tid = todoListTable.id;
+		// Substring to remove "tid" from the id
+		requestObj.tid = todoListTable.id.substring(3);
 		requestObj.isComplete = false;
 		requestObj.mode = 'a';
 		
 		console.log(requestObj);
 		
-		//Send request to server to add a new assignment to assignment database
+		//Send request to server to add a new to-do item to to-do item database
 		fetch('http://127.0.0.1:3000/todo_list_items', {
 			method : 'POST',
 			headers: {'Content-Type': 'application/json'},
@@ -129,12 +131,11 @@ document.querySelector("#newtodo form").addEventListener('submit', e => {
 function addToDoListItem(description, isComplete){
 	// Create the table row
 	let todo_item = document.createElement("tr");
-	//dataRow.id = tid;
 	
 	// Create the table data for the given information
 	let todo_isComplete = document.createElement("td");
 	if(isComplete == true){	
-		todo_isComplete.classList.remove('circle-icon');
+		//todo_isComplete.classList.remove('circle-icon');
 		todo_isComplete.classList.add('check-mark-icon');
 	}
 	else{
@@ -145,39 +146,44 @@ function addToDoListItem(description, isComplete){
 	todo_isComplete.addEventListener('click', e => {
 		console.log("Update Completeness of To Do List Item");
 		
-		// Only update the database if the item has not been completed
-		if(e.target.parentNode.childNodes[0].classList.contains('circle-icon')){
-			let requestObj = {
-				"tid" : todoListTable.id,
-				"description" : e.target.parentNode.childNodes[1].innerHTML,
-				"isComplete" : true,
-				"mode" : 'u'
-			};
-			
-			console.log(requestObj);
-			
-			//Send request to server to update to-do list item in to-do list item database
-			fetch('http://127.0.0.1:3000/todo_list_items', {
-				method : 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body : JSON.stringify(requestObj)
-				})
-				.then(response => {
-					if (!response.ok){
-						throw new Error('HTTP error: ${response.status}');
-					}
-					return response.json();
-				})
-				.then(data => {
-					e.target.classList.remove('circle-icon');
-					e.target.classList.add('check-mark-icon');
-					// Update the progress bar
-					calculateProgress();
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		}
+		// If the to-do item has a circle icon and is clicked, it should be marked as complete
+		// and updated in the database. If the to-do item has a check-mark icon and is clicked,
+		// it should be marked as incomplete and updated in the database
+		let todoItemRow = e.target.parentNode;
+		
+		let requestObj = {
+			"tid" : todoListTable.id.substring(3), //Remove "tid" from the id
+			"description" : todoItemRow.childNodes[1].innerHTML,
+			"isComplete" : todoItemRow.childNodes[0].classList.contains('circle-icon'),
+			"mode" : 'u'
+		};
+		
+		console.log(requestObj);
+		
+		//Send request to server to update to-do list item in to-do list item database
+		fetch('http://127.0.0.1:3000/todo_list_items', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify(requestObj)
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log(e.target.classList);
+				e.target.classList.toggle('circle-icon');
+				e.target.classList.toggle('check-mark-icon');
+				console.log(e.target.classList);
+				// Update the progress bar
+				calculateProgress();
+			})
+			.catch(error => {
+				console.log(error);
+			});
+		
 	});
 	
 	let todo_description = document.createElement("td");
@@ -191,7 +197,7 @@ function addToDoListItem(description, isComplete){
 		let dataRow = e.target.parentNode;
 		let dataVals = dataRow.children;
 		let description = dataVals[1].innerHTML;
-		let id = dataRow.parentNode.id;
+		let id = dataRow.parentNode.id.substring(3); //Remove "tid" from the id
 		
 		//Send request to server to delete an existing to-do item from to-do item database
 		
@@ -217,7 +223,6 @@ function addToDoListItem(description, isComplete){
 				
 				if(todoTable.children.length === 0){ // table is empty
 					// Hide the to-do list table
-					//todoTable.parentNode.style.display = "none";
 					deleteToDoList();
 				}
 			})
@@ -255,46 +260,3 @@ function calculateProgress(){
 	progressBar.style.width = "" + percent + "%";
 	progressBar.innerHTML = "" + percent + "% Complete";
 }
-
-
-/*
-(function(){
-  
-  var list = document.querySelector('#list'),
-      form = document.querySelector('form'),
-      item = document.querySelector('#item');
-  
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    list.innerHTML += '<li>' + item.value + '</li>';
-    store();
-    item.value = "";
-  },false)
-  
-  list.addEventListener('click',function(e){
-    var t = e.target;
-    if(t.classList.contains('checked')){
-      t.parentNode.removeChild(t);
-    } else {
-      t.classList.add('checked');
-    }
-    store();
-  },false)
-  
-  function store() {
-    //window.localStorage.myitems = list.innerHTML;
-  }
-  
-  function getValues() {
-	var storedValues = false;
-    //var storedValues = window.localStorage.myitems;
-    if(!storedValues) {
-      list.innerHTML = ""
-    }
-    else {
-      list.innerHTML = storedValues;
-    }
-  }
-  getValues();
-})();
-*/

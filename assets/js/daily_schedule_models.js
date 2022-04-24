@@ -1,14 +1,20 @@
 // daily_schedule_models.js
 
 var courseIds = {
+	// List of full course cids, which include section number and semester
 	cids: [],
+	// List of simple course cids, which only have the course code and name
 	simpleCids: [],
+	// Add cid and its simple version to the respective course list
 	addCourse: function(cid){
 		this.cids.push(cid);
 		this.simpleCids.push(cid.split("*", 2).join(' '));
 	},
+	// Returns the list of full course ids
 	getCids: function(){return this.cids;},
+	// Returns the list of simple course ids
 	getSimpleCids: function(){return this.simpleCids;},
+	// Returns the full course id corresponding to the given simple course id
 	getCidFromSimple: function(simpleCid){
 		let idx = this.simpleCids.indexOf(simpleCid);
 		let cid = null;
@@ -17,6 +23,7 @@ var courseIds = {
 		}
 		return cid;
 	},
+	// Returns the simple course id corresponding to the given full course id
 	getSimpleFromCid: function(cid){
 		let idx = this.cids.indexOf(cid);
 		let simpleCid = null;
@@ -25,7 +32,9 @@ var courseIds = {
 		}
 		return simpleCid;
 	},
+	// Returns the index of the given full course id in the list of full course ids
 	getCidIdx: function(cid){return this.cids.indexOf(cid);},
+	// Returns the index of the given simple course id in the list of simple course ids
 	getSimpleIdx: function(simpleCid){return this.simpleCids.indexOf(simpleCid);}
 };
 

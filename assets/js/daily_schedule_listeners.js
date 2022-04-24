@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', e => {
 		let i=0;
 		for(i=0; i<classData.length; i++){
 			let rec = classData[i];
-			console.log("Rec:" + rec.cid);
 			// Makes sure we are not double-including courses
 			if(courseIds.getCidIdx(rec.cid) === -1){
 				courseIds.addCourse(rec.cid); //add course id
@@ -185,7 +184,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		// Handle to-do list data
 		console.log(todoData);
 		if(todoData.length > 0){
-			document.querySelector("#todolist table").id = todoData[0].tid;
+			document.querySelector("#todolist table").id = "tid" + todoData[0].tid;
 		}
 		todoData.forEach(rec => {
 			console.log(rec);

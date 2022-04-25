@@ -98,45 +98,54 @@ document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.val
 
 //hasattribute - directionals - if doesnt, change css to grey out
 if(!curr.hasAttribute("forwardVar")){
-    document.getElementById("forwardBtn").style = "opacity: 0.1" 
+    document.getElementById("forwardBtn").style.opacity= "0.1"; 
   }
   else{
-    document.getElementById("forwardBtn").style = "opacity: 1" 
+    document.getElementById("forwardBtn").style.opacity ="1"; 
   }
   if(!curr.hasAttribute("leftVar")){
-    document.getElementById("leftBtn").style = "opacity: 0.1" 
+    document.getElementById("forwardBtn").style.opacity= "0.1"; 
   }
   else{
-    document.getElementById("leftBtn").style = "opacity: 1" 
+    document.getElementById("forwardBtn").style.opacity ="1"; 
   }
   if(!curr.hasAttribute("rightVar")){
-    document.getElementById("rightBtn").style = "opacity: 0.1" 
+    document.getElementById("forwardBtn").style.opacity= "0.1"; 
   }
   else{
-    document.getElementById("rightBtn").style = "opacity: 1" 
+    document.getElementById("forwardBtn").style.opacity ="1";  
   }
   if(!curr.hasAttribute("backwardVar")){
-    document.getElementById("backwardBtn").style = "opacity: 0.1" 
+    document.getElementById("forwardBtn").style.opacity= "0.1";  
   }
   else{
-    document.getElementById("backwardBtn").style = "opacity: 1" 
+    document.getElementById("forwardBtn").style.opacity ="1";  
   }
   if(!curr.hasAttribute("upVar")){
-    document.getElementById("up").style = "opacity: 0.1" 
+    document.getElementById("forwardBtn").style.opacity= "0.1"; 
   }
   else{
-    document.getElementById("up").style = "opacity: 1" 
+    document.getElementById("forwardBtn").style.opacity ="1";  
   }
   if(!curr.hasAttribute("downVar")){
-    document.getElementById("down").style = "opacity: 0.1" 
+    document.getElementById("forwardBtn").style.opacity= "0.1"; 
   }
   else{
-    document.getElementById("down").style = "opacity: 1" 
+    document.getElementById("forwardBtn").style.opacity ="1";  
   }
 
+
+  document.getElementById("forwardBtn").style.visibility = "hidden";
+  document.getElementById("leftBtn").style.visibility = "hidden";
+  document.getElementById("rightBtn").style.visibility = "hidden";
+  document.getElementById("backwardBtn").style.visibility = "hidden";
+  document.getElementById("up").style.visibility = "hidden";
+  document.getElementById("down").style.visibility = "hidden";
 //console.log('test');
 //console.log(E_east.getAttribute("forward"));
 //console.log(E_east.attributes);
+
+
 
 
 

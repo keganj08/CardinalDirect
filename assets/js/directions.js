@@ -8,20 +8,7 @@ console.log(path);//array
 
 var createRoute = document.getElementById("createRoute");
 
-let instruc = document.getElementById("currentInstruction").innerHTML;
 createRoute.addEventListener("click", function(e){
-    instruc = document.getElementById("currentInstruction").innerHTML;
-        console.log("create route handler");
-        console.log(instruc);
-        document.getElementById("forwardBtn").style.visibility = "hidden";
-        document.getElementById("leftBtn").style.visibility = "hidden";
-        document.getElementById("rightBtn").style.visibility = "hidden";
-        document.getElementById("backwardBtn").style.visibility = "hidden";
-        document.getElementById("up").style.visibility = "hidden";
-        document.getElementById("down").style.visibility = "hidden";
-
-        document.getElementById("showExplore").style.visibility = "visible";
-
     e.preventDefault();//only works if button is clicked, not with the  "enter" key
 	//grab entrance from url
     const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -944,7 +931,6 @@ createRoute.addEventListener("click", function(e){
 
     //image cohesion - next btn
     //gets initial instruction when create route is clicked, hides explore buttons - need to click twice? where is inital creat route handler
-    /*
     let instruc = document.getElementById("currentInstruction").innerHTML;
     document.getElementById("createRoute").onclick = function() {
         instruc = document.getElementById("currentInstruction").innerHTML;
@@ -960,7 +946,6 @@ createRoute.addEventListener("click", function(e){
         document.getElementById("showExplore").style.visibility = "visible";
         
     }
-    */
     document.getElementById("showExplore").onclick = function(){
         document.getElementById("forwardBtn").style.visibility = "visible";
         document.getElementById("leftBtn").style.visibility = "visible";

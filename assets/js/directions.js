@@ -930,9 +930,9 @@ createRoute.addEventListener("click", function(e){
     }
 
     //image cohesion - next btn
-    //gets initial instruction when create route is clicked, hides explore buttons - need to click twice? where is inital creat route handler
+    //gets initial instruction when create route is clicked, hides explore buttons
     let instruc = document.getElementById("currentInstruction").innerHTML;
-    document.getElementById("createRoute").onclick = function() {
+    function hideExplore() {
         instruc = document.getElementById("currentInstruction").innerHTML;
         console.log("create route handler");
         console.log(instruc);
@@ -946,6 +946,12 @@ createRoute.addEventListener("click", function(e){
         document.getElementById("showExplore").style.visibility = "visible";
         
     }
+ 
+    createRoute.addEventListener("click", hideExplore);
+    document.getElementById("createRoute").click(); //simulates extra click (bugfix) multiple handles 1 button at different times in file
+
+
+    //show explore buttons
     document.getElementById("showExplore").onclick = function(){
         document.getElementById("forwardBtn").style.visibility = "visible";
         document.getElementById("leftBtn").style.visibility = "visible";
@@ -1001,7 +1007,7 @@ createRoute.addEventListener("click", function(e){
                 }
                 //call UIupdate
                // UIupdate();
-        }
+            }
         }
     //end of next btn image cohesion
 
@@ -1031,26 +1037,6 @@ createRoute.addEventListener("click", function(e){
         }
         //UIupdate();
     }
-
-    
-    //enter key handle
- 
-    var routeField = document.getElementById("roomForm");
-    routeField.addEventListener("keypress", function(e){
-        if(e.key === "Enter"){
-            console.log("e handler");
-        }
-    });
-    /*var routeField = getElementById("destination");
-    routeField.addEventListener("keyup", function(event){
-        console.log(event);
-        event.preventDefault();
-        if(event.keyCode === 13){
-            document.getElementById("createRoute").click();
-            console.log("in enter handler");
-        }
-       // event.preventDefault;
-    })*/
     
 
     function stopEvent(ev) {

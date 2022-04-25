@@ -36,9 +36,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		});		
 	}
 });
-document.getElementById("roomForm").addEventListener('submit', e => {
-  e.preventDefault();
-});
+
 document.getElementById("backButton").addEventListener('click', e => {
 	let url = window.location.href;
 	let idx = url.indexOf("?user=");

@@ -930,13 +930,34 @@ createRoute.addEventListener("click", function(e){
     }
 
     //image cohesion - next btn
-    //gets initial instruction when create route is clicked
+    //gets initial instruction when create route is clicked, hides explore buttons - need to click twice? where is inital creat route handler
     let instruc = document.getElementById("currentInstruction").innerHTML;
     document.getElementById("createRoute").onclick = function() {
         instruc = document.getElementById("currentInstruction").innerHTML;
         console.log("create route handler");
         console.log(instruc);
+        document.getElementById("forwardBtn").style.visibility = "hidden";
+        document.getElementById("leftBtn").style.visibility = "hidden";
+        document.getElementById("rightBtn").style.visibility = "hidden";
+        document.getElementById("backwardBtn").style.visibility = "hidden";
+        document.getElementById("up").style.visibility = "hidden";
+        document.getElementById("down").style.visibility = "hidden";
+
+        document.getElementById("showExplore").style.visibility = "visible";
+        
     }
+    document.getElementById("showExplore").onclick = function(){
+        document.getElementById("forwardBtn").style.visibility = "visible";
+        document.getElementById("leftBtn").style.visibility = "visible";
+        document.getElementById("rightBtn").style.visibility = "visible";
+        document.getElementById("backwardBtn").style.visibility = "visible";
+        document.getElementById("up").style.visibility = "visible";
+        document.getElementById("down").style.visibility = "visible";
+
+        document.getElementById("showExplore").style.visibility = "hidden";
+    }
+
+
     
     var prevpicStack = [];
     var prevsrcStack = [];
@@ -979,7 +1000,7 @@ createRoute.addEventListener("click", function(e){
                     boolArrived = true;
                 }
                 //call UIupdate
-                UIupdate();
+               // UIupdate();
         }
         }
     //end of next btn image cohesion
@@ -1008,9 +1029,29 @@ createRoute.addEventListener("click", function(e){
             instruc = document.getElementById("currentInstruction").innerHTML;
             console.log(instruc);
         }
-        UIupdate();
+        //UIupdate();
     }
 
+    
+    //enter key handle
+ 
+    var routeField = document.getElementById("roomForm");
+    routeField.addEventListener("keypress", function(e){
+        if(e.key === "Enter"){
+            console.log("e handler");
+        }
+    });
+    /*var routeField = getElementById("destination");
+    routeField.addEventListener("keyup", function(event){
+        console.log(event);
+        event.preventDefault();
+        if(event.keyCode === 13){
+            document.getElementById("createRoute").click();
+            console.log("in enter handler");
+        }
+       // event.preventDefault;
+    })*/
+    
 
     function stopEvent(ev) {
         ev.stopPropagation();

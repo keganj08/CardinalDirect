@@ -52,11 +52,11 @@
               }
             }
           </script>
-          <form  method="GET" target="_self" name="room" onsubmit="validateForm()">
+         <form  method="GET" id="roomForm" target="_self" name="room" onsubmit="validateForm()"> 
             <input class="className" name="className" type="text" id= "destination" placeholder="Enter room #" required>
             <button name="confirmDestination" id="createRoute" type="button">Create Route</button>
             <!--<button type="button">Remove Route</button>-->
-          </form>
+         </form> 
       </div>	
       <div style="float:right; width: 40%; position:relative; top: 6px">
         
@@ -80,6 +80,7 @@
     <button class="button" id="backwardBtn" type="button">Backward</button><br>
     <button class="button" id="up" type="button">Go Up Stairs</button>
     <button class="button" id="down" type="button">Go Down Stairs</button><br>
+    <button class="button" style="visibility: hidden;" id="showExplore" type="button">switch to explore</button><br>
     
   </div>
 </div>

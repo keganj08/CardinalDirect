@@ -414,7 +414,7 @@ createRoute.addEventListener("click", function(e){
                         path[i+2] = "Turn Right";
                         path[i+3] = "Go Straight";
                         path[i+4] = "Go Upstairs";
-                        path[i+5] = "Turn Left";
+                        path[i+5] = "Turn Right";
                     }
                     if (destination == "301"){
                         path[i] = "Turn Left";
@@ -780,16 +780,17 @@ createRoute.addEventListener("click", function(e){
                         path[i] = "Turn Left";
                         path[i+1] = "Go Straight";
                     }
-                    if (destination == "217" || destination == "219" || destination == "221" || destination == "223"){
+                    if (destination == "217" || destination == "219"){
                         path[i+2] = "Go Upstairs";
                         path.length+=1;
                         path[i+3] = "Turn Left";
                     }
-                    if (destination == "217" || destination == "219" || destination == "221" || destination == "223"){
+                    if(destination == "221" || destination == "223"){
                         path[i+2] = "Go Upstairs";
                         path.length+=1;
                         path[i+3] = "Turn Right";
                     }
+                   
                     if(path[i+2] != null && path[i+2].includes("nw")){
                         path[i+2] = "Go Straight";
                         path.length+=1;

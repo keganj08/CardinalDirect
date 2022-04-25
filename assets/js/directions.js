@@ -1007,6 +1007,7 @@ createRoute.addEventListener("click", function(e){
                 }
                 //call UIupdate
                // UIupdate();
+               roomsUpdate();
             }
         }
     //end of next btn image cohesion
@@ -1036,6 +1037,7 @@ createRoute.addEventListener("click", function(e){
             console.log(instruc);
         }
         //UIupdate();
+        roomsUpdate();
     }
     
 
@@ -1053,6 +1055,12 @@ createRoute.addEventListener("click", function(e){
     }    
         
         
+
+    function roomsUpdate(){
+        //update room #'s 
+        document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
+        document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
+    }
 
     function UIupdate(){
         //update room #'s 

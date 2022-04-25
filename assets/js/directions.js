@@ -929,40 +929,20 @@ createRoute.addEventListener("click", function(e){
         }
     }
 
-    //image cohesion - next btn
-    //gets initial instruction when create route is clicked, hides explore buttons
-    let instruc = document.getElementById("currentInstruction").innerHTML;
+  /*
     function hideExplore() {
         instruc = document.getElementById("currentInstruction").innerHTML;
         console.log("create route handler");
-        console.log(instruc);
-        document.getElementById("forwardBtn").style.visibility = "hidden";
-        document.getElementById("leftBtn").style.visibility = "hidden";
-        document.getElementById("rightBtn").style.visibility = "hidden";
-        document.getElementById("backwardBtn").style.visibility = "hidden";
-        document.getElementById("up").style.visibility = "hidden";
-        document.getElementById("down").style.visibility = "hidden";
-
-        document.getElementById("showExplore").style.visibility = "visible";
-        
-    }
+        console.log(instruc);   
+    }*/
  
-    createRoute.addEventListener("click", hideExplore);
-    document.getElementById("createRoute").click(); //simulates extra click (bugfix) multiple handles 1 button at different times in file
+   // createRoute.addEventListener("click", hideExplore);
+   // document.getElementById("createRoute").click(); //simulates extra click (bugfix) multiple handles 1 button at different times in file
 
 
-    //show explore buttons
-    document.getElementById("showExplore").onclick = function(){
-        document.getElementById("forwardBtn").style.visibility = "visible";
-        document.getElementById("leftBtn").style.visibility = "visible";
-        document.getElementById("rightBtn").style.visibility = "visible";
-        document.getElementById("backwardBtn").style.visibility = "visible";
-        document.getElementById("up").style.visibility = "visible";
-        document.getElementById("down").style.visibility = "visible";
-
-        document.getElementById("showExplore").style.visibility = "hidden";
-    }
-
+    //image cohesion - next btn
+    //gets initial instruction when create route is clicked, hides explore buttons
+   let instruc = document.getElementById("currentInstruction").innerHTML;
 
     
     var prevpicStack = [];
@@ -1061,7 +1041,7 @@ createRoute.addEventListener("click", function(e){
         document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
         document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
     }
-
+/*
     function UIupdate(){
         //update room #'s 
         document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
@@ -1104,7 +1084,7 @@ createRoute.addEventListener("click", function(e){
         else{
         document.getElementById("down").style = "opacity: 1" 
         }
-    }
+    }*/
 });
 
 

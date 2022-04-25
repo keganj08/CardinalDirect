@@ -122,14 +122,13 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 
 // Add assignment to the assignment container
 function addAssignmentCard(insertidx, aid, title, dueTime, cid){
-	// Retrieve the table from the DOM
+	// Retrieve the assignment card container from the DOM
 	let assigContainer = document.querySelector("#assignmentlist");
 	
 	// Create the assignment card
 	let assigCard = document.createElement("div");
 	assigCard.id = aid;
-	assigCard.classList.add("card");
-	assigCard.classList.add("card-width");
+	assigCard.classList.add("card", "card-width");
 	
 	// Create the assignment card head using the given title
 	let assigTitle = document.createElement("div");
@@ -147,7 +146,6 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 	// Event listener when click update and autofill assignment form
 	updateBtn.addEventListener('click', e => {
 		let thisAssigBody = e.target.parentNode;
-		console.log(thisAssigBody.children);
 		let thisAssigCard = thisAssigBody.parentNode;
 		// Show the new assignment form div
 		document.getElementById("newassignment").style.display = "block";
@@ -233,4 +231,4 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 	else{ //Otherwise, add the assignment card at the specified index given by insertidx 
 		assigContainer.insertBefore(assigCard, assigContainer.children[insertidx]);
 	}
-};
+}

@@ -19,8 +19,17 @@
 		<h2>Notes</h2>
 	</header>
 	<section>
-		<div id="notes">
-			<button id="add-note_btn" class="add-note" type="button">+</button>
+		<div id="noteform" class="display-none">
+			<form>
+				<input id="title" name="title" type="text" placeholder="Title" maxlength="30" required><br>
+				<textarea id="text" name="text" placeholder="Type Text Here" maxlength="255" rows="6" cols="50" required></textarea><br>
+				<button type="submit">Done</button>
+			</form>
+		</div>
+		<div id="notes-container">
+			<div id="notes">
+				<button id="add-note_btn" class="add-note click-cursor" type="button">+</button>
+			</div>
 		</div>
 	</section>
 	<section>

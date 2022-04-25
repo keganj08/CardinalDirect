@@ -1,4 +1,7 @@
-const notesContainer = document.getElementById("notes");
+// note_listeners.js
+
+const notesContainer = document.getElementById("notes-container");
+const notes = document.getElementById("notes");
 const addNoteButton = notesContainer.querySelector("#add-note_btn");
 
 function getUserEmail(){
@@ -27,7 +30,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		.then(data => {
 			let i=0;
 			for(i=0; i<data.length; i++){
-				createNoteElement("nid" + data[i].nid, data[i].title, data[i].text);
+				createNoteCard("nid" + data[i].nid, data[i].title, data[i].text);
 			}
 		})
 		.catch(error => {
@@ -35,155 +38,198 @@ document.addEventListener('DOMContentLoaded', e => {
 		});
 });
 
-addNoteButton.addEventListener('click', () => createNoteElement(null, "", ""));
-
-
-function createNoteElement(id, title, content){
-	//console.log("In Create Note Element");
-	let notediv = document.createElement("div");
-	if(id === null){
-		notediv.id = "new";
+document.querySelector("#noteform form").addEventListener("submit", e => {
+	console.log("Note Form - Submit - Update");
+	e.preventDefault();
+	let formElem = e.target;
+	let divElem = formElem.parentElement;
+	let noteid = formElem.id;
+	
+	// Get note data from form
+	let formData = new FormData(formElem);
+	let requestObj = Object.fromEntries(formData);
+	requestObj.email = getUserEmail();
+	
+	// If the id is "new", add a new note to the database
+	if(noteid === "new"){
+		requestObj.mode = 'a';
+		
+		//console.log(requestObj);
+		
+		//Send request to server to add a new note to note database
+		fetch('http://127.0.0.1:3000/notes', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify(requestObj)
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response.json();
+			})
+			.then(data => {
+				let id = "nid" + data.id.substring(0, data.id.length);
+				// Hide the update note form
+				divElem.classList.toggle("display-none");
+				// Create a note card for this note
+				createNoteCard(id, requestObj.title, requestObj.text);
+				// Show all of the notes
+				notesContainer.classList.toggle("display-none");
+				// Clear the form's contents
+				clearFormContents();
+			})
+			.catch(error => {
+				console.log(error);
+			});
 	}
+	// Update a currently existing note in the note database
 	else{
-		notediv.id = id;
+		requestObj.id = noteid.substring(3); // Remove "nid" from note id
+		requestObj.mode = 'u';
+		
+		//console.log(requestObj);
+		
+		//Send request to server to update an existing note in note database
+		fetch('http://127.0.0.1:3000/notes', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify(requestObj)
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response;
+			})
+			.then(data => {
+				console.log(data);
+				// Hide the update note form
+				divElem.classList.toggle("display-none");
+				// Update the note's title and content
+				updateNoteCard("nid" + requestObj.id, requestObj.title, requestObj.text);
+				// Show all of the notes
+				notesContainer.classList.toggle("display-none");
+				// Clear the form's contents
+				clearFormContents();
+			})
+			.catch(error => {
+				console.log(error);
+			});
 	}
-	notediv.classList.add("note");
+});
+
+// Show an empty note form upon clicking the add note button
+addNoteButton.addEventListener('click', () => {
+	// Show the note form div
+	document.getElementById("noteform").classList.toggle("display-none");
 	
-	let noteform = document.createElement("form");
+	// Hide the notes
+	notesContainer.classList.toggle("display-none");
 	
+	// Set the note form id to new
+	let formElem = document.querySelector("#noteform form");
+	formElem.id = "new";
+});
+
+// Add note card to the note container
+function createNoteCard(nid, title, content){
+	// Create the note card
+	let noteCard = document.createElement("div");
+	noteCard.id = nid;
+	noteCard.classList.add("card");
 	
-	let notetitle = document.createElement("input");
-	notetitle.name = "title";
-	notetitle.type = "text";
-	notetitle.value = title;
+	// Create the note card head using the given title
+	let noteTitle = document.createElement("div");
+	noteTitle.innerHTML = title;
+	noteTitle.classList.add("card-header");
+	// Create the assignment card body using the given information
+	let noteBody = document.createElement("div");
+	noteBody.classList.add("card-body");
+	let noteContent = document.createElement("p");
+	noteContent.innerHTML = content;
+	noteContent.classList.add("card-text");
 	
-	
-	let notetext = document.createElement("textarea");
-	notetext.name = "text";
-	notetext.value = content;
-	
-	
-	let savebtn = document.createElement("button");
-	savebtn.innerHTML = "Save";
-	savebtn.type = "submit";
-	
-	noteform.addEventListener('submit', e => {
-		//console.log("Save Button - Submit");
-		e.preventDefault();
-		let formElem = e.target;
-		let divElem = formElem.parentElement;
-		let noteid = divElem.id;
-		if(noteid === "new"){
-			//console.log("Save Button - Submit - New");
-			// save new note to database
-			let formData = new FormData(formElem);
-			let requestObj = Object.fromEntries(formData);
-			requestObj.email = getUserEmail();
-			requestObj.mode = 'a';
-			
-			//console.log(requestObj);
-			
-			//Send request to server to add a new note to note database
-			fetch('http://127.0.0.1:3000/notes', {
-				method : 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body : JSON.stringify(requestObj)
-				})
-				.then(response => {
-					if (!response.ok){
-						throw new Error('HTTP error: ${response.status}');
-					}
-					return response.json();
-				})
-				.then(data => {
-					let id = "nid" + data.id.substring(0, data.id.length);
-					noteDivElem = document.getElementById("new");
-					noteDivElem.id = id;
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		}
-		else{
-			console.log("Save Button - Submit - Update");
-			// update note in database
-			console.log(formElem);
-			let formData = new FormData(formElem);
-			let requestObj = Object.fromEntries(formData);
-			requestObj.email = getUserEmail();
-			requestObj.id = noteid.substring(3); // Remove "nid" from note id
-			requestObj.mode = 'u';
-			
-			//Send request to server to update an existing note in note database
-			fetch('http://127.0.0.1:3000/notes', {
-				method : 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body : JSON.stringify(requestObj)
-				})
-				.then(response => {
-					if (!response.ok){
-						throw new Error('HTTP error: ${response.status}');
-					}
-					return response;
-				})
-				.then(data => {
-					console.log(data);
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		}
+	let updateBtn = document.createElement("button");
+	updateBtn.classList.add('edit-icon');
+	// Event listener when click update and autofill note form
+	updateBtn.addEventListener('click', e => {
+		let thisNoteBody = e.target.parentNode;
+		let thisNoteCard = thisNoteBody.parentNode;
+		
+		// Show the note form div
+		document.getElementById("noteform").classList.toggle("display-none");
+		
+		// Hide the notes
+		notesContainer.classList.toggle("display-none");
+		
+		// Autofill the note data into the form
+		let formElem = document.querySelector("#noteform form");
+		formElem.id = thisNoteCard.id;
+		
+		// Fill in the note title
+		formElem.querySelector("#title").value = thisNoteCard.children[0].innerHTML;
+		
+		// Fill in the note content
+		formElem.querySelector("#text").value = thisNoteBody.children[0].innerHTML;
 	});
 	
-	let delbtn = document.createElement("button");
-	delbtn.classList.add("trash-icon");
-	delbtn.type = "button";
-	delbtn.addEventListener('click', function(e){
-		//console.log("Delete Button - Click");
-		let formElem = this.parentElement;
-		let divElem = formElem.parentElement;
-		let noteid = divElem.id;
-		if(noteid !== "new"){	
-			//Send request to server to delete an existing note in note database
-			
-			// Account for the "nid" in the id before send to server
-			fetch('http://127.0.0.1:3000/notes', {
-				method : 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body : JSON.stringify({"id" : noteid.substring(3), "mode" : 'd'})
-				})
-				.then(response => {
-					if (!response.ok){
-						throw new Error('HTTP error: ${response.status}');
-					}
-					return response.json();
-				})
-				.then(data => {
-					console.log(data.success);
-					// Deletes the note div
-					divElem.remove();
-				})
-				.catch(error => {
-					console.log(error);
-				});
-			
-		}
-		else{
-			divElem.remove();
-		}
+	let delBtn = document.createElement("button");
+	delBtn.classList.add('trash-icon');
+	// Event listener to delete note
+	delBtn.addEventListener('click', e => {
+		console.log("Delete Event - Click");
+		let thisNoteBody = e.target.parentNode;
+		let thisNoteCard = thisNoteBody.parentNode;
+		
+		//Send request to server to delete an existing note from note database
+		// id must account for the "nid" in the id
+		fetch('http://127.0.0.1:3000/notes', {
+			method : 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body : JSON.stringify({"id" : thisNoteCard.id.substring(3), "mode" : 'd'})
+			})
+			.then(response => {
+				if (!response.ok){
+					throw new Error('HTTP error: ${response.status}');
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log(data.success);
+				// Remove the note card from the note card container
+				thisNoteCard.remove();
+			})
+			.catch(error => {
+				console.log(error);
+			});
 	});
 	
-	// Append the form fields to the form
-	noteform.appendChild(notetitle);
-	noteform.appendChild(notetext);
-	noteform.appendChild(savebtn);
-	noteform.appendChild(delbtn);
+	// Append card elements to the note card
+	noteBody.appendChild(noteContent);
+	noteBody.appendChild(updateBtn);
+	noteBody.appendChild(delBtn);
+	noteCard.appendChild(noteTitle);
+	noteCard.appendChild(noteBody);
 	
-	// Append the form to the note div
-	notediv.appendChild(noteform);
-	
-	// Add the note div to the notes container
-	notesContainer.insertBefore(notediv, addNoteButton);
+	// Add the note div to the notes container before the add note button
+	notes.insertBefore(noteCard, addNoteButton);
+};
+
+// Update an existing note card with id given using the title and content provided
+function updateNoteCard(id, title, content){
+	let noteCard = notes.querySelector("#" + id);
+	let noteBody = noteCard.children[1];
+	noteCard.children[0].innerHTML = title;
+	noteBody.children[0].innerHTML = content;
+}
+
+
+// Clears the contents of the form
+function clearFormContents(){
+	let noteForm = document.querySelector("#noteform form");
+	noteForm.querySelector("#title").value = "";
+	noteForm.querySelector("#text").value = "";
 }
 
 //"Logout" button
@@ -199,91 +245,3 @@ document.getElementById("back-button").addEventListener('click', e => {
 	}
 	window.location.href = 'scheduler_landing.html' + user;
 });
-
-
-//const notesContainer = document.getElementById("notes");
-//const addNoteButton = notesContainer.querySelector(".add-note");
-
-/*
-getNotes().forEach(note => {
-    const noteElement = createNoteElement(note.id, note.content);
-    notesContainer.insertBefore(noteElement, addNoteButton);
-});
-*/
-
-/*
-function getNotes(){
-    //return JSON.parse(localStorage.getItem("CardinalDirect-notes") || "[]");
-	return [];
-}
-*/
-
-/*
-function saveNotes(notes){
-    //localStorage.setItem("CardinalDirect-notes" , JSON.stringify(notes));
-	return;
-}
-*/
-
-
-//addNoteButton.addEventListener("click", () => addNote());
-    
-
-/*
-function createNoteElement(id, content){
-    const element = document.createElement("textarea");
-    element.classList.add("note");
-    //element.value = content;
-    element.placeholder = "Empty note";
-	
-	
-    element.addEventListener("change", () =>{
-        updateNote(id, element.value);
-    });
-	
-	
-	
-    element.addEventListener("dblclick", () => {
-        const doDelete = confirm("Are you sure you want to delete this note?");
-        if (doDelete){
-            deleteNote(id, element);
-        }
-    });
-	
-    return element;
-}
-*/
-
-/*
-function addNote(){
-    var today = new Date();
-    var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
-    var today = new Date();
-    var time = today.getHours() + ":" + today.getMinutes();  
-    const notes = getNotes();
-    const noteObject = {
-        id: Math.floor(Math.random() * 100000),
-
-        content: date + " at " + time + ": " 
-        
-    }
-
-    const noteElement = createNoteElement(noteObject.id, noteObject.content);
-    notesContainer.insertBefore(noteElement, addNoteButton);
-    notes.push(noteObject);
-    saveNotes(notes);
-}
-
-function updateNote(id, newContent){
-    const notes = getNotes();
-    const targetNote = notes.filter(note => note.id == id)[0];
-    targetNote.content = newContent;
-    saveNotes(notes);
-}
-
-function deleteNote(id, element){
-    const notes = getNotes().filter(note => note.id != id);
-    saveNotes(notes);
-    notesContainer.removeChild(element);
-}
-*/

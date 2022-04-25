@@ -141,6 +141,8 @@ function addToDoListItem(description, isComplete){
 	else{
 		todo_isComplete.classList.add('circle-icon');
 	}
+	// Change the cursor to a clickable cursor
+	todo_isComplete.classList.add('click-cursor');
 	
 	// Event listener when click "Complete" 
 	todo_isComplete.addEventListener('click', e => {
@@ -190,7 +192,8 @@ function addToDoListItem(description, isComplete){
 	todo_description.innerHTML = description;
 	
 	let delTd = document.createElement("td");
-	delTd.classList.add('trash-icon');
+	// Add the trash icon to the delete button and make the cursor clickable
+	delTd.classList.add('trash-icon', 'click-cursor');
 	// Event listener to delete to-do list item
 	delTd.addEventListener('click', e => {
 		console.log("Delete ToDo Item - Click");

@@ -1,4 +1,6 @@
 /*Styles for the Scheduler*/
+
+/*lock screen orientation in landscape*/
 @media screen and (orientation: portrait) {
 	html {
 	  /* Rotate the content container */
@@ -21,12 +23,12 @@ body{
 	color: white;
 	text-align: center;
 	height: 100%;
+	margin-top: 15px;
 
 }
-
 img{
-	height: 25%;
-	width: auto;
+	height: auto;
+	width: min(75%, 300px);
 }
 section{
 	background-color: white;
@@ -50,6 +52,7 @@ button{
 	margin: 10px;
 	padding: 10px;
 	border-radius: 8px;
+
 	
 }
 

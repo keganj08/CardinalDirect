@@ -110,6 +110,6 @@ button{
 	padding: 10px;
 	border-radius: 8px; /*curves corners of buttons*/
 	position:absolute;
-   right:10px;
+   right:0px;
    top:5px;
 }

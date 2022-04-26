@@ -83,7 +83,7 @@ F0_NW_east.setAttribute("forwardImg", "assets/images/building interiors/floor0/n
 F0_NW_east.setAttribute("forwardVar", "F0_NE_east");
 //right
 F0_NW_east.setAttribute("rightImg", "assets/images/building interiors/floor0/nw_intersection/south.jpg");
-F0_NW_east.setAttribute("rightVar", "F1_NW_south");
+F0_NW_east.setAttribute("rightVar", "F0_NW_south");
 //rooms
 F0_NW_east.setAttribute("leftRooms", "36, 34");
 F0_NW_east.setAttribute("rightRooms", "38, 13");

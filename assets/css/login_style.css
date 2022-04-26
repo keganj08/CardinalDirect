@@ -1,6 +1,7 @@
 body{
   background:#ef4048;
   font-family: Arial, sans-serif;
+  text-align: center;
 
 }
 /*Header at top*/
@@ -39,19 +40,11 @@ a:hover{
   border: #ef4048;
 }
 /*logo*/
-.logo{
-  position: relative;
-  left: 50%;
-  margin-top:-60px;
-  margin-left: -200px;
+img{
+	height: auto;
+	width: min(75%, 300px);
 }
 
-/*bottom div containing logo*/
-.inside {
-      width:auto;
-      position: relative;
-      padding: 20px;  
-}
 
 #error-div{
 	display:none;

@@ -400,7 +400,7 @@ createRoute.addEventListener("click", function(e){
                         path[i+5] = "Go Upstairs";
                         path[i+6] = "Turn Left";
                     }
-                    if (destination == "217" || destination == "219" || destination == "221" || destination == "223"){
+                    if (destination == "217" || destination == "219"){
                         path[i] = "Turn Left";
                         path[i+1] = "Go Straight";
                         path[i+2] = "Turn Right";

@@ -12,11 +12,9 @@ document.querySelector("#event-add-btn").addEventListener('click', e => {
 
 // Event Handler for Event Form Submit
 document.querySelector("#newevent form").addEventListener('submit', e => {
-	console.log("Submit Event Form");
-	e.preventDefault();
+	e.preventDefault(); // Prevents default form submit behavior
 	let formElem = e.target;
 	if(formElem.id === "new"){
-		console.log("Event Form Submit - New");
 		// save new event to database
 		let formData = new FormData(formElem);
 		let formDataObj = Object.fromEntries(formData);
@@ -34,8 +32,6 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 		// Make sure that message area does not say No Events
 		document.getElementById("event-messages").innerHTML = "";
 		
-		console.log(requestObj);
-		
 		//Send request to server to add a new meeting to meeting database
 		fetch('http://127.0.0.1:3000/meetings', {
 			method : 'POST',
@@ -49,6 +45,9 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 				return response.json();
 			})
 			.then(data => {
+				// Reset and clear out the form's contents
+				formElem.reset();
+				
 				// Hide the new event form div
 				document.getElementById("newevent").style.display = "none";
 				// Show the event list
@@ -70,7 +69,6 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 			});
 	}
 	else{
-		console.log("Event Form Submit - Update");
 		// update event in database
 		let formData = new FormData(formElem);
 		let formDataObj = Object.fromEntries(formData);
@@ -99,7 +97,9 @@ document.querySelector("#newevent form").addEventListener('submit', e => {
 				return response;
 			})
 			.then(data => {
-				console.log(data);
+				// Reset and clear out the form's contents
+				formElem.reset();
+				
 				// Hide the new event form div
 				document.getElementById("newevent").style.display = "none";
 				// Show the event add button
@@ -166,7 +166,6 @@ function addEventCard(insertidx, mid, title, start, end, building, roomNum, even
 		
 		// Event listener when click update and autofill event form
 		updateBtn.addEventListener('click', e => {
-			console.log("Click Update Event");
 			let thisEventBody = e.target.parentNode;
 			let thisEventCard = thisEventBody.parentNode;
 			
@@ -213,7 +212,6 @@ function addEventCard(insertidx, mid, title, start, end, building, roomNum, even
 		delBtn.classList.add("trash-icon");
 		// Event listener to delete event
 		delBtn.addEventListener('click', e => {
-			console.log("Delete Event - Click");
 			let thisEventBody = e.target.parentNode;
 			let thisEventCard = thisEventBody.parentNode;
 			
@@ -232,8 +230,6 @@ function addEventCard(insertidx, mid, title, start, end, building, roomNum, even
 					return response.json();
 				})
 				.then(data => {
-					console.log(data.success);
-					
 					// Remove this event's times from the events object
 					events.removeEventTimes(thisEventCard.id);
 					
@@ -267,4 +263,4 @@ function addEventCard(insertidx, mid, title, start, end, building, roomNum, even
 	else{ //Otherwise, add the event at the specified index given by insertidx 
 		eventContainer.insertBefore(eventCard, eventContainer.children[insertidx]);
 	}
-};
+}

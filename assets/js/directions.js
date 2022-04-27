@@ -542,8 +542,8 @@ createRoute.addEventListener("click", function(e){
                      //vending machine
                      if(path[i+1].includes("v",4)){
                         path[i] = "Go Downstairs";
-                        path[i+1] = "Go Straight";
-                        path[i+2] = "Turn Right";
+                        path[i+1] = "Turn Right";
+                        path[i+2] = "Go Straight";
 
                         if (destination == "002"){
                             path[i+3] = "Go Straight";   
@@ -558,12 +558,14 @@ createRoute.addEventListener("click", function(e){
                                 path[i+4] = "Go Straight";
                         }
                         if (destination == "013" || destination == "015" || destination == "038" || destination == "040" || destination == "042"){
+                            
                             path[i+3] = "Turn Right";
                             path[i+4] = "Go Straight";
-                            path[i+5] = "Turn Lef";
+                            path[i+5] = "Turn Left";
                             path[i+6] = "Go Straight";
                             path[i+7] = "Turn Right";
                         }
+                        
                      }
                     //e
                     if (path[i+1].includes("e",4)){
@@ -577,7 +579,7 @@ createRoute.addEventListener("click", function(e){
                             }
                             if(path[i+2] != null && path[i+2].includes("ne")){
                               
-                                if(destination == "034" || destination == "336"){
+                                if(destination == "034" || destination == "036"){
                                     path[i+2] = "Go Straight";
                                     path[i+3] = "Go Downstairs"    
                                 }
@@ -588,12 +590,14 @@ createRoute.addEventListener("click", function(e){
                                     path[i+2] = "Go Straight";
                                     path[i+3] = "Turn Left";
                                 }
-                                if(destination == "034" || destination == "036"){
-                                    path[i+2] = "Go Straight";
-                                }
+                                
                                 if (destination == "154" || destination == "156"){
                                     path[i+2] = "Go Straight";
                                     path[i+3] = "Turn Left";
+                                }
+                                if(destination == "034" || destination == "036"){
+                                    path[i+2] = "Go Straight";
+                                    path[i+3] = "Go Downstairs";  
                                 }
                                 else{
                                     path[i+2] = "Turn Left..";

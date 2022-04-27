@@ -1220,7 +1220,7 @@ F2_W_east.setAttribute("leftVar", "F2_W_north");
 //right
 F2_W_east.setAttribute("rightImg", "assets/images/building interiors/floor2/w_intersection/south.jpg");
 F2_W_east.setAttribute("rightVar", "F2_W_south");
-//upseast
+//upstairs
 F2_W_east.setAttribute("upImg", "assets/images/building interiors/floor3/w_intersection/east.jpg");
 F2_W_east.setAttribute("upVar", "F3_W_east");
 //downstairs
@@ -1559,7 +1559,7 @@ var F3_E_east = document.createElement('img'); //*******************************
 F3_E_east.src='assets/images/building interiors/floor3/e_intersection/east.jpg';
 //backward
 F3_E_east.setAttribute("backwardImg", "assets/images/building interiors/floor3/w_intersection/east.jpg");
-F3_E_east.setAttribute("backwardVar", "F2_W_east");
+F3_E_east.setAttribute("backwardVar", "F3_W_east");
 //right
 F3_E_east.setAttribute("rightImg", "assets/images/building interiors/floor3/e_intersection/south.jpg");
 F3_E_east.setAttribute("rightVar", "F3_E_south");
@@ -1577,7 +1577,7 @@ F3_E_south.setAttribute("forwardImg", "assets/images/building interiors/floor3/s
 F3_E_south.setAttribute("forwardVar", "F3_SE_south");
 //backward
 F3_E_south.setAttribute("backwardImg", "assets/images/building interiors/floor3/ne_intersection/south.jpg");
-F3_E_south.setAttribute("backwardVar", "F2_NE_south");
+F3_E_south.setAttribute("backwardVar", "F3_NE_south");
 //right
 F3_E_south.setAttribute("rightImg", "assets/images/building interiors/floor3/e_intersection/west.jpg");
 F3_E_south.setAttribute("rightVar", "F3_E_west");

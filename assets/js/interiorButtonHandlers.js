@@ -55,7 +55,7 @@ document.getElementById("up").onclick = function() {
 var buttons = document.querySelectorAll(".button").length;
 for (var i = 0; i < buttons ; i++) {
     document.querySelectorAll(".button")[i].addEventListener("click", function() {
-      console.log(curr);
+      //console.log(curr);
       //update room #'s 
       document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
       document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
@@ -104,21 +104,36 @@ for (var i = 0; i < buttons ; i++) {
 var boolToggle = false;
 document.getElementById("showExplore").onclick = function(){
     if(boolToggle == false){
+      document.getElementById("forwardBtn").classList.replace("hidden", "visible");
+      document.getElementById("leftBtn").classList.replace("hidden", "visible");
+      document.getElementById("rightBtn").classList.replace("hidden", "visible");
+      document.getElementById("backwardBtn").classList.replace("hidden", "visible");
+      document.getElementById("up").classList.replace("hidden", "visible");
+      document.getElementById("down").classList.replace("hidden", "visible");
+      /*
         document.getElementById("forwardBtn").style.visibility = "visible";
         document.getElementById("leftBtn").style.visibility = "visible";
         document.getElementById("rightBtn").style.visibility = "visible";
         document.getElementById("backwardBtn").style.visibility = "visible";
         document.getElementById("up").style.visibility = "visible";
-        document.getElementById("down").style.visibility = "visible";
+        document.getElementById("down").style.visibility = "visible"; */
         boolToggle = true;
         }
     else{
+      document.getElementById("forwardBtn").classList.replace("visible", "hidden");
+      document.getElementById("leftBtn").classList.replace("visible", "hidden");
+      document.getElementById("rightBtn").classList.replace("visible", "hidden");
+      document.getElementById("backwardBtn").classList.replace("visible", "hidden");
+      document.getElementById("up").classList.replace("visible", "hidden");
+      document.getElementById("down").classList.replace("visible", "hidden");
+      /*
         document.getElementById("forwardBtn").style.visibility = "hidden";
         document.getElementById("leftBtn").style.visibility = "hidden";
         document.getElementById("rightBtn").style.visibility = "hidden";
         document.getElementById("backwardBtn").style.visibility = "hidden";
         document.getElementById("up").style.visibility = "hidden";
         document.getElementById("down").style.visibility = "hidden";
+        */
         boolToggle = false;
         }   
     }

@@ -873,15 +873,17 @@ createRoute.addEventListener("click", function(e){
                 if (destination == "034" || destination == "036"){
                     path[i+1] = "Arrived!";
                 }
-                if (destination == "028" || destination == "026" || destination == "024" || destination == "022" || 
-                    destination == "020"){
+                if (destination == "028" || destination == "026" || destination == "024" || destination == "022" || destination == "020"){
                     path[i+1] = "Turn Left"; 
                 }
                 if (destination == "013" || destination == "015" || destination == "038" || destination == "040" || destination == "042"){
                     path[i+1] = "Go Straight";
                     path[i+2] = "Turn Left";
-                    if (entrance == "ne"){
+                    if (path[i+3].includes("w")){
+                        console.log("hello");
                         path[i+3] = "Arrived!";
+                        
+                    
                     }
                 }
                 

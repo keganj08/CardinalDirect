@@ -493,8 +493,13 @@ createRoute.addEventListener("click", function(e){
                             path[i+2] = "Go Upstairs";
                             path[i+3] = "Turn Left";
                             path[i+4] = "Go Straight";
-                           
                         }
+                        if (destination == "217" || destination == "219"){
+                            path[i+1] = "Go Upstairs";
+                            path[i+2] = "Go Straight";
+                            path[i+3] = "Turn Left";
+                        }
+
                     }
                     //w
                     if (path[i+1].includes("w",4)){
@@ -507,13 +512,10 @@ createRoute.addEventListener("click", function(e){
                                 path[i+4] = "Turn Left";
                             }
                         }   
-                        if (destination == "217" || destination == "219"){
-                            path[i+2] = "Go Upstairs";
-                            path[i+3] = "Turn Right";
-                        }
+                        
                         if (destination == "221" || destination == "223"){
                             path[i+2] = "Go Upstairs";
-                            path[i+3] = "Turn Left";
+                            path[i+3] = "Turn Right";
                         }
                     }
                 }
@@ -626,10 +628,7 @@ createRoute.addEventListener("click", function(e){
                                     path.length+=1;
                                     path[i+4] = "Turn Right";
                                 }
-                                if (destination == "217" || destination == "219" || destination == "221" || destination == "223"){
-                                    path[i+4] = "Go Upstairs";
-                                    path[i+5] = "Turn Right";
-                                }
+                              
                                 if (destination == "217" || destination == "219" || destination == "221" || destination == "223"){
                                     path[i+4] = "Go Upstairs";
                                     path[i+5] = "Turn Left";

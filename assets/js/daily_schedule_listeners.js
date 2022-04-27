@@ -37,7 +37,8 @@ function getUserEmail(){
 // Once the page is loaded, get the user's classes, meetings, assignments, and to-do list
 document.addEventListener('DOMContentLoaded', e => {
 	//Show the current date
-	document.getElementById("date-header").innerHTML = new Date(getCurrentDate() + "T12:00:00Z").toLocaleDateString();
+	const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+	document.getElementById("date-header").innerHTML = new Date(getCurrentDate() + "T12:00:00Z").toLocaleDateString(undefined, options);
 	
 	Promise.all([
 		// Get classes from database
@@ -117,11 +118,14 @@ document.addEventListener('DOMContentLoaded', e => {
 		
 		// Handle class data
 		console.log(classData);
+		let currentDay = new Date(getCurrentDate() + "T12:00:00Z");
+		currentDay.setHours(0,0,0,0); // Clears out any time
 		// U - Sunday, M - Monday, T - Tuesday, W - Wednesday, R - Thursday, F - Friday, S - Saturday
 		let daysOfWeek = ['U', 'M', 'T', 'W', 'R', 'F', 'S'];
 		// Get Day of Week of given day
-		let selectDayOfWeek = daysOfWeek[new Date(getCurrentDate() + "T12:00:00Z").getDay()];	
+		let selectDayOfWeek = daysOfWeek[currentDay.getDay()];	
 		let assigFormCidSelect = document.querySelector("#cid");
+		
 		let i=0;
 		for(i=0; i<classData.length; i++){
 			let rec = classData[i];
@@ -137,19 +141,28 @@ document.addEventListener('DOMContentLoaded', e => {
 				selectOption.innerHTML = simpleCid;
 				assigFormCidSelect.appendChild(selectOption);
 				
-				// Test if this course is being held on the given day
-				if(rec.dow.indexOf(selectDayOfWeek) !== -1){
-					// In case there are no other meetings, since we now have a record to put in the
-					// event table, make sure the table is visible and the message does not say "No Events"
-					document.querySelector("#eventlist").style.display = "block";
-					document.getElementById("event-messages").innerHTML = "";
-					
-					// Add the event's times to the events object in order to get back where the event
-					// falls in relation to other events chronologically
-					let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
-					
-					// Create a row in the event table at the chronological index for this event
-					addEventCard(insertIdx, "", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
+				// Get the start and end dates of the semester in which this class runs
+				let semStartDate = new Date(rec.startDate);
+				semStartDate.setHours(0,0,0,0); // Clears out any time
+				let semEndDate = new Date(rec.endDate);
+				semEndDate.setHours(0,0,0,0); // Clears out any time
+				
+				// Only include courses if the current day is within the semester
+				if((semStartDate.valueOf() <= currentDay.valueOf()) && (currentDay.valueOf() <= semEndDate.valueOf())){
+					// Test if this course is being held on the given day
+					if(rec.dow.indexOf(selectDayOfWeek) !== -1){
+						// In case there are no other meetings, since we now have a record to put in the
+						// event table, make sure the table is visible and the message does not say "No Events"
+						document.querySelector("#eventlist").style.display = "block";
+						document.getElementById("event-messages").innerHTML = "";
+						
+						// Add the event's times to the events object in order to get back where the event
+						// falls in relation to other events chronologically
+						let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
+						
+						// Create a row in the event table at the chronological index for this event
+						addEventCard(insertIdx, "", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
+					}
 				}
 				
 			}

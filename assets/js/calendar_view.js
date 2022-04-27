@@ -148,32 +148,47 @@ function getEvents(formattedDate){
 		const classData = allResponses[0]; //Response from classes fetch
 		const meetingData = allResponses[1]; //Response from meetings fetch
 		
+		// Make a date object for the date given in formattedDate
+		let selectDay = new Date(formattedDate + "T12:00:00Z");
+		selectDay.setHours(0,0,0,0); // Clears out any time
+		
 		// Handle class data
 		console.log(classData);
 		let courseIds = []; // List of course ids for courses in which the user is enrolled
 		// U - Sunday, M - Monday, T - Tuesday, W - Wednesday, R - Thursday, F - Friday, S - Saturday
 		let daysOfWeek = ['U', 'M', 'T', 'W', 'R', 'F', 'S'];
-		// Get Day of Week of given day
-		let selectDayOfWeek = daysOfWeek[new Date(formattedDate + "T12:00:00Z").getDay()];		
+		// Get Day of Week of given day	
+		let selectDayOfWeek = daysOfWeek[selectDay.getDay()];
 		
+		// Loop through each class record
 		let i=0;
 		for(i=0; i<classData.length; i++){
 			let rec = classData[i];
 			let simpleCid = rec.cid.split("*", 2).join(' ');
 			
-			// Makes sure we are not double-including courses and only showing courses held on
-			// the given day
-			if((rec.dow.indexOf(selectDayOfWeek)!== -1) && (courseIds.indexOf(simpleCid) === -1)){
-				courseIds.push(simpleCid); //add course id
-				// Find position to insert this event to maintain chronological order
-				let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
-				// Add event to "showEvents" table
-				addEventCard(insertIdx, simpleCid + " " + rec.name, rec.startTime, rec.endTime);
+			// Get the start and end dates of the semester in which this class runs
+			let semStartDate = new Date(rec.startDate);
+			semStartDate.setHours(0,0,0,0); // Clears out any time
+			let semEndDate = new Date(rec.endDate);
+			semEndDate.setHours(0,0,0,0); // Clears out any time
+			
+			// Only include courses if the current day is within the semester
+			if((semStartDate.valueOf() <= selectDay.valueOf()) && (selectDay.valueOf() <= semEndDate.valueOf())){
+				// Makes sure we are not double-including courses and only showing courses held on
+				// the given day
+				if((rec.dow.indexOf(selectDayOfWeek)!== -1) && (courseIds.indexOf(simpleCid) === -1)){
+					courseIds.push(simpleCid); //add course id
+					// Find position to insert this event to maintain chronological order
+					let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
+					// Add event to "showEvents" table
+					addEventCard(insertIdx, simpleCid + " " + rec.name, rec.startTime, rec.endTime);
+				}
 			}
 		}
 		
 		// Handle meeting data	
 		console.log(meetingData);
+		// Loop through each meeting record
 		meetingData.forEach(rec => {
 			// Find position to insert this event to maintain chronological order
 			let insertIdx = events.addEventTimes(rec.mid, rec.start, rec.end);

@@ -249,5 +249,40 @@ p{
    
 }
 
-	
- 
+/*button icon classes */
+.forwardArrowIcon{
+	background-image: url(../images/icons/forward_arrow_full.jpg);
+	background-size: cover;
+	width: 55px;
+	height: 55px;
+}
+.leftArrowIcon{
+	background-image: url(../images/icons/left_arrow_full.jpg);
+	background-size: cover;
+	width: 55px;
+	height: 55px;
+}
+.rightArrowIcon{
+	background-image: url(../images/icons/right_arrow_full.jpg);
+	background-size: cover;
+	width: 55px;
+	height: 55px;
+}
+.backwardArrowIcon{
+	background-image: url(../images/icons/backward_arrow_full.jpg);
+	background-size: cover;
+	width: 55px;
+	height: 55px;
+}
+.upArrowIcon{
+	background-image: url(../images/icons/stairs_up.jpg);
+	background-size: cover;
+	width: 55px;
+	height: 55px;
+}
+.downArrowIcon{
+	background-image: url(../images/icons/stairs_down.jpg);
+	background-size: cover;
+	width: 55px;
+	height: 55px;
+}

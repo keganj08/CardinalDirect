@@ -176,7 +176,7 @@ createRoute.addEventListener("click", function(e){
             location.setAttribute("destination", "f3 ne");
         }
         if (destination == "319" || destination == "321"){
-            location.setAttribute("destination", "f3 nw");
+            location.setAttribute("destination", "f3  w");
             //turn left
         }
         if (destination == "323" || destination == "325"){
@@ -437,7 +437,7 @@ createRoute.addEventListener("click", function(e){
                                     path.length+=1;
                                     path[i+4] = "Turn Right";
                                 }
-                                
+                                //need to change to w
                                 if (destination == "321" || destination == "319"){
                                     path[i] = "Turn Left";
                                     path[i+1] = "Go Straight";
@@ -498,8 +498,7 @@ createRoute.addEventListener("click", function(e){
                             path[i+1] = "Go Upstairs";
                             path[i+2] = "Go Straight";
                             path[i+3] = "Turn Left";
-                        }
-
+                        }   
                     }
                     //w
                     if (path[i+1].includes("w",4)){
@@ -512,7 +511,12 @@ createRoute.addEventListener("click", function(e){
                                 path[i+4] = "Turn Left";
                             }
                         }   
-                        
+                        if (destination == "319" || destination == "321"){
+                            path[i+2] = "Go Upstairs";
+                            path[i+3] = "Go Upstairs";
+                            path[i+4] = "Turn Left";  
+                            path[i+5] = "Arrived!"; 
+                        }
                         if (destination == "221" || destination == "223"){
                             path[i+2] = "Go Upstairs";
                             path[i+3] = "Turn Right";

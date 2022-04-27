@@ -6,7 +6,7 @@ function getUserEmail(){
 	let idx = url.indexOf("?user=");
 	let email = null;
 	if(idx !== -1){
-		email = url.substr(idx + 6) + "@noctrl.edu";
+		email = url.substring(idx + 6) + "@noctrl.edu";
 	}
 	return email;
 }
@@ -14,7 +14,6 @@ function getUserEmail(){
 // Once the DOM is loaded, retrieve the user's currently enrolled classes
 document.addEventListener('DOMContentLoaded', e => {
 	// Get classes from database
-	console.log("In Event Listener");
 	fetch('http://127.0.0.1:3000/classes', {
 		method : 'POST',
 		headers: {'Content-Type': 'application/json'},
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', e => {
 			// For each record of data retrieved, create a row in the table
 			let resultCourses = [];
 			for(let i=0; i<data.length; i++){
-				console.log(data[i]);
 				rec = data[i];
 				// If a course id shows up more than once (i.e., it's already in resultCourses),
 				// add the faculty member's name to that row in the table. This handles
@@ -98,7 +96,7 @@ function createClassTable(){
 };
 
 
-// ADJUST HOW DATA APPEAR IN TABLE (ESP. DATES)
+// Create a row in the course result table display the given information
 function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast){
 	let classTable = document.getElementById("class_table");
 	
@@ -111,15 +109,34 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 	let dataName = document.createElement("td");
 	dataName.innerHTML = name;
 	let dataDate = document.createElement("td");
-	dataDate.innerHTML = startDate.substr(0,10) + "-" + endDate.substr(0,10);
+	let semStartDate = new Date(startDate);
+	semStartDate.setHours(0,0,0,0);
+	let semEndDate = new Date(endDate);
+	semEndDate.setHours(0,0,0,0);
+	dataDate.innerHTML = semStartDate.toLocaleDateString() + " - " + semEndDate.toLocaleDateString();
 	let dataDow = document.createElement("td");
-	dataDow.innerHTML = dow;
+	let dowList = dow.split(""); // list of characters 
+	let dowLongObj = {
+		"U" : "Sunday", 
+		"M" : "Monday", 
+		"T" : "Tuesday", 
+		"W" : "Wednesday", 
+		"R" : "Thursday",
+		"F" : "Friday", 
+		"S" : "Saturday"
+	};
+	let i=0;
+	for(i=0; i<dowList.length; i++){
+		// Replace each single-character day with the full-text day
+		dowList[i] = dowLongObj[dowList[i]];
+	}
+	dataDow.innerHTML = dowList.join(", ");
 	let dataTime = document.createElement("td");
-	dataTime.innerHTML = startTime + "-" + endTime;
+	dataTime.innerHTML = startTime + " - " + endTime;
 	let dataLoc = document.createElement("td");
 	dataLoc.innerHTML = building + ", " + roomNum;
 	let dataFaculty = document.createElement("td");
-	dataFaculty.innerHTML = fnamefirst + ", " + fnamelast;
+	dataFaculty.innerHTML = fnamelast + ", " + fnamefirst;
 	
 	let dropTd = document.createElement("td");
 	dropTd.innerHTML = "Drop";
@@ -131,7 +148,6 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 			cid: cid,
 			mode: 'd'
 		};
-		console.log(requestObj);
 		
 		//Send request to server to delete an enroll record from enroll database
 		fetch('http://127.0.0.1:3000/classes', {
@@ -146,7 +162,6 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 				return response.json();
 			})
 			.then(data => {
-				console.log(data);
 				// Remove the corresponding row from the result table
 				let courseTableRow = e.target.parentElement;
 				let courseTable = courseTableRow.parentElement;
@@ -191,22 +206,14 @@ function addFacultyToRow(cid, fnamefirst, fnamelast){
 		let cidTableTd = tableChildren[i].children[0]; // children are td
 		if(cidTableTd.innerHTML === cid){
 			let tableRowChildren = tableChildren[i].children;
-			let addFaculty = ", " + fnamefirst + ", " + fnamelast;
+			let addFaculty = "; " + fnamelast + ", " + fnamefirst;
 			tableRowChildren[tableRowChildren.length-2].innerHTML += addFaculty;
 		}
 	}
 };
 
 //buttons[0] is "Logout" button
-document.getElementById("logout").addEventListener('click', e => {
-	let url = window.location.href;
-	let idx = url.indexOf("?user=");
-	let user = "";
-	if(idx !== -1){
-		user = url.substr(idx);
-	}
-	window.location.href = 'login.html';
-});
+document.getElementById("logout").addEventListener('click', e => {window.location.href = 'login.html';});
 
 //buttons[1] is "Back" button
 buttons[1].addEventListener('click', e => {
@@ -214,7 +221,7 @@ buttons[1].addEventListener('click', e => {
 	let idx = url.indexOf("?user=");
 	let user = "";
 	if(idx !== -1){
-		user = url.substr(idx);
+		user = url.substring(idx);
 	}
 	window.location.href = 'scheduler_landing.html' + user;
 });
@@ -225,7 +232,7 @@ buttons[2].addEventListener('click', e => {
 	let idx = url.indexOf("?user=");
 	let user = "";
 	if(idx !== -1){
-		user = url.substr(idx);
+		user = url.substring(idx);
 	}
 	window.location.href = 'addclass.html' + user;
 });

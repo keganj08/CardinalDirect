@@ -349,7 +349,7 @@ createRoute.addEventListener("click", function(e){
             location.setAttribute("destination", "f3 se");
         }
         if (destination == "301"){
-            location.setAttribute("destination", "f3 se");  
+            location.setAttribute("destination", "f3 sw");  
         } 
     }
     
@@ -591,116 +591,108 @@ createRoute.addEventListener("click", function(e){
                                 path[i] = "Turn Right";
                                 path[i+1] = "Go Straight";
 
-                            if (destination == "254" || destination == "256"){
+                        if (destination == "254" || destination == "256"){
+                            path[i+2] = "Go Straight";
+                            path[i+3] = "Go Upstairs";
+                        }
+                        if(path[i+2] != null && path[i+2].includes("ne")){
+                            
+                            if(destination == "034" || destination == "036"){
                                 path[i+2] = "Go Straight";
-                                path[i+3] = "Go Upstairs";
+                                path[i+3] = "Go Downstairs"    
                             }
-                            if(path[i+2] != null && path[i+2].includes("ne")){
-                              
-                                if(destination == "034" || destination == "036"){
-                                    path[i+2] = "Go Straight";
-                                    path[i+3] = "Go Downstairs"    
-                                }
-                                if(destination == "354" || destination == "356"){
-                                    path[i+2] = "Go Straight"
-                                }
-                                if (destination == "154" || destination == "156"){
-                                    path[i+2] = "Go Straight";
-                                    path[i+3] = "Turn Left";
-                                }
-                                if(destination == "034" || destination == "036"){
-                                    path[i+2] = "Go Straight";
-                                    path[i+3] = "Go Downstairs";  
-                                }
-                                else{
-                                    path[i+2] = "Turn Left..";
-                                }
+                            if(destination == "354" || destination == "356"){
+                                path[i+2] = "Go Straight"
                             }
-                           
-                            if(path[i+2] != null && path[i+2].includes("w",4)){
-                                path[i+2] = "Turn Left";
-                                path[i+3] = "Go Straight";
-                            
-                                if (destination == "217" || destination == "219"){
-                                    path[i+4] = "Go Upstairs";
-                                    path[i+5] = "Turn Right";
-                                }
-                                if (destination == "221" || destination == "223"){
-                                    path.length+=1;
-                                    path[i+4] = "Go Upstairs";
-                                    path.length+=1;
-                                    path[i+5] = "Turn Left";
-                                }
-                                if (destination == "319" || destination == "321"){
-                                    path.length+=1;
-                                    path[i+4] = "Go Upstairs";
-                                    path.length+=1;
-                                    path[i+5] = "Go Upstairs";
-                                    path.length+=1;
-                                    path[i+6] = "Turn Right";
-                                }
-                                if (destination == "323" || destination == "325"){
-                                    path.length+=1;
-                                    path[i+4] = "Go Upstairs";
-                                    path.length+=1;
-                                    path[i+5] = "Go Upstairs";
-                                    path.length+=1;
-                                    path[i+6] = "Turn Left";
-                                }
-                                if (destination == "013" || destination == "015" || destination == "038" || destination == "040" || destination == "042"){
-                                    path[i+4] = "Turn Right";
-                                }
-                                
-                                if (destination == "115" || destination == "113"){
-                                    path.length+=1;
-                                    path[i+4] = "Turn Right";
-                                }
-                              
-                                if (destination == "217" || destination == "219" || destination == "221" || destination == "223"){
-                                    path[i+4] = "Go Upstairs";
-                                    path[i+5] = "Turn Left";
-                                }
-                                if (destination == "317" || destination == "315" || destination == "313" || destination == "332" || destination == "334" || destination == "336" ||
-                                destination == "338" || destination == "342" || destination == "344" || destination == "348" || destination == "350" || destination == "352" || 
-                                destination == "321" || destination == "319"){
-                                    path[i+4] = "Go Upstairs";
-                                }
-                                if (destination == "323" || destination == "325" ){
-                                    path[i+4] = "Go Upstairs";
-                                }
-                                if (destination == "113" || destination == "115"){
-                                    path[i+4] = "Turn Right";
-                                }
-                                else{
-                                    path.length+=1;
-                                    path[i+4] = "Turn Left";
-                                }
+                            if (destination == "154" || destination == "156"){
+                                path[i+2] = "Go Straight";
+                                path[i+3] = "Turn Left";
+                            }
+                            if(destination == "034" || destination == "036"){
+                                path[i+2] = "Go Straight";
+                                path[i+3] = "Go Downstairs";  
+                            }
+                            if (destination == "354" || destination == "356"){
+                                path[i+2] = "Go Straight";
+                            }
+                            else{
+                                path[i+2] = "Turn Left..";
+                            }
+                        }   
+                        if(path[i+2] != null && path[i+2].includes("w",4)){
+                            path[i+2] = "Turn Left";
+                            path[i+3] = "Go Straight..";
+                        
+                            if (destination == "217" || destination == "219"){
+                                path[i+4] = "Go Upstairs";
+                                path[i+5] = "Turn Right";
+                            }
+                            if (destination == "221" || destination == "223"){
+                                path.length+=1;
+                                path[i+4] = "Go Upstairs";
+                                path.length+=1;
+                                path[i+5] = "Turn Left";
+                            }
+                            if (destination == "319" || destination == "321"){
+                                path[i+4] = "Go Upstairs";
+                                path[i+5] = "Go Upstairs";
+                                path[i+6] = "Turn Left";
+                                path[i+7] = "Arrived!";
+                            }
+                            if (destination == "013" || destination == "015" || destination == "038" || destination == "040" || destination == "042"){
+                                path[i+4] = "Turn Right";
+                            }
+                            if (destination == "115" || destination == "113"){
+                                path.length+=1;
+                                path[i+4] = "Turn Right";
+                            }
+                            if (destination == "217" || destination == "219" || destination == "221" || destination == "223"){
+                                path[i+4] = "Go Upstairs";
+                                path[i+5] = "Turn Left";
+                            }
+                            if (destination == "317" || destination == "315" || destination == "313" || destination == "332" || destination == "334" || destination == "336" ||
+                            destination == "338" || destination == "342" || destination == "344" || destination == "348" || destination == "350" || destination == "352"){
+                                path[i+4] = "Go Upstairs";
+                            }
+                            if (destination == "113" || destination == "115"){
+                                path[i+4] = "Turn Right";
+                            }
+                            if (destination == "323" || destination == "325"){
+                                path[i+4] = "Go Upstairs";
+                                path[i+5] = "Go Upstairs";
+                                path[i+6] = "Turn Right";
+                                path[i+7] = "Arrived!";
+                            }
+                            else{
+                                path.length+=1;
+                                path[i+4] = "Turn Left";
                             }
                         }
-                        if(path[i+2] != null && parseInt(path[i].charAt(1)) < parseInt(path[i+1].charAt(1)) && parseInt(path[i+1].charAt(1)) < parseInt(path[i+2].charAt(1))){
-                            path[i] = "Go Upstairs";
-                            path[i+1] = "Go Upstairs";
-                            if (destination == "301"){
-                                path[i+2] = "Arrived!";
-                            }
-                            if (destination == "307" || destination == "328" || destination == "326" || destination == "324" || destination == "322" || destination == "318" ||
-                            destination == "316"){
-                                path[i+2] = "Turn Right";
-                            }
-                            if (destination == "312" || destination == "310" || destination == "308"){
-                                path[i+2] = "Turn Left";
-                            }
+                    }
+                    if(path[i+2] != null && parseInt(path[i].charAt(1)) < parseInt(path[i+1].charAt(1)) && parseInt(path[i+1].charAt(1)) < parseInt(path[i+2].charAt(1))){
+                        path[i] = "Go Upstairs";
+                        path[i+1] = "Go Upstairs";
+                        if (destination == "301"){
+                            path[i+2] = "Go Straight";
+                            path[i+3] = "Arrived!";
                         }
-                        if(path[i-1] != null && parseInt(path[i-1].charAt(1)) < parseInt(path[i].charAt(1))){
-                            path[i] = "Go Upstairs";
-                            
+                        if (destination == "307" || destination == "328" || destination == "326" || destination == "324" || destination == "322" || destination == "318" ||
+                        destination == "316"){
+                            path[i+2] = "Turn Right";
                         }
-                        if (path[i+2] != null && path[i+2].includes("ne") && path[i].charAt(1) === path[i+1].charAt(1)){//if "e" is not the destination
+                        if (destination == "312" || destination == "310" || destination == "308"){
                             path[i+2] = "Turn Left";
                         }
-                   
+                    }
+                    if(path[i-1] != null && parseInt(path[i-1].charAt(1)) < parseInt(path[i].charAt(1))){
+                        path[i] = "Go Upstairs";
+                        
+                    }
+                    if (path[i+2] != null && path[i+2].includes("ne") && path[i].charAt(1) === path[i+1].charAt(1)){//if "e" is not the destination
+                        path[i+2] = "Turn Left";
                     }
                 }
+            }
                //SW corner
                if (path[i] != null && path[i].includes("sw")){
                 if (path[i+1] != null && path[i+1].includes("se")){
@@ -734,7 +726,6 @@ createRoute.addEventListener("click", function(e){
                     if (destination == "205" || destination == "216" || destination == "218" || destination == "222" || destination == "224" || destination == "226" ||
                     destination == "228"){
                         path[i+1] = "Go Upstairs"; 
-                        
                     }
                     if (destination == "301"){
                         path[i+1] = "Go Upstairs";
@@ -755,11 +746,9 @@ createRoute.addEventListener("click", function(e){
                         path[i+3] = "Turn Right";
                         path[i+4] = "Go Straight";
                     }
-                    
                     else{
                         path[i+1] = "Turn Left";
                     }
-                   
                     if(path[i+2] != null && path[i+2].includes("e", 4)){
                         if (destination == "205" || destination == "216" || destination == "218" || destination == "222" || destination == "224" || destination == "226" ||
                         destination == "228"){
@@ -775,7 +764,6 @@ createRoute.addEventListener("click", function(e){
                             path[i+4] = "Go Upstairs";
                             path.length+=1;
                             path[i+5] = "Turn Left";
-
                         }
                         if(path[i+3] != null && path[i+3].includes("ne")){
                             path[i+3] = "Go Straight";
@@ -805,7 +793,6 @@ createRoute.addEventListener("click", function(e){
                         path[i+3] = "Turn Right";
                         path[i+4] = "Turn Right";
                     }
-                    
                     else{
                         path[i] = "Turn Left";
                         path[i+1] = "Go Straight";
@@ -820,18 +807,14 @@ createRoute.addEventListener("click", function(e){
                         path.length+=1;
                         path[i+3] = "Turn Right";
                     }
-                   
                     if(path[i+2] != null && path[i+2].includes("nw")){
                         path[i+2] = "Go Straight";
                         path.length+=1;
                         path[i+3] = "Turn Right";
-                        
                     }
                 }
-
             }
         }
-        
         //STAIRS
         if (path[i] != null && path[i+1] != null && path[i].charAt(3) === path[i+1].charAt(3) && path[i].charAt(4) === (path[i+1].charAt(4))){
             if(parseInt(path[i].charAt(1)) < parseInt(path[i+1].charAt(1))) {

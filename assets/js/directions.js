@@ -432,6 +432,7 @@ createRoute.addEventListener("click", function(e){
                             if(path[i+2] != null && path[i+2].includes("w",4)){
                                 path[i+2] = "Turn Right";
                                 path[i+3] = "Go Straight";
+                                //NOT WORKING
                                 if (destination == "115" || destination == "113"){
                                     path.length+=1;
                                     path[i+4] = "Turn Right";
@@ -807,7 +808,6 @@ createRoute.addEventListener("click", function(e){
             if(parseInt(path[i].charAt(1)) < parseInt(path[i+1].charAt(1))) {
                 path[i] = "Go Upstairs";
 
-                //LOGICAL ISSUE HERE
                 if (destination == "301"){
                     path[i+1] = "Go Upstairs";
                     path[i+2] = "Turn Right";
@@ -815,15 +815,14 @@ createRoute.addEventListener("click", function(e){
                     path[i+4] = "Turn Left";
                 }
                 //NOT WORKING
-                if (destination == "205" || destination == "216" || destination == "218" || destination == "222" || destination == "224" || destination == "226" ||
-                destination == "228"){
-                    path[i+1] = "Turn Right";
-                    path[i+2] = "Go Straight";
-                    if(entrance == "ne"){
+                if (destination == "205" || destination == "216" || destination == "218" || destination == "222" || destination == "224" || destination == "226" ||destination == "228"){
+                    if(path[i+1].includes("e")){
                         path[i+1] = "Turn Left";
                         path[i+2] = "Go Straight";
-                    }
-                    
+                    }else{
+                        path[i+1] = "Turn Right";
+                        path[i+2] = "Go Straight";
+                    }                   
                 }
                 //NOT WORKING
                 if (destination == "254" || destination == "256"){
@@ -881,17 +880,13 @@ createRoute.addEventListener("click", function(e){
                     path[i+2] = "Turn Left";
                     if (path[i+3].includes("w")){
                         console.log("hello");
-                        path[i+3] = "Arrived!";
-                        
-                    
+                        path[i+3] = "Arrived!";  
                     }
                 }
-                
             } 
         }
-       
     }
-    }
+}
     //user only needs to turn left/right to arrive at destination
     if (path[0].includes("ne") && path.length == 1){
         path[0] = "Turn Left";  

@@ -874,7 +874,7 @@ createRoute.addEventListener("click", function(e){
                 if (destination == "013" || destination == "015" || destination == "038" || destination == "040" || destination == "042"){
                     path[i+1] = "Go Straight";
                     path[i+2] = "Turn Left";
-                    if (path[i+3].includes("w")){
+                    if (path[i+3] != null && path[i+3].includes("w")){
                         console.log("hello");
                         path[i+3] = "Arrived!";  
                     }

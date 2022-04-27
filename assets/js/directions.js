@@ -389,7 +389,7 @@ createRoute.addEventListener("click", function(e){
                         path[i+3] = "Go Straight";
                         path[i+4] = "Go Upstairs";
                         path[i+5] = "Go Upstairs";
-                        path[i+6] = "Turn Right";
+                        path[i+6] = "Turn Left";
                     }
                     if (destination == "323" || destination == "325"){
                         path[i] = "Turn Left";
@@ -398,7 +398,7 @@ createRoute.addEventListener("click", function(e){
                         path[i+3] = "Go Straight";
                         path[i+4] = "Go Upstairs";
                         path[i+5] = "Go Upstairs";
-                        path[i+6] = "Turn Left";
+                        path[i+6] = "Turn Right";
                     }
                     if (destination == "217" || destination == "219"){
                         path[i] = "Turn Left";

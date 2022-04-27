@@ -64,8 +64,6 @@ function deleteToDoList(){
 document.querySelector("#todolist button").addEventListener('click', e => {
 	document.getElementById("newtodo").style.display = "block"; // Show the new to-do item form
 	e.target.style.display = "none"; // Hide the add button
-	console.log("in todo list add");
-	console.log(todoListTable.children);
 	if(todoListTable.children.length === 0){ //table is empty
 		createToDoList();
 	}
@@ -73,11 +71,9 @@ document.querySelector("#todolist button").addEventListener('click', e => {
 
 // Event Handler for To Do Form Submit
 document.querySelector("#newtodo form").addEventListener('submit', e => {
-	console.log("Submit To Do Form");
-	e.preventDefault();
+	e.preventDefault(); // Prevents default form submit behavior
 	let formElem = e.target;
 
-	console.log("To-Do Item Form Submit");
 	// save new to-do item to database
 	
 	// Get data from the form
@@ -98,8 +94,6 @@ document.querySelector("#newtodo form").addEventListener('submit', e => {
 		requestObj.isComplete = false;
 		requestObj.mode = 'a';
 		
-		console.log(requestObj);
-		
 		//Send request to server to add a new to-do item to to-do item database
 		fetch('http://127.0.0.1:3000/todo_list_items', {
 			method : 'POST',
@@ -113,6 +107,9 @@ document.querySelector("#newtodo form").addEventListener('submit', e => {
 				return response.json();
 			})
 			.then(data => {
+				// Reset and clear out the form's contents
+				formElem.reset();
+				
 				formElem.parentNode.style.display = "none"; // Hide the new to-do item form
 				document.querySelector("#todolist button").style.display = "block"; //Show the add button
 				addToDoListItem(requestObj.description, requestObj.isComplete); // add item to to-do list table
@@ -146,8 +143,6 @@ function addToDoListItem(description, isComplete){
 	
 	// Event listener when click "Complete" 
 	todo_isComplete.addEventListener('click', e => {
-		console.log("Update Completeness of To Do List Item");
-		
 		// If the to-do item has a circle icon and is clicked, it should be marked as complete
 		// and updated in the database. If the to-do item has a check-mark icon and is clicked,
 		// it should be marked as incomplete and updated in the database
@@ -159,8 +154,6 @@ function addToDoListItem(description, isComplete){
 			"isComplete" : todoItemRow.childNodes[0].classList.contains('circle-icon'),
 			"mode" : 'u'
 		};
-		
-		console.log(requestObj);
 		
 		//Send request to server to update to-do list item in to-do list item database
 		fetch('http://127.0.0.1:3000/todo_list_items', {
@@ -175,10 +168,11 @@ function addToDoListItem(description, isComplete){
 				return response.json();
 			})
 			.then(data => {
-				console.log(e.target.classList);
+				// If the icon is the circle icon, make it a check mark.
+				// If the icon is a check mark, make it a circle.
 				e.target.classList.toggle('circle-icon');
 				e.target.classList.toggle('check-mark-icon');
-				console.log(e.target.classList);
+				
 				// Update the progress bar
 				calculateProgress();
 			})
@@ -196,7 +190,6 @@ function addToDoListItem(description, isComplete){
 	delTd.classList.add('trash-icon', 'click-cursor');
 	// Event listener to delete to-do list item
 	delTd.addEventListener('click', e => {
-		console.log("Delete ToDo Item - Click");
 		let dataRow = e.target.parentNode;
 		let dataVals = dataRow.children;
 		let description = dataVals[1].innerHTML;
@@ -216,7 +209,6 @@ function addToDoListItem(description, isComplete){
 				return response.json();
 			})
 			.then(data => {
-				console.log(data.success);
 				// Remove the corresponding row from the to-do list table
 				let todoTable = dataRow.parentNode;
 				todoTable.removeChild(dataRow);

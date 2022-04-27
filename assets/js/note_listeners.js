@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', e => {
 });
 
 document.querySelector("#noteform form").addEventListener("submit", e => {
-	console.log("Note Form - Submit - Update");
 	e.preventDefault();
 	let formElem = e.target;
 	let divElem = formElem.parentElement;
@@ -53,9 +52,7 @@ document.querySelector("#noteform form").addEventListener("submit", e => {
 	// If the id is "new", add a new note to the database
 	if(noteid === "new"){
 		requestObj.mode = 'a';
-		
-		//console.log(requestObj);
-		
+				
 		//Send request to server to add a new note to note database
 		fetch('http://127.0.0.1:3000/notes', {
 			method : 'POST',
@@ -76,8 +73,8 @@ document.querySelector("#noteform form").addEventListener("submit", e => {
 				createNoteCard(id, requestObj.title, requestObj.text);
 				// Show all of the notes
 				notesContainer.classList.toggle("display-none");
-				// Clear the form's contents
-				clearFormContents();
+				// Reset and clear out the form's contents
+				formElem.reset();
 			})
 			.catch(error => {
 				console.log(error);
@@ -87,9 +84,7 @@ document.querySelector("#noteform form").addEventListener("submit", e => {
 	else{
 		requestObj.id = noteid.substring(3); // Remove "nid" from note id
 		requestObj.mode = 'u';
-		
-		//console.log(requestObj);
-		
+				
 		//Send request to server to update an existing note in note database
 		fetch('http://127.0.0.1:3000/notes', {
 			method : 'POST',
@@ -103,15 +98,14 @@ document.querySelector("#noteform form").addEventListener("submit", e => {
 				return response;
 			})
 			.then(data => {
-				console.log(data);
 				// Hide the update note form
 				divElem.classList.toggle("display-none");
 				// Update the note's title and content
 				updateNoteCard("nid" + requestObj.id, requestObj.title, requestObj.text);
 				// Show all of the notes
 				notesContainer.classList.toggle("display-none");
-				// Clear the form's contents
-				clearFormContents();
+				// Reset and clear out the form's contents
+				formElem.reset();
 			})
 			.catch(error => {
 				console.log(error);
@@ -178,7 +172,6 @@ function createNoteCard(nid, title, content){
 	delBtn.classList.add('trash-icon');
 	// Event listener to delete note
 	delBtn.addEventListener('click', e => {
-		console.log("Delete Event - Click");
 		let thisNoteBody = e.target.parentNode;
 		let thisNoteCard = thisNoteBody.parentNode;
 		
@@ -196,7 +189,6 @@ function createNoteCard(nid, title, content){
 				return response.json();
 			})
 			.then(data => {
-				console.log(data.success);
 				// Remove the note card from the note card container
 				thisNoteCard.remove();
 			})
@@ -222,14 +214,6 @@ function updateNoteCard(id, title, content){
 	let noteBody = noteCard.children[1];
 	noteCard.children[0].innerHTML = title;
 	noteBody.children[0].innerHTML = content;
-}
-
-
-// Clears the contents of the form
-function clearFormContents(){
-	let noteForm = document.querySelector("#noteform form");
-	noteForm.querySelector("#title").value = "";
-	noteForm.querySelector("#text").value = "";
 }
 
 //"Logout" button

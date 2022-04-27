@@ -116,16 +116,16 @@ document.addEventListener('DOMContentLoaded', e => {
 			document.getElementById("todo-messages").innerHTML = "Nothing To Do";
 		}
 		
-		// Handle class data
-		console.log(classData);
 		let currentDay = new Date(getCurrentDate() + "T12:00:00Z");
 		currentDay.setHours(0,0,0,0); // Clears out any time
 		// U - Sunday, M - Monday, T - Tuesday, W - Wednesday, R - Thursday, F - Friday, S - Saturday
 		let daysOfWeek = ['U', 'M', 'T', 'W', 'R', 'F', 'S'];
 		// Get Day of Week of given day
-		let selectDayOfWeek = daysOfWeek[currentDay.getDay()];	
+		let selectDayOfWeek = daysOfWeek[currentDay.getDay()];
+		// Get the associated with course id input of the assignment form
 		let assigFormCidSelect = document.querySelector("#cid");
 		
+		// Handle class data
 		let i=0;
 		for(i=0; i<classData.length; i++){
 			let rec = classData[i];
@@ -169,10 +169,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		}
 		
 		// Handle meeting data	
-		console.log(meetingData);
 		meetingData.forEach(rec => {
-			console.log(rec);
-			
 			// Add the event's times to the events object in order to get back where the event
 			// falls in relation to other events chronologically
 			let insertIdx = events.addEventTimes("mid" + rec.mid, rec.start, rec.end);
@@ -182,10 +179,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		});
 						
 		// Handle assignment data
-		console.log(assignmentData);
-		assignmentData.forEach(rec => {
-			console.log(rec);
-			
+		assignmentData.forEach(rec => {			
 			// Add the assignment's due time to the assignments object in order to receive
 			// the chronological position of this assignment in relation to other assignments
 			let insertIdx = assignments.addDueTime("aid" + rec.aid, rec.dueTime);
@@ -195,12 +189,10 @@ document.addEventListener('DOMContentLoaded', e => {
 		});
 			
 		// Handle to-do list data
-		console.log(todoData);
 		if(todoData.length > 0){
 			document.querySelector("#todolist table").id = "tid" + todoData[0].tid;
 		}
 		todoData.forEach(rec => {
-			console.log(rec);
 			addToDoListItem(rec.description, rec.isComplete);
 		});
 		// Calculate the % completed for the progress bar

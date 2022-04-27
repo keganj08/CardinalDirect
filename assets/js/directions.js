@@ -953,7 +953,11 @@ createRoute.addEventListener("click", function(e){
     var boolArrived = false;
     //next btn listener
     document.getElementById("next").onclick = function() {
+        console.log(boolArrived);
         console.log(instruc);
+        if(instruc == "Arrived!"){
+            boolArrived = true;
+        }
         if(instruc == "Arrived!"){
             console.log("no more instrucs");
         }
@@ -989,9 +993,6 @@ createRoute.addEventListener("click", function(e){
                 //grab next instruc for next time is clicked
                 instruc = document.getElementById("currentInstruction").innerHTML;
                 //console.log(instruc);
-                if(instruc == "Arrived!"){
-                    boolArrived = true;
-                }
                 //call UIupdate
                 UIupdate();
                //roomsUpdate();

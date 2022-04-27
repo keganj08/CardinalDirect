@@ -8,8 +8,13 @@ console.log(path);//array
 
 var createRoute = document.getElementById("createRoute");
 
+var count = 0;
+
+
+
 createRoute.addEventListener("click", function(e){
     e.preventDefault();//only works if button is clicked, not with the  "enter" key
+    
 	//grab entrance from url
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
@@ -906,6 +911,10 @@ createRoute.addEventListener("click", function(e){
         path[0] = "Turn Right";  
     }
   
+    const pathSize = path.length;
+    console.log("pathsize = " +pathSize)
+    routeButtons();
+
     //Click through directions-->
     directions = document.getElementById("currentInstruction");
     btn = document.getElementById("next");
@@ -913,13 +922,17 @@ createRoute.addEventListener("click", function(e){
     btn.addEventListener("onmousedown", stopEvent, false);
     btn.addEventListener("click", nextDirection);
 
+
     directions.innerHTML = path[0];
     index = 0;
     function stopEvent(ev) {
         ev.stopPropagation();
     }
-
+    
     function nextDirection() {
+        if(count<pathSize){
+            count++;
+        }
         if (index < path.length - 1){
             index++;
         }
@@ -931,6 +944,7 @@ createRoute.addEventListener("click", function(e){
             path[path.length-1] = "Arrived!";
         }
     }
+    
 
   /*
     function hideExplore() {
@@ -953,6 +967,7 @@ createRoute.addEventListener("click", function(e){
     var boolArrived = false;
     //next btn listener
     document.getElementById("next").onclick = function() {
+        routeButtons();
         console.log(boolArrived);
         console.log(instruc);
         if(instruc == "Arrived!"){
@@ -998,6 +1013,7 @@ createRoute.addEventListener("click", function(e){
                //roomsUpdate();
             }
         }
+
     //end of next btn image cohesion
 
 
@@ -1012,6 +1028,8 @@ createRoute.addEventListener("click", function(e){
     document.getElementById("prev").onclick = function(){
        // curr = prevpic;
         //pic.src = prevsrc;
+        count--;
+        routeButtons();
         boolArrived = false;
         if(prevpicStack === undefined || prevpicStack.length == 0){
             console.log("no more prev pics");
@@ -1091,6 +1109,39 @@ createRoute.addEventListener("click", function(e){
         }
         else{
         document.getElementById("down").style = "opacity: 1" 
+        }
+    }
+  
+
+    function routeButtons(){
+        console.log("count = " + count);
+   
+        if(count==0){
+            //disable prev
+            document.getElementById("prev").disabled = true;
+            document.getElementById("prev").style.cssText += "opacity: .1";
+            //enable next
+            document.getElementById("next").disabled = false;
+            document.getElementById("next").style.cssText += "opacity: 1";
+            }
+        if(count>0 && count != pathSize){
+            //enable both
+            document.getElementById("prev").disabled = false;
+            document.getElementById("prev").style.cssText += "opacity: 1";
+            document.getElementById("next").disabled = false;
+            document.getElementById("next").style.cssText += "opacity: 1";
+        }
+        if(count == pathSize){
+            //disable next
+            document.getElementById("next").disabled = true;
+            document.getElementById("next").style.cssText += "opacity: .1";
+            //enable prev
+            document.getElementById("prev").disabled = false;
+            document.getElementById("prev").style.cssText += "opacity: 1";
+        }
+        //workaround for routes with only 2 instructions
+        if(pathSize == 1 && count ==1){
+            document.getElementById("currentInstruction").innerHTML = "Arrived!";
         }
     }
 });

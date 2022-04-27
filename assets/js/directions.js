@@ -918,6 +918,8 @@ createRoute.addEventListener("click", function(e){
     const pathSize = path.length;
     console.log("pathsize = " +pathSize)
     routeButtons();
+    document.getElementById("createRoute").disabled = true;
+    document.getElementById("createRoute").style.cssText += "opacity: .1";
 
     //Click through directions-->
     directions = document.getElementById("currentInstruction");

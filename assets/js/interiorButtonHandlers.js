@@ -110,6 +110,11 @@ document.getElementById("showExplore").onclick = function(){
       document.getElementById("backwardBtn").classList.replace("hidden", "visible");
       document.getElementById("up").classList.replace("hidden", "visible");
       document.getElementById("down").classList.replace("hidden", "visible");
+      //disable route buttons - have to go back to entrance page to enter new route
+      document.getElementById("next").disabled = true;
+      document.getElementById("next").style.cssText += "opacity: .1";
+      document.getElementById("prev").disabled = true;
+      document.getElementById("prev").style.cssText += "opacity: .1";
       /*
         document.getElementById("forwardBtn").style.visibility = "visible";
         document.getElementById("leftBtn").style.visibility = "visible";

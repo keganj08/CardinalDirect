@@ -633,12 +633,6 @@ createRoute.addEventListener("click", function(e){
                                 path.length+=1;
                                 path[i+5] = "Turn Left";
                             }
-                            if (destination == "319" || destination == "321"){
-                                path[i+4] = "Go Upstairs";
-                                path[i+5] = "Go Upstairs";
-                                path[i+6] = "Turn Left";
-                                path[i+7] = "Arrived!";
-                            }
                             if (destination == "013" || destination == "015" || destination == "038" || destination == "040" || destination == "042"){
                                 path[i+4] = "Turn Right";
                             }
@@ -661,6 +655,12 @@ createRoute.addEventListener("click", function(e){
                                 path[i+4] = "Go Upstairs";
                                 path[i+5] = "Go Upstairs";
                                 path[i+6] = "Turn Right";
+                                path[i+7] = "Arrived!";
+                            }
+                            if (destination == "319" || destination == "321"){
+                                path[i+4] = "Go Upstairs";
+                                path[i+5] = "Go Upstairs";
+                                path[i+6] = "Turn Left";
                                 path[i+7] = "Arrived!";
                             }
                             else{

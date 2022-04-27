@@ -648,9 +648,12 @@ createRoute.addEventListener("click", function(e){
                                 if (destination == "323" || destination == "325" ){
                                     path[i+4] = "Go Upstairs";
                                 }
+                                if (destination == "113" || destination == "115"){
+                                    path[i+4] = "Turn Right";
+                                }
                                 else{
                                     path.length+=1;
-                                    path[i+4] = "Turn Left//";
+                                    path[i+4] = "Turn Left";
                                 }
                             }
                         }

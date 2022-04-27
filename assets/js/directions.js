@@ -954,10 +954,18 @@ createRoute.addEventListener("click", function(e){
     
     var prevpicStack = [];
     var prevsrcStack = [];
-    var boolArrived;
+    var boolArrived = false;
     //next btn listener
     document.getElementById("next").onclick = function() {
-        if(!boolArrived){
+        console.log(boolArrived);
+        console.log(instruc);
+        if(instruc == "Arrived!"){
+            boolArrived = true;
+        }
+        if(instruc == "Arrived!"){
+            console.log("no more instrucs");
+        }
+        if(boolArrived == false){
             prevpicStack.push(curr);
             prevsrcStack.push(pic.src);
             
@@ -988,13 +996,10 @@ createRoute.addEventListener("click", function(e){
                 }
                 //grab next instruc for next time is clicked
                 instruc = document.getElementById("currentInstruction").innerHTML;
-                console.log(instruc);
-                if(instruc == "Arrived!"){
-                    boolArrived = true;
-                }
+                //console.log(instruc);
                 //call UIupdate
-               // UIupdate();
-               roomsUpdate();
+                UIupdate();
+               //roomsUpdate();
             }
         }
     //end of next btn image cohesion
@@ -1023,8 +1028,8 @@ createRoute.addEventListener("click", function(e){
             instruc = document.getElementById("currentInstruction").innerHTML;
             console.log(instruc);
         }
-        //UIupdate();
-        roomsUpdate();
+        UIupdate();
+        //roomsUpdate();
     }
     
 
@@ -1042,13 +1047,13 @@ createRoute.addEventListener("click", function(e){
     }    
         
         
-
+/*
     function roomsUpdate(){
         //update room #'s 
         document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
         document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
-    }
-/*
+    }*/
+
     function UIupdate(){
         //update room #'s 
         document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
@@ -1091,7 +1096,7 @@ createRoute.addEventListener("click", function(e){
         else{
         document.getElementById("down").style = "opacity: 1" 
         }
-    }*/
+    }
 });
 
 

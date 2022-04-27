@@ -94,19 +94,6 @@ var events = {
 		hr = ("0" + hr).slice(-2);
 		return hr + ":" + hr_min[1];
 	},
-	/* // Not Sure if Working Yet
-	hasConflict: function(startDateTime, endDateTime){
-		let i=0;
-		let noConflict = true;
-		while(noConflict && i<this.startTimes.length){
-			if(((this.startTimes[i] < startDateTime) && (startDateTime < this.endTimes[i])) || ((this.startTimes[i] < endDateTime) && (endDateTime < this.endTimes[i]))){
-				noConflict = false;
-			}
-			i += 1;
-		}
-		return noConflict;
-	},
-	*/
 	// Print the list conents of each list
 	print: function(){
 		let i=0;

@@ -12,11 +12,9 @@ document.querySelector("#assignment-add-btn").addEventListener('click', e => {
 
 // Event Handler for Assignment Form Submit
 document.querySelector("#newassignment form").addEventListener('submit', e => {
-	console.log("Submit Assignment Form");
-	e.preventDefault();
+	e.preventDefault(); // Prevents default form submit behavior
 	let formElem = e.target;
 	if(formElem.id === "new"){
-		console.log("Assignment Form Submit - New");
 		// save new assignment to database
 		let formData = new FormData(formElem);
 		let formDataObj = Object.fromEntries(formData);
@@ -28,8 +26,6 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 			"dueDate" : getCurrentDate(),
 			"mode" : 'a'
 		};
-		
-		console.log(requestObj);
 		
 		//Send request to server to add a new assignment to assignment database
 		fetch('http://127.0.0.1:3000/assignments', {
@@ -44,6 +40,9 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				return response.json();
 			})
 			.then(data => {
+				// Reset and clear out the form's contents
+				formElem.reset();
+				
 				// Hide new assignment form div
 				document.getElementById("newassignment").style.display = "none";
 				// Show the assignment card container
@@ -66,7 +65,6 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 			});
 	}
 	else{
-		console.log("Assignment Form Submit - Update");
 		// update assignment in database
 		let formData = new FormData(formElem);
 		let formDataObj = Object.fromEntries(formData);
@@ -79,8 +77,6 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 			"dueDate" : getCurrentDate(),
 			"mode" : 'u'
 		};
-		
-		console.log(requestObj);
 		
 		//Send request to server to update an existing assignment in assignment database
 		fetch('http://127.0.0.1:3000/assignments', {
@@ -95,7 +91,9 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				return response;
 			})
 			.then(data => {
-				console.log(data);
+				// Reset and clear out the form's contents
+				formElem.reset();
+				
 				// Hide new assignment form div
 				document.getElementById("newassignment").style.display = "none";
 				// Show the assignment add button
@@ -180,7 +178,6 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 	delBtn.classList.add('trash-icon');
 	// Event listener to delete assignment
 	delBtn.addEventListener('click', e => {
-		console.log("Delete Event - Click");
 		let thisAssigBody = e.target.parentNode;
 		let thisAssigCard = thisAssigBody.parentNode;
 		
@@ -198,7 +195,6 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 				return response.json();
 			})
 			.then(data => {
-				console.log(data.success);
 				// Remove the assignment from the assignment object
 				assignments.removeDueTime(thisAssigCard.id);
 				// Remove the corresponding card from the assignment card container

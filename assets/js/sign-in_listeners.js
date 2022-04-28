@@ -38,25 +38,3 @@ document.getElementById('sign-inForm').addEventListener('submit', e => {
 		});
 	
 });
-
-
-/*
-const formElem = document.querySelector('form');
-
-// submit handler
-
-formElem.addEventListener('submit', (e) => {
-  // on form submission, prevent default
-  e.preventDefault();
-
-  console.log(form.querySelector('input[name="field1"]')); // FOO
-  console.log(form.querySelector('input[name="field2"]')); // BAR
-
-  // construct a FormData object, which fires the formdata event
-  const formData = new FormData(formElem);
-  // formdata gets modified by the formdata event
-  console.log(formData.get('field1')); // foo
-  console.log(formData.get('field2')); // bar
-});
-
-*/

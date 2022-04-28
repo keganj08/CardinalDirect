@@ -326,17 +326,16 @@ router.post('/settings', function(req, res){
 	let mode = req.body.mode;
 	if(mode === 'u'){
 		console.log("Update Account");
-		let newRec = {
+		let updateRec = {
 			"username" : req.body.username,
 			"pwd" : req.body.pwd,
 			"pnum" : req.body.pnum,
 			"email" : req.body.email
 		};
-		mydb.updateAccount(newRec, function(result){
-			
-			res.send(result);
+		mydb.updateAccount(updateRec, function(result){
+			res.send({"status" : "success"});
 		});
-}
+	}
 });
 
 //FORGOT PASSWORD

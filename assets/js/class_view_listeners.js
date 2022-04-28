@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', e => {
 function createClassTable(){
 	let classTable = document.createElement("table");
 	classTable.id = "class_table";
+	//classTable.classList.add("table", "table-striped");
 	
 	let headerRow = document.createElement("tr");
 	
@@ -140,6 +141,8 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 	
 	let dropTd = document.createElement("td");
 	dropTd.innerHTML = "Drop";
+	// Change the cursor of this table element to a clickable cursor
+	dropTd.classList.add("click-cursor");
 	
 	dropTd.addEventListener('click', e => {		
 		//Request object has user's email, the course id they are removing, and mode: d for delete

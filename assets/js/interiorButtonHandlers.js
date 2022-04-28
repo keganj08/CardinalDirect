@@ -55,7 +55,6 @@ document.getElementById("up").onclick = function() {
 var buttons = document.querySelectorAll(".button").length;
 for (var i = 0; i < buttons ; i++) {
     document.querySelectorAll(".button")[i].addEventListener("click", function() {
-      //console.log(curr);
       //update room #'s 
       document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
       document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 

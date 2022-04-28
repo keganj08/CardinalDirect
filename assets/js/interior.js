@@ -59,12 +59,9 @@ document.getElementById("backButton").addEventListener('click', e => {
 //"Logout" button
 document.getElementById("logout").addEventListener('click', e => {window.location.href = 'login.html';});
 
-
-
 var curr;
 var pic = document.getElementById("current"); //html element
 console.log(pic.src);
-//pic.src = 'assets/images/building interiors/floor1/sw_intersection/east.jpg';
 
 //grab entrance from url
 const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -99,7 +96,7 @@ if(entrance == 'ne'){
 }
 
 document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
-document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; //replace .innerHTML with other function?
+document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
 
 //hasattribute - directionals - if doesnt, change css to grey out
 if(!curr.hasAttribute("forwardVar")){

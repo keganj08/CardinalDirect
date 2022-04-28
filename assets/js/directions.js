@@ -920,7 +920,6 @@ createRoute.addEventListener("click", function(e){
     btn.addEventListener("onmousedown", stopEvent, false);
     btn.addEventListener("click", nextDirection);
 
-
     directions.innerHTML = path[0];
     index = 0;
     function stopEvent(ev) {
@@ -928,7 +927,6 @@ createRoute.addEventListener("click", function(e){
     }
     
     function nextDirection() {
-
         if (index < path.length - 1){
             index++;
         }
@@ -941,7 +939,6 @@ createRoute.addEventListener("click", function(e){
         }
     }
 
-    console.log(path);
     //image cohesion - next btn
     //gets initial instruction when create route is clicked, hides explore buttons
    let instruc = document.getElementById("currentInstruction").innerHTML;
@@ -956,8 +953,6 @@ createRoute.addEventListener("click", function(e){
             count++;
         }
         routeButtonsUI();
-        //console.log(boolArrived);
-        //console.log(instruc);
         if(instruc == "Arrived!"){
             boolArrived = true;
         }
@@ -992,8 +987,6 @@ createRoute.addEventListener("click", function(e){
                 }
                 //grab next instruc for next time is clicked
                 instruc = document.getElementById("currentInstruction").innerHTML;
-                //console.log(instruc);
-                //call UIupdate
                 UIupdate();
             }
         }
@@ -1007,27 +1000,22 @@ createRoute.addEventListener("click", function(e){
     btn.addEventListener("onmousedown", stopEvent, false);
     btn.addEventListener("click", prevDirection);
 
-
     //prev button image cohesion - uses stack variables declared above
     document.getElementById("prev").onclick = function(){
         count--;
         routeButtonsUI();
         boolArrived = false;
         if(prevpicStack === undefined || prevpicStack.length == 0){
-            //console.log("no more prev pics");
             instruc = document.getElementById("currentInstruction").innerHTML;
-            //console.log(instruc);
         }
         else{
             curr = prevpicStack.pop();
             pic.src = prevsrcStack.pop();
             instruc = document.getElementById("currentInstruction").innerHTML;
-            //console.log(instruc);
         }
         UIupdate();
     }
     
-
     function stopEvent(ev) {
         ev.stopPropagation();
     }
@@ -1088,7 +1076,6 @@ createRoute.addEventListener("click", function(e){
   
     //function to add responsiveness to route buttons
     function routeButtonsUI(){
-        //console.log("count = " + count);
         if(count==0){
             //disable prev
             document.getElementById("prev").disabled = true;

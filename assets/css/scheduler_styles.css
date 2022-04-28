@@ -250,10 +250,6 @@ li:last-child {
 */
 	
 /* Daily Schedule */
-.new-schedule-item-form, .schedule-item-table, #newtodo {
-	display: none;
-}
-
 #date-header {
 	display: inline-block;
 }

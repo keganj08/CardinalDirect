@@ -3,9 +3,9 @@
 // Event Handler for Assignment "Add" Button
 document.querySelector("#assignment-add-btn").addEventListener('click', e => {
 	// Show new assignment form div
-	document.getElementById("newassignment").style.display = "block";
+	document.getElementById("newassignment").classList.remove("display-none");
 	// Hide add Button
-	e.target.style.display = "none";
+	e.target.parentNode.classList.add("display-none");
 	// Set id of new assignment form
 	document.querySelector("#newassignment form").id = "new";
 });
@@ -44,13 +44,11 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				formElem.reset();
 				
 				// Hide new assignment form div
-				document.getElementById("newassignment").style.display = "none";
-				// Show the assignment card container
-				document.querySelector("#assignmentlist").style.display = "block";
+				document.getElementById("newassignment").classList.add("display-none");
 				// Make sure there is no message saying no assignments due
 				document.getElementById("assignment-messages").innerHTML = "";
 				// Show the assignment add button
-				document.querySelector("#assignment-add-btn").style.display = "block";
+				document.querySelector("#assignment-add-btn").parentNode.classList.remove("display-none");
 				
 				let id = "aid" + data.id.substring(0, data.id.length);
 				
@@ -95,9 +93,9 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				formElem.reset();
 				
 				// Hide new assignment form div
-				document.getElementById("newassignment").style.display = "none";
+				document.getElementById("newassignment").classList.add("display-none");
 				// Show the assignment add button
-				document.querySelector("#assignment-add-btn").style.display = "block";
+				document.querySelector("#assignment-add-btn").parentNode.classList.remove("display-none");
 				
 				// Get the new index of the card for this assignment (this will only be different
 				// if the due time changed
@@ -146,9 +144,9 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 		let thisAssigBody = e.target.parentNode;
 		let thisAssigCard = thisAssigBody.parentNode;
 		// Show the new assignment form div
-		document.getElementById("newassignment").style.display = "block";
+		document.getElementById("newassignment").classList.remove("display-none");
 		// Hide the add assignment button 
-		document.getElementById("assignment-add-btn").style.display = "none";
+		document.getElementById("assignment-add-btn").parentNode.classList.add("display-none");
 		let formElem = document.querySelector("#newassignment form");
 		formElem.id = thisAssigCard.id;
 		
@@ -201,8 +199,6 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 				let assigContainer = document.getElementById("assignmentlist");
 				assigContainer.removeChild(thisAssigCard);
 				if(assigContainer.children.length === 0){ // the assignment card container is empty
-					// Hide the assignment table
-					assigContainer.style.display = "none";
 					// Show a message saying there are no assignments due
 					document.getElementById("assignment-messages").innerHTML = "No Assignments Due";
 				}

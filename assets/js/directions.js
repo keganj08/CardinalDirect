@@ -905,7 +905,7 @@ createRoute.addEventListener("click", function(e){
     if (path[0].includes("se") && path.length == 1){
         path[0] = "Turn Right";  
     }
-    
+
     //initial route buttons UI update, from clicking create route
     const pathSize = path.length;
     routeButtonsUI();
@@ -942,6 +942,7 @@ createRoute.addEventListener("click", function(e){
         }
     }
 
+    console.log(path);
     //image cohesion - next btn
     //gets initial instruction when create route is clicked, hides explore buttons
    let instruc = document.getElementById("currentInstruction").innerHTML;
@@ -1011,15 +1012,15 @@ createRoute.addEventListener("click", function(e){
         routeButtonsUI();
         boolArrived = false;
         if(prevpicStack === undefined || prevpicStack.length == 0){
-            console.log("no more prev pics");
+            //console.log("no more prev pics");
             instruc = document.getElementById("currentInstruction").innerHTML;
-            console.log(instruc);
+            //console.log(instruc);
         }
         else{
             curr = prevpicStack.pop();
             pic.src = prevsrcStack.pop();
             instruc = document.getElementById("currentInstruction").innerHTML;
-            console.log(instruc);
+            //console.log(instruc);
         }
         UIupdate();
     }
@@ -1112,6 +1113,15 @@ createRoute.addEventListener("click", function(e){
         //workaround for routes with only 2 instructions
         if(pathSize == 1 && count ==1){
             document.getElementById("currentInstruction").innerHTML = "Arrived!";
+        }
+        //another workaround for some routes
+        if(document.getElementById("currentInstruction").innerHTML=="Arrived!"){
+            //disable next
+            document.getElementById("next").disabled = true;
+            document.getElementById("next").style.cssText += "opacity: .1";
+            //enable prev
+            document.getElementById("prev").disabled = false;
+            document.getElementById("prev").style.cssText += "opacity: 1";
         }
     }
 });

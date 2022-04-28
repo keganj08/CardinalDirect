@@ -714,7 +714,8 @@ createRoute.addEventListener("click", function(e){
                     }
                     if (destination == "205" || destination == "216" || destination == "218" || destination == "222" || destination == "224" || destination == "226" || 
                         destination == "228"){
-                        path[i+1] = "Go Upstairs"; 
+                        path[i+2] = "Go Upstairs"; 
+                        path[i+3] = "Turn Right";
                     }
                     if (destination == "301"){
                         path[i+1] = "Go Upstairs";

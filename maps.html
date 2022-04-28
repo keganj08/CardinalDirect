@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--Scheduler Landing Page-->
+<html>
+<head>
+	<meta charset = "utf-8">
+	<meta name="author" content="CSIndustries">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<link href="assets/css/map_styles.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<title>Campus Map</title>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVMcfGIM5gD6vMqYjcKsutgLsnHqMyIIY"></script>
+
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/handlebars/4.7.7/handlebars.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body>
+	<header>
+		<img class="smallLogo" src="assets/images/cardinaldirect_logo.jpg" alt="CardinalDirect Logo"/>
+		<button id="logout" class="fa fa-sign-out" type="button"></button><br>
+		<form>
+			<!-- <input id="destinationInput" type="text" name="location" placeholder="Search campus"></input> -->
+			<select name="locations" id="locations">
+				<option value="Carnegie Hall, Naperville, IL">Carnegie Hall</option>
+				<option value="Goldspohn Hall, Naperville, IL">Goldspohn Hall</option>
+				<option value="Residence Hall / Recreation Center, Naperville, IL">Res/Rec</option>
+				<option value="Wentz Concert Hall, Naperville, IL">Wentz Concert Hall</option>
+				<option value="Wentz Science Center, Naperville, IL">Wentz Science Center</option>
+			</select>
+			<button type="button" id="goBtn">Find route</button>
+		</form>
+	</header>
+	<section>
+		<div id="mapSection">
+			<div id="mapUiUpper">
+				<div class="methodToggle methodToggleSelected" id="walkToggle">
+					<span class="material-icons">directions_walk</span>				
+				</div>
+				<div class="methodToggle" id="driveToggle">
+					<span class="material-icons">directions_car_filled</span>
+				</div>
+			</div>
+			<div id="map">
+				
+			</div>
+			<div id="mapUiLower">
+				<p id="eta">Time remaining: --</p>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<button type="button" id="backButton" onclick = "window.location.href = 'main_landing.html';">Back</button>
+	</footer>
+	
+	<script src="assets/js/maps.js"></script>
+</body>
+</html>
+

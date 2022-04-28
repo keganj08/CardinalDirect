@@ -135,17 +135,5 @@ if(!curr.hasAttribute("forwardVar")){
   }
 
 
-  document.getElementById("forwardBtn").style.visibility = "hidden";
-  document.getElementById("leftBtn").style.visibility = "hidden";
-  document.getElementById("rightBtn").style.visibility = "hidden";
-  document.getElementById("backwardBtn").style.visibility = "hidden";
-  document.getElementById("up").style.visibility = "hidden";
-  document.getElementById("down").style.visibility = "hidden";
-//console.log('test');
-//console.log(E_east.getAttribute("forward"));
-//console.log(E_east.attributes);
-
-
-
 
 

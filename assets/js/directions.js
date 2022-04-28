@@ -7,10 +7,7 @@ console.log(path);//array
 */
 
 var createRoute = document.getElementById("createRoute");
-
-var count = 0;
-
-
+var count = 0; //counting variable to keep track of current instruction, used in button cohesion
 
 createRoute.addEventListener("click", function(e){
     e.preventDefault();//only works if button is clicked, not with the  "enter" key
@@ -899,10 +896,10 @@ createRoute.addEventListener("click", function(e){
     if (path[0].includes("se") && path.length == 1){
         path[0] = "Turn Right";  
     }
-  
+
+    //initial route buttons UI update, from clicking create route
     const pathSize = path.length;
-    console.log("pathsize = " +pathSize)
-    routeButtons();
+    routeButtonsUI();
     document.getElementById("createRoute").disabled = true;
     document.getElementById("createRoute").style.cssText += "opacity: .1";
 
@@ -921,7 +918,7 @@ createRoute.addEventListener("click", function(e){
     }
     
     function nextDirection() {
-        if(count<pathSize){
+        if(count<pathSize){ //count keeps track of current path index, but uses const so it doesnt mess with your algorithm
             count++;
         }
         if (index < path.length - 1){
@@ -935,37 +932,23 @@ createRoute.addEventListener("click", function(e){
             path[path.length-1] = "Arrived!";
         }
     }
-    
 
-  /*
-    function hideExplore() {
-        instruc = document.getElementById("currentInstruction").innerHTML;
-        console.log("create route handler");
-        console.log(instruc);   
-    }*/
- 
-   // createRoute.addEventListener("click", hideExplore);
-   // document.getElementById("createRoute").click(); //simulates extra click (bugfix) multiple handles 1 button at different times in file
-
-
+    console.log(path);
     //image cohesion - next btn
     //gets initial instruction when create route is clicked, hides explore buttons
    let instruc = document.getElementById("currentInstruction").innerHTML;
 
-    
+    //use stacks to store routing direction moves, prev button will pop the stacks to get info
     var prevpicStack = [];
     var prevsrcStack = [];
     var boolArrived = false;
     //next btn listener
     document.getElementById("next").onclick = function() {
-        routeButtons();
-        console.log(boolArrived);
-        console.log(instruc);
+        routeButtonsUI();
+        //console.log(boolArrived);
+        //console.log(instruc);
         if(instruc == "Arrived!"){
             boolArrived = true;
-        }
-        if(instruc == "Arrived!"){
-            console.log("no more instrucs");
         }
         if(boolArrived == false){
             prevpicStack.push(curr);
@@ -1001,7 +984,6 @@ createRoute.addEventListener("click", function(e){
                 //console.log(instruc);
                 //call UIupdate
                 UIupdate();
-               //roomsUpdate();
             }
         }
 
@@ -1015,26 +997,23 @@ createRoute.addEventListener("click", function(e){
     btn.addEventListener("click", prevDirection);
 
 
-    //prev button image cohesion
+    //prev button image cohesion - uses stack variables declared above
     document.getElementById("prev").onclick = function(){
-       // curr = prevpic;
-        //pic.src = prevsrc;
         count--;
-        routeButtons();
+        routeButtonsUI();
         boolArrived = false;
         if(prevpicStack === undefined || prevpicStack.length == 0){
-            console.log("no more prev pics");
+            //console.log("no more prev pics");
             instruc = document.getElementById("currentInstruction").innerHTML;
-            console.log(instruc);
+            //console.log(instruc);
         }
         else{
             curr = prevpicStack.pop();
             pic.src = prevsrcStack.pop();
             instruc = document.getElementById("currentInstruction").innerHTML;
-            console.log(instruc);
+            //console.log(instruc);
         }
         UIupdate();
-        //roomsUpdate();
     }
     
 
@@ -1050,15 +1029,8 @@ createRoute.addEventListener("click", function(e){
         index %= path.length;
         directions.innerHTML = path[index]; 
     }    
-        
-        
-/*
-    function roomsUpdate(){
-        //update room #'s 
-        document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
-        document.getElementById("roomsRight").innerHTML = curr.attributes.rightRooms.value; 
-    }*/
-
+     
+    //updates explore button UI, and current room #'s
     function UIupdate(){
         //update room #'s 
         document.getElementById("roomsLeft").innerHTML = curr.attributes.leftRooms.value;
@@ -1103,10 +1075,9 @@ createRoute.addEventListener("click", function(e){
         }
     }
   
-
-    function routeButtons(){
-        console.log("count = " + count);
-   
+    //function to add responsiveness to route buttons
+    function routeButtonsUI(){
+        //console.log("count = " + count);
         if(count==0){
             //disable prev
             document.getElementById("prev").disabled = true;
@@ -1133,6 +1104,15 @@ createRoute.addEventListener("click", function(e){
         //workaround for routes with only 2 instructions
         if(pathSize == 1 && count ==1){
             document.getElementById("currentInstruction").innerHTML = "Arrived!";
+        }
+        //another workaround for some routes
+        if(document.getElementById("currentInstruction").innerHTML=="Arrived!"){
+            //disable next
+            document.getElementById("next").disabled = true;
+            document.getElementById("next").style.cssText += "opacity: .1";
+            //enable prev
+            document.getElementById("prev").disabled = false;
+            document.getElementById("prev").style.cssText += "opacity: 1";
         }
     }
 });

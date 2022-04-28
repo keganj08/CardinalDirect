@@ -95,19 +95,12 @@ document.addEventListener('DOMContentLoaded', e => {
 		const assignmentData = allResponses[2]; //Response from assignments fetch
 		const todoData = allResponses[3]; //Response from to do lists fetch
 		
-		// If there are event or assignment data to display, make the tables visible
-		// Display messages if there are no data
-		if(meetingData.length > 0){
-			document.querySelector("#eventlist").style.display = "block";
-		}
-		else{
+		// If there are no data to display, display a corresponding message
+		if(meetingData.length === 0){
 			// Display message saying there are no events
 			document.getElementById("event-messages").innerHTML = "No Events";
 		}
-		if(assignmentData.length > 0){
-			document.querySelector("#assignmentlist").style.display = "block";
-		}
-		else{
+		if(assignmentData.length === 0){
 			// Display message saying there are no assignments
 			document.getElementById("assignment-messages").innerHTML = "No Assignments Due";
 		}
@@ -153,7 +146,6 @@ document.addEventListener('DOMContentLoaded', e => {
 					if(rec.dow.indexOf(selectDayOfWeek) !== -1){
 						// In case there are no other meetings, since we now have a record to put in the
 						// event table, make sure the table is visible and the message does not say "No Events"
-						document.querySelector("#eventlist").style.display = "block";
 						document.getElementById("event-messages").innerHTML = "";
 						
 						// Add the event's times to the events object in order to get back where the event

@@ -37,7 +37,7 @@ function deleteToDoList(){
 	// For the id, substring to get rid of "tid"
 	let requestObj = {"id" : todoListTable.id.substring(3), "mode" : 'd'}
 	
-	//Send request to server to add a new to-do list to to-do database
+	//Send request to server to remove a to-do list from to-do database
 	fetch('http://127.0.0.1:3000/todo_lists', {
 		method : 'POST',
 		headers: {'Content-Type': 'application/json'},
@@ -61,9 +61,9 @@ function deleteToDoList(){
 }
 
 // Event Handler for To-do list "Add" Button
-document.querySelector("#todolist button").addEventListener('click', e => {
-	document.getElementById("newtodo").style.display = "block"; // Show the new to-do item form
-	e.target.style.display = "none"; // Hide the add button
+document.querySelector("#todo-add-btn").addEventListener('click', e => {
+	document.getElementById("newtodo").classList.remove("display-none"); // Show the new to-do item form
+	e.target.parentNode.classList.add("display-none"); // Hide the add button
 	if(todoListTable.children.length === 0){ //table is empty
 		createToDoList();
 	}
@@ -110,8 +110,8 @@ document.querySelector("#newtodo form").addEventListener('submit', e => {
 				// Reset and clear out the form's contents
 				formElem.reset();
 				
-				formElem.parentNode.style.display = "none"; // Hide the new to-do item form
-				document.querySelector("#todolist button").style.display = "block"; //Show the add button
+				formElem.parentNode.classList.add("display-none");; // Hide the new to-do item form
+				document.querySelector("#todo-add-btn").parentNode.classList.remove("display-none"); //Show the add button
 				addToDoListItem(requestObj.description, requestObj.isComplete); // add item to to-do list table
 				calculateProgress(); // Update the progress bar
 			})
@@ -217,7 +217,6 @@ function addToDoListItem(description, isComplete){
 				calculateProgress();
 				
 				if(todoTable.children.length === 0){ // table is empty
-					// Hide the to-do list table
 					deleteToDoList();
 				}
 			})

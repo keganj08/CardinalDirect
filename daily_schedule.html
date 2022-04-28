@@ -35,7 +35,7 @@
 					<button id="event-add-btn" class="add-icon" type="button"></button>
 				</div>
 				
-				<div id="newevent" class="new-schedule-item-form">
+				<div id="newevent" class="display-none">
 					<form>
 						<label for="title">Event</label>
 						<br><input id="title" name="title" type="text" placeholder="i.e, Meet with professor" required><br>
@@ -128,7 +128,7 @@
 					<button id="assignment-add-btn" class="add-icon" type="button"></button>
 				</div>
 				
-				<div id="newassignment" class="new-schedule-item-form">
+				<div id="newassignment" class="display-none">
 					<form>
 						<label for="title">Assignment</label>
 						<br><input id="title" name="title" type="text" placeholder="i.e, Chapter 4 Journal" required><br>
@@ -182,9 +182,11 @@
 				<div id="todo-messages"></div>
 				<div id="todolist">
 					<table></table>
-					<button type="button" class="add-icon"></button>
+					<div>
+						<button id="todo-add-btn" type="button" class="add-icon"></button>
+					</div>
 				</div>
-				<div id="newtodo">
+				<div id="newtodo" class="display-none">
 					<form  action="#">
 						<input type="text" name="description" id="description" placeholder="Add a new task..." />
 						<button type="submit">Add</button>

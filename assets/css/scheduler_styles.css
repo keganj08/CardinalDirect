@@ -36,7 +36,6 @@ textarea{
 button{
 	font-size: 18px;
 	background-color: #ef4048;
-	/*background-color: blue;*/
 	color: white;
 	border: none;
 	margin: 10px;
@@ -48,7 +47,6 @@ button{
 #logout{
 	font-size: 18px;
 	background-color: white;
-	/*background-color: blue;*/
 	color: #ef4048;
 	border: none;
 	margin: 10px;
@@ -60,12 +58,25 @@ button{
 }
 
 table{
-	width: 75%;
+	width: 80%;
 	margin: auto;
+	border-collapse: collapse;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+table td{
+	color: #ef4048;
+}
+
+table th{
+	color: white;
+	background-color: #ef4048;
 }
 
 table td, th{
 	border: 1px solid #ef4048;
+	padding: 10px;
 }
 
 .click-cursor{
@@ -76,35 +87,29 @@ table td, th{
 	display: none;
 }
 
-#calendarmonth{
-	display: inline-block; /*keeps buttons in-line with header*/
+.card-header{
+	background-color: #ef4048;
+	color: white;
 }
 
 /* Add Class Result Section */
-.result-area{
-	display: none;
+#classdiv{
+	overflow-x: auto; /* makes the table responsive */
 }
 
 /*Notes*/
 #notes{
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 200px);
-	margin: 0;
+	grid-template-columns: repeat(auto-fill, [col-start] minmax(250px, 1fr) [col-end]);
+	margin: auto;
 	padding: 24px;
-	gap: 24px;
+	gap: 10px;
 }
 
 .note{
-	height: 200px;
-	box-sizing: boarder-box;
-	padding: 16px;
-	border: none;
-	border-radius: 10px;
-	box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
-	resize: none;
-	font-family: Arial, sans-serif;
-	font-size: 16px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
 .add-note{
 	height: 205px;
 	border: none;
@@ -113,7 +118,6 @@ table td, th{
 	border-radius: 10px;
 	font-size: 120px;
 	color:rgba(0, 0, 0, 0.5);
-	/*cursor: pointer;*/
 	transition: background 0.2s ;
 }
 .add-note:hover{
@@ -125,24 +129,30 @@ label {
 }
 
 /*Calender*/
+#calendarmonth{
+	display: inline-block; /*keeps buttons in-line with header*/
+}
+
 #today {
-	background-color: #cccccc;
+	color: white;
+	background-color: #ef4048;
 }
 
 .selected {
-	background-color: #b3ecff;
+	background-color: #a3dce9;
 }
 
 #showEvents {
 	width: 100%;
 	padding: 50px 0;
 	text-align: center;
-	background-color: #b3ecff;
+	background-color: #a3dce9;
 	margin-top: 20px;
 	position: relative;
 }
 
 #eventDate {
+	background-color: #2692c6;
 	position: absolute; width: 100%;
 	margin: 0 auto;top: 0;
 }
@@ -174,80 +184,6 @@ label {
 	grid-row: 1 / 2; /* grid row start = 1, grid row end = 2*/
 	grid-column: 1 / 3; /* grid col start = 1, grid col end = 3*/
  }
-
- /*todo checklist*/
- /*
-#newtask{
-    position: relative;
-    padding: 0px;
-}
-
-#newtask input{
-    width: 50%;
-    height: 25px;
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    border: 2px solid #ef4048;
-    padding: 10px;
-    color: #111111;
-    font-weight: 500;
-    position: relative;
-    
-}
-
-#newtask input:focus{
-    border-color: #ef4048;
-}
-
-ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-li {
-	color: #899098;
-	font-weight: 400;
-	border-bottom: 1px solid #cfcbcc;
-	line-height: 1.5;
-	padding: 8px 0;
-}
-
-li:before {
-	content: "\25A1";
-	padding: 10px 10px;
-	font-size: 20px;
-}
-
-li:hover {
-	text-decoration: line-through;
-	cursor: pointer;
-}
-
-li:last-child {
-	border-bottom: none;
-}
-	
-.checked {
-	color: #ef4048;
-}
-
-.checked:before {
-	content: "\2713";
-	padding: 10px 10px;
-	font-size: 20px;
-}
-
-.checked:hover {
-	text-decoration: none;
-}
-
-.checked:after {
-	content: "(remove)";
-	color: #ef4048;
-	text-align: right;
-}
-*/
 	
 /* Daily Schedule */
 #date-header {

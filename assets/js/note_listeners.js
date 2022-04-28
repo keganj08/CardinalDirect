@@ -131,7 +131,7 @@ function createNoteCard(nid, title, content){
 	// Create the note card
 	let noteCard = document.createElement("div");
 	noteCard.id = nid;
-	noteCard.classList.add("card");
+	noteCard.classList.add("note", "card");
 	
 	// Create the note card head using the given title
 	let noteTitle = document.createElement("div");

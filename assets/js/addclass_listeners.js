@@ -43,19 +43,18 @@ document.addEventListener('DOMContentLoaded', e => {
 document.getElementById("class-search").addEventListener("submit", e => {
 	e.preventDefault();
 	// Show the area that says "Results:" or "No Results"
-	let hiddenElements = document.querySelectorAll(".result-area");
-	hiddenElements[0].style.display = "block";
+	document.getElementById("message-section").classList.remove("display-none");
 	
 	// Clear out any previous search results
 	let classTableSection = document.getElementById("result_section");
-	let classTable = classTableSection.children[0];
+	let classTable = classTableSection.querySelector("table");
 	let i=0;
 	let length = classTable.children.length;
 	// Starting at 1 (to keep the header row), clear out all the search results
 	for(i=1; i<length; i++){
 		classTable.removeChild(classTable.children[1]);
 	}
-	classTableSection.style.display = "none";
+	classTableSection.classList.add("display-none");
 	
 	// Retrieve the contents of the form elements
 	let formElem = e.target;
@@ -83,7 +82,9 @@ document.getElementById("class-search").addEventListener("submit", e => {
 		.then(data => {
 			// If there are search results
 			if(data.length > 0){
-				document.querySelector("h3").innerHTML = "Results:";
+				// Make the table visible
+				classTableSection.classList.remove("display-none");
+				document.querySelector("#message-section h3").innerHTML = "Results:";
 				let resultCourses = [];
 				for(let i=0; i<data.length; i++){
 					rec = data[i];
@@ -101,7 +102,7 @@ document.getElementById("class-search").addEventListener("submit", e => {
 				}
 			}
 			else{ // The search came back with no results
-				document.querySelector("h3").innerHTML = "No Results";
+				document.querySelector("#message-section h3").innerHTML = "No Results";
 			}
 			// Reset and clear out the form's contents
 			formElem.reset();
@@ -118,7 +119,7 @@ document.getElementById("class-search").addEventListener("submit", e => {
 function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endTime, building, roomNum, fnamefirst, fnamelast){
 	// Retrieve the table from the DOM
 	let classTableSection = document.getElementById("result_section");
-	let classTable = classTableSection.children[0];
+	let classTable = classTableSection.querySelector("table");
 	
 	// Create the table row
 	let dataRow = document.createElement("tr");
@@ -165,6 +166,8 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 	else{
 		addTd.innerHTML = "Add";
 	}
+	// Change the cursor of this table element to a clickable cursor
+	addTd.classList.add("click-cursor");
 	
 	// Event listener to add or drop a class
 	addTd.addEventListener('click', e => {
@@ -198,9 +201,7 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 					console.log(error);
 				});
 		}
-		else{
-			console.log("Click - Add Class Button");
-			
+		else{	
 			//Request object has user's email, the course id they are removing, and mode: a for add
 			requestObj = {
 				email: getUserEmail(),
@@ -245,9 +246,6 @@ function createClassTableRow(cid, name, startDate, endDate, dow, startTime, endT
 	
 	// Append table row to the table
 	classTable.appendChild(dataRow);
-	
-	// Make the table visible
-	classTableSection.style.display = "block";
 
 };
 

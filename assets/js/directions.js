@@ -700,17 +700,17 @@ createRoute.addEventListener("click", function(e){
                     console.log(destination);
                     //002 NOT WORKING
                     if(destination == "002"){
-                        path[i+1] = "Go Downstairs"; 
-                        path[i+2] = "Go Straight";//v
+                        path[i+2] = "Go Downstairs"; 
                         path[i+3] = "Turn Right";
-                        path[i+4] = "Go Straight..";
+                        path[i+4] = "Go Straight";//v
+                        path[i+5] = "Go Straight";
                     }
                     if (destination == "028" || destination == "026" || destination == "024" || destination == "022" || destination == "020"){
-                        path[i+1] = "Go Downstairs";
-                        path[i+2] = "Go Straight";
+                        path[i+2] = "Go Downstairs";
                         path[i+3] = "Turn Right";
-                        path[i+4] = "Turn Right";
-                        path[i+5] = "Go Straight";
+                        path[i+4] = "Go Straight";
+                        path[i+5] = "Turn Right";
+                        path[i+6] = "Go Straight";
                     }
                     if (destination == "205" || destination == "216" || destination == "218" || destination == "222" || destination == "224" || destination == "226" || 
                         destination == "228"){

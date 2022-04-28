@@ -923,9 +923,7 @@ createRoute.addEventListener("click", function(e){
     }
     
     function nextDirection() {
-        if(count<pathSize){ //count keeps track of current path index, but uses const so it doesnt mess with your algorithm
-            count++;
-        }
+
         if (index < path.length - 1){
             index++;
         }
@@ -949,6 +947,9 @@ createRoute.addEventListener("click", function(e){
     var boolArrived = false;
     //next btn listener
     document.getElementById("next").onclick = function() {
+        if(count<pathSize){ //count keeps track of current path index, but uses const so it doesnt mess with your algorithm
+            count++;
+        }
         routeButtonsUI();
         //console.log(boolArrived);
         //console.log(instruc);

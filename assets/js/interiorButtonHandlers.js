@@ -100,7 +100,7 @@ for (var i = 0; i < buttons ; i++) {
     });
   }
 
-  //toggle explore buttons
+//toggle explore buttons, update UI accordingly
 var boolToggle = false;
 document.getElementById("showExplore").onclick = function(){
     if(boolToggle == false){
@@ -115,15 +115,8 @@ document.getElementById("showExplore").onclick = function(){
       document.getElementById("next").style.cssText += "opacity: .1";
       document.getElementById("prev").disabled = true;
       document.getElementById("prev").style.cssText += "opacity: .1";
-      /*
-        document.getElementById("forwardBtn").style.visibility = "visible";
-        document.getElementById("leftBtn").style.visibility = "visible";
-        document.getElementById("rightBtn").style.visibility = "visible";
-        document.getElementById("backwardBtn").style.visibility = "visible";
-        document.getElementById("up").style.visibility = "visible";
-        document.getElementById("down").style.visibility = "visible"; */
-        boolToggle = true;
-        }
+      boolToggle = true;
+      }
     else{
       document.getElementById("forwardBtn").classList.replace("visible", "hidden");
       document.getElementById("leftBtn").classList.replace("visible", "hidden");
@@ -131,19 +124,9 @@ document.getElementById("showExplore").onclick = function(){
       document.getElementById("backwardBtn").classList.replace("visible", "hidden");
       document.getElementById("up").classList.replace("visible", "hidden");
       document.getElementById("down").classList.replace("visible", "hidden");
-      /*
-        document.getElementById("forwardBtn").style.visibility = "hidden";
-        document.getElementById("leftBtn").style.visibility = "hidden";
-        document.getElementById("rightBtn").style.visibility = "hidden";
-        document.getElementById("backwardBtn").style.visibility = "hidden";
-        document.getElementById("up").style.visibility = "hidden";
-        document.getElementById("down").style.visibility = "hidden";
-        */
-        boolToggle = false;
-        }   
+      boolToggle = false;
+      }   
     }
-
-   // document.getElementById("showExplore").style.visibility = "hidden";
 
 
 

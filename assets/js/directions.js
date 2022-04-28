@@ -72,7 +72,7 @@ createRoute.addEventListener("click", function(e){
             location.setAttribute("destination", "f1  e");
         }
         if (destination == "113" || destination == "115" || destination == "119" || destination == "121"){
-            location.setAttribute("destination", "f1  w");  
+            location.setAttribute("destination", "f1 nw");  
         }
         if (destination == "104" || destination == "106"){
             location.setAttribute("destination", "f1 se");  

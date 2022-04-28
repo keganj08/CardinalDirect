@@ -621,7 +621,7 @@ createRoute.addEventListener("click", function(e){
                         }   
                         if(path[i+2] != null && path[i+2].includes("w",4)){
                             path[i+2] = "Turn Left";
-                            path[i+3] = "Go Straight..";
+                            path[i+3] = "Go Straight";
                         
                             if (destination == "217" || destination == "219"){
                                 path[i+4] = "Go Upstairs";
@@ -651,12 +651,6 @@ createRoute.addEventListener("click", function(e){
                             if (destination == "113" || destination == "115"){
                                 path[i+4] = "Turn Right";
                             }
-                            if (destination == "323" || destination == "325"){
-                                path[i+4] = "Go Upstairs";
-                                path[i+5] = "Go Upstairs";
-                                path[i+6] = "Turn Right";
-                                path[i+7] = "Arrived!";
-                            }
                             if (destination == "319" || destination == "321"){
                                 path[i+4] = "Go Upstairs";
                                 path[i+5] = "Go Upstairs";
@@ -664,8 +658,16 @@ createRoute.addEventListener("click", function(e){
                                 path[i+7] = "Arrived!";
                             }
                             else{
-                                path.length+=1;
-                                path[i+4] = "Turn Left";
+                                if (destination == "323" || destination == "325"){
+                            
+                                    path[i+4] = "Go Upstairs";
+                                    path[i+5] = "Go Upstairs";
+                                    path[i+6] = "Turn Right";
+                                    path[i+7] = "Arrived!";
+                                }
+                                else{
+                                    path[i+4] = "Turn Left..";
+                                }
                             }
                         }
                     }

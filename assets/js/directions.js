@@ -557,6 +557,14 @@ createRoute.addEventListener("click", function(e){
                         path[i+4] = "Go Upstairs";
                         path[i+5] = "Turn Right";
                     }
+                    if (destination == "154" || destination == "156"){
+                        path[i] = "Turn Right";
+                        path[i+1] = "Go Straight";
+                        path[i+2] = "Go Straight";
+                        path[i+3] = "Turn Left";
+
+                        
+                    }
                     //vending machine
                     if(path[i+1].includes("v",4)){
                         path[i] = "Go Downstairs";
@@ -601,10 +609,7 @@ createRoute.addEventListener("click", function(e){
                             if(destination == "354" || destination == "356"){
                                 path[i+2] = "Go Straight"
                             }
-                            if (destination == "154" || destination == "156"){
-                                path[i+2] = "Go Straight";
-                                path[i+3] = "Turn Left";
-                            }
+                            
                             if(destination == "034" || destination == "036"){
                                 path[i+2] = "Go Straight";
                                 path[i+3] = "Go Downstairs";  

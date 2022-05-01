@@ -38,10 +38,21 @@
 	<section>
 		Search for a Class:
 		<form id="class-search">
-			<input name="subc.cid" type="text" placeholder="e.g., CSCE 160">
-			<input name="name" type="text" placeholder="e.g., Intro to Computer Programming">
-			<input name="fnamelast" type="text" placeholder="e.g., Kim">
-			<button type="submit">Search</button>
+			<div style="display:inline-block">
+				<label for="subc.cid">Course ID</label><br>
+				<input name="subc.cid" type="text" placeholder="e.g., CSCE 160">
+			</div>
+			<div style="display:inline-block">
+				<label for="name">Course Name</label><br>
+				<input name="name" type="text" placeholder="e.g., Intro to Computer Programming">
+			</div>
+			<div style="display:inline-block">
+				<label for="fnamelast">Faculty Last Name</label><br>
+				<input name="fnamelast" type="text" placeholder="e.g., Kim">
+			</div>
+			<div style="display:inline-block">
+				<button type="submit">Search</button>
+			</div>
 		</form>
 	</section>
 	<section id="message-section" class="display-none">

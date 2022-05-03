@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <!--browser icon-->
+    <link rel="icon" href="assets/images/browserIcon.jpg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CD/Settings</title>
+ 
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel="stylesheet" href="assets/css/login_style.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+</head>
+<body>
+<!--Login page -->
+<div class="pt-5">
+    <!--logo-->
+    <div class="inside">
+        <div class="logo"> 
+            <img src="assets/images/cardinaldirect_logo.jpg" >
+            
+        </div> 
+    </div> 
+    <button id ="logout"  type="button">Logout</button>
+<!--white box-->
+<div class="container">
+    <div class="row">
+            <div class="card card-body">
+                <div class="account-settings">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="assets/images/NC-logo.png" alt="NC Logo">
+                        </div>
+                        <div id = "user-info">
+                            <h5 class="user-name" id="username"></h5>
+                            <h6 class="user-email" id="email"></h6>
+                        </div>
+                    </div>
+                </div>
+  
+                <form id="form">
+                    <div class="left"> 
+                        <div class="form-group">
+                            <label for="username" id="username">User Name</label>
+                            <input type="text" name="username" class="form-control" id="usernameplaceholder" placeholder=" ">
+                        </div>
+                    </div>
+                    <div class="right"> 
+                        <div class="form-group">
+                            <label for="pnum" id="pnum">Phone Number</label>
+                            <input type="text" name="pnum" class="form-control" id="pnumplaceholder" placeholder=" ">
+                        </div>
+                    </div>
+                    <div class="left">
+                        <div class="form-group">
+                            <label for="pwd" id="pwd">Password</label>
+                            <input type="text" name="pwd" class="form-control" id="pwdplaceholder" placeholder=" ">
+                        </div>
+                    </div>  
+                    <div id = "settings">
+                        <div class="text-right">
+                            <button type="button" id="back" >Back</button>
+                            <button type="submit" id="update" >Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="card card-body">
+                <div class="notification-settings">
+                    <div class="notificationToggle" id="pushNotificationsToggle">
+                        <span class="material-icons">notifications</span>
+                        Push Notifications
+                    </div>
+                    <div class="notificationToggle" id="emailNotificationsToggle">
+                        <span class="material-icons">email</span>
+                        Email Notifications
+                    </div>
+                    <div class="notificationToggle selectedNotificationToggle" id="noNotificationsToggle">
+                        <span class="material-icons">block</span>
+                        None
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script defer type = "text/javascript" src = "assets/js/settings.js"></script>
+<script defer type = "text/javascript" src = "server/client.js"></script>
+</html>

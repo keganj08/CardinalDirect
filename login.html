@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -30,17 +31,21 @@
         <div class="row">
             <div class="col-md-5 mx-auto">
                 <div class="card card-body">
-                    <!--email-->                 
-                    <form id="submitForm" action="main_landing.html" method="post">
+                    <div id="error-div">
+						Please try again. The email and/or password are incorrect.
+					</div>
+                    <!--<form id="sign-inForm" action="main_landing.html" method="post">-->
+					<form id="sign-inForm">
+						<!--email-->
                         <div class="form-group required">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control text-lowercase" id="email" required>
+                            <input type="email" class="form-control text-lowercase" id="email" name="email" required>
                         </div>          
                         <!--forgot password-->      
                         <div class="form-group required">
                             <label class="d-flex flex-row align-items-center" for="password">Password 
-                                <a class="ml-auto border-link small-xl" href="forgot-password.html">Forgot?</a></label>
-                            <input type="password" class="form-control" required>
+                                <a class="ml-auto border-link small-xl" href=http://localhost:3000/forgot-password>Forgot?</a></label>
+                            <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <!--remember me option-->
                         <div class="form-group mt-4 mb-4">
@@ -67,6 +72,7 @@
         </div>
     </div>
 </div>
+<script defer type = "text/javascript" src = "assets/js/sign-in_listeners.js"></script>
 
 
 </body>

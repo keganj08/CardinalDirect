@@ -13,16 +13,20 @@
 <body>
 	<header>
 		<img src="assets/images/cardinaldirect_logo.jpg" alt="CardinalDirect Logo"/>
+		<button id="logout" type="button">Logout</button><br>
 		<h2>Classes</h2>
 	</header>
 	<section>
-		<div>
+		<div id="classdiv">
 			<p>You have no current classes</p>
 		</div>
 		<div>
-			<button type="button" onclick = "window.location.href = 'scheduler_landing.html';">Back</button>
-			<button type="button" onclick = "window.location.href = 'addclass.html';">Add</button>
+			<button type="button">Back</button>
+			<button type="button">Add</button>
 		</div>
 	</section>
+	<script defer type = "text/javascript" src = "assets/js/class_view_listeners.js"></script>
+	<script defer type = "text/javascript" src = "server/client.js"></script>
+
 </body>
 </html>

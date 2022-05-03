@@ -70,12 +70,14 @@ class Floor{
 //---------
 class Intersection{
     //might have to change NSEW based on orientation
-    constructor(north, south){//for mid intersections 
+  /*  constructor(north, south){//for mid intersections 
         this.north = north;
         this.south = south;
         this.east = null;
-        this.west = null;
-    }
+        this.west = null; 
+    }*/
+    //can only have 1 constructor?
+
     constructor(north, south, east, west){ //takes 4 dif parameters, each corner will pass in 4 different picture paths, + what intersection it is
         this.north = north;
         this.south = south;

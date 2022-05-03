@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--Page for viewing notes-->
 <html>
+
 <head>
 	<link rel="icon" href="assets/images/browserIcon.jpg">
 	<meta charset = "utf-8">
@@ -9,20 +10,27 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link href="assets/css/scheduler_styles.css" rel="stylesheet" type="text/css">
 	<title>Scheduler-View Notes</title>
+	
 </head>
 <body>
 	<header>
 		<img src="assets/images/cardinaldirect_logo.jpg" alt="CardinalDirect Logo"/>
+		<button id="logout" type="button">Logout</button><br>
 		<h2>Notes</h2>
 	</header>
 	<section>
-		<div>
-			<p>You have no notes</p>
-		</div>
-		<div>
-			<button type="button" onclick = "window.location.href = 'scheduler_landing.html';">Back</button>
-			<button type="button">Add</button>
+		<div id="notes">
+			<button id="add-note_btn" class="add-note" type="button">+</button>
 		</div>
 	</section>
+	<section>
+		<div>
+			<button id="back-button" type="button">Back</button>
+		</div>
+	</section>
+	<script defer type = "text/javascript" src = "assets/js/note_listeners.js"></script>
+	<script defer type = "text/javascript" src = "server/client.js"></script>
+
 </body>
 </html>
+ 

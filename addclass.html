@@ -13,100 +13,39 @@
 <body>
 	<header>
 		<img src="assets/images/cardinaldirect_logo.jpg" alt="CardinalDirect Logo"/>
-		<!--Might need to generalize this as Add Event-->
 		<h2>Add Class</h2>
 	</header>
 	<section>
-		<!--Form for Class Information-->
-		<!--Note: Will need to change method to POST or PUT-->
-		<!--Note: Will need to add "action"-->
-		<form method="GET" action="class_view.html" target="_self">
-			<input name="classname" type="text" placeholder="i.e., CARD 101 First-Year Seminar - Writing" required><br>
-			<!-- Area for user to choose which days of the week the class is held -->
-			<button name="M" type="button">M</button>
-			<button name="T" type="button">T</button>
-			<button name="W" type="button">W</button>
-			<button name="Th" type="button">Th</button>
-			<button name="F" type="button">F</button><br>
-			<!-- Area for user to choose starting hour -->
-			Start
-			<select name="starthr" required>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-			</select>:
-			<!-- Area for user to choose starting minutes -->
-			<select name="startmin" required>
-				<option value="00">00</option>
-				<option value="05">05</option>
-				<option value="10">10</option>
-				<option value="15">15</option>
-				<option value="20">20</option>
-				<option value="25">25</option>
-				<option value="30">30</option>
-				<option value="35">35</option>
-				<option value="40">40</option>
-				<option value="45">45</option>
-				<option value="50">50</option>
-				<option value="55">55</option>
-			</select>
-			<!-- Area for user to choose if starting time is AM or PM -->
-			<select name="startampm" required>
-				<option value="am">AM</option>
-				<option value="pm">PM</option>
-			</select><br>
-			<!-- Area for user to choose ending hour -->
-			End
-			<select name="endhr" required>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-			</select>:
-			<!-- Area for user to choose ending minutes -->
-			<select name="endmin" required>
-				<option value="00">00</option>
-				<option value="05">05</option>
-				<option value="10">10</option>
-				<option value="15">15</option>
-				<option value="20">20</option>
-				<option value="25">25</option>
-				<option value="30">30</option>
-				<option value="35">35</option>
-				<option value="40">40</option>
-				<option value="45">45</option>
-				<option value="50">50</option>
-				<option value="55">55</option>
-			</select>
-			<!-- Area for user to choose if ending time is AM or PM -->
-			<select name="endampm" required>
-				<option value="am">AM</option>
-				<option value="pm">PM</option>
-			</select><br>
-			<!-- Might need to make this two separate inputs, "building" and "room number" -->
-			<input name="location" type="text" placeholder="i.e., WSC, 101" required><br>
-			<button type="submit">Add</button>
+		Search for a Class:
+		<form id="class-search">
+			<input name="subc.cid" type="text" placeholder="e.g., CSCE 160">
+			<input name="name" type="text" placeholder="e.g., Intro to Computer Programming">
+			<input name="fnamelast" type="text" placeholder="e.g., Kim">
+			<button type="submit">Search</button>
 		</form>
+	</section>
+	<section class="result-area">
+		<h3> Results: </h3>
+	</section>
+	<section id="result_section" class="result-area">
+		<table>
+			<tr>
+				<th>Code</th>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Days of Week</th>
+				<th>Time</th>
+				<th>Location</th>
+				<th>Faculty</th>
+			</tr>
+		</table>
+	</section>
+	<section>
 		<div>
-			<button type="button" onclick = "window.location.href = 'class_view.html';">Back</button>
+			<button id="back-button" type="button">Back</button>
 		</div>
 	</section>
+	<script defer type = "text/javascript" src = "assets/js/addclass_listeners.js"></script>
+	<script defer type = "text/javascript" src = "server/client.js"></script>
 </body>
 </html>

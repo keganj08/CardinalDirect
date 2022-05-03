@@ -14,68 +14,80 @@
 <body>
 	<header>
 		<img src="assets/images/cardinaldirect_logo.jpg" alt="CardinalDirect Logo"/>
-		<h2>Interior Routing/Exploration</h2>
+    <button id="logout" type="button">Logout</button><br>
 	</header>
 
-<!-- divided page into table of 3 parts (1 th, 1 td, 1 th)-->
-<table>
-	<!--Form for desired classroom destination-->
-    <th>
+  <div class="interior">
+    
+      <div id="left">
+        <div id="showRooms">Left Rooms</div>
+          <p id="roomsLeft" style="font-size: 12px" style="display: none" >room 101 (1st door on right)</p>
+      </div>
+    
+    <div id="right">
+        <div id="showRooms">Right Rooms</div>
+        <p id="roomsRight" style="font-size: 12px" style="display: none" >room 101 (1st door on right)</p>
+    </div>
 
-        <button class="exitButton" name="exit" type="button" onclick = "window.location.href = 'main_landing.html';">Exit to Homepage</button>
+    <div id="top">
+      <div style="float:left; width: 10%; position:relative; top: 6px">
+        <button class="exitButton" name="exit" type="button" id="backButton">Back</button>
+      </div>
+      <div style="float:left; width: 40%; position:relative; top: 6px">
         
-        <div class="buffer"></div>
-        <p></p>
-        <p>Directions:</p>
-        <p id="currentInstruction">instructions will appear here</p>
-        <ul id="currentInstruction"></ul>
-        <div class="buffer"></div>
-        
-        <button type="button" id="next">Next Direction</button>
-        
-        </script>
-        <button id="showRooms"  type="button">Toggle Room #'s</button>
-        <p id="test" style="font-size: 12px" style="display: none" >room 101 (1st door on right)</p>
-        <!--form validation-->
-        <script>
+          <!--form validation-->
+          <script>
             function validateForm() {
               let x = document.forms["room"]["className"].value;
               //classrooms
-              if (x != "002" && x != "101"&& x != "317" && x != "315" && x != "313" && x != "307" && x != "301" && x != "325" && x != "323" && x != "321" && x != "319" && x != "213" && x != "205" && x != "109" && x != "111" && x != "115" && x != "034" && x != "010" && x != "005" && x != "028" && x != "026" && x != "024" && x != "022" && x != "020"){
+              if (x != "154" && x != "002" && x != "101"&& x != "317" && x != "315" && x != "313" && x != "307" && x != "301" && x != "325" && x != "323" && x != "321" 
+              && x != "319" && x != "213" && x != "205" && x != "109" && x != "111" && x != "115" && x != "034" && x != "010" && x != "005" && x != "028" && x != "026" 
+              && x != "024" && x != "022" && x != "020" && x != "144" && x != "145" && x != "148" && x != "150" && x != "138" && x != "136" && x != "134" && x != "132" 
+              && x != "128" && x != "126" && x != "124" && x != "122" && x != "118" && x != "116" && x != "112" && x != "106" && x != "113" && x != "252" && x != "250"
+              && x != "248" && x != "244" && x != "242" && x != "238" && x != "236" && x != "234" && x != "232" && x != "228" && x != "226" && x != "224" && x != "222"
+              && x != "218" && x != "216" && x != "318" && x != "322" && x != "324" && x != "326" && x != "328" && x != "332" && x != "334" && x != "336" && x != "338"
+              && x != "342" && x != "344" && x != "352" && x != "350" && x != "348" && x != "103"){
                 alert("Uh oh! Invalid Location.");
                 return false;
               }
             }
-        </script>
-        <form  method="GET" target="_self" name="room" onsubmit="validateForm()">
-			<input class="className" name="className" type="text" placeholder="Enter room #" required><br>
-			<button name="confirmDestination" type="button">Create Route</button>
-            <button type="button">Remove Route</button>
-		</form>	
+          </script>
+          <form  method="GET" target="_self" name="room" onsubmit="validateForm()">
+            <input class="className" name="className" type="text" id= "destination" placeholder="Enter room #" required>
+            <button name="confirmDestination" id="createRoute" type="button">Create Route</button>
+            <!--<button type="button">Remove Route</button>-->
+          </form>
+      </div>	
+      <div style="float:right; width: 40%; position:relative; top: 6px">
         
-    </th>
-   
-    <!-- image overlay-->
-    <td>
-        <image src="assets/images/building interiors/floor1/floor1_mid_e_to_ne.jpg" style="width:800px;">
-    </td>
+        <p style="display:inline;float:left">Directions :&nbsp</p>
+        <p style="display:inline;float:left" id="currentInstruction"></p>
+       
+        <button style="float:right;" type="button" id="prev">Prev</button>
+        <button style="float:right;" type="button" id="next">Next</button>
+      </div>
+    </div>
 
-    <!-- movement controls-->
+      <div id="image">
+        <image id="current" src="assets/images/building interiors/floor1/nw_intersection/east.jpg" ></image>
+      </div>
+        <!-- movement controls-->
     <!-- will likely replace text buttons for image buttons-->
-    <th>
-        <button class="buttonAlt" name="up" type="button">Go Up Stairs</button>
-        <button class="buttonAlt" name="down" type="button">Go Down Stairs</button>
-        <div class="buffer"></div>
-        <button name="Forward" type="button">Forward</button><br>
-        <button name="Left" type="button">Left</button>
-        <button name="Right" type="button">Right</button><br>
-        <button name="Backward" type="button">Backward</button>
-    </th>
-</table>
-
+    <div id="bottom">
+    <button class="button" id="forwardBtn" type="button">Forward</button>
+    <button class="button" id="leftBtn" type="button">Left</button>
+    <button class="button" id="rightBtn" type="button">Right</button>
+    <button class="button" id="backwardBtn" type="button">Backward</button><br>
+    <button class="button" id="up" type="button">Go Up Stairs</button>
+    <button class="button" id="down" type="button">Go Down Stairs</button><br>
+    
+  </div>
+</div>
 <script src="assets/js/imageFlags.js"></script>
+<script src="assets/js/interior.js"></script>
 <script src="assets/js/interiorButtonHandlers.js"></script>
 <script defer type = "text/javascript" src = "assets/js/routing.js"></script>
 <script defer type = "text/javascript" src = "assets/js/directions.js"></script>
+<script defer type = "text/javascript" src = "server/client.js"></script>
 </body>
 </html>

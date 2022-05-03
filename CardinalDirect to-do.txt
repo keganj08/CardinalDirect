@@ -1,7 +1,0 @@
-Notifications
-- Integrate notifications page with settings page
-
-Maps
-- Fix centering
-- Add bike option 
-- Show step-by-step directions

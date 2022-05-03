@@ -1,6 +1,5 @@
 //for use in choose_entrance.html
 //choose entrance
-//TODO add user to url
 
 document.getElementById("ne").onclick = function(){
 	let url = window.location.href;

@@ -622,7 +622,9 @@ exports.deleteNote = function(record, callbackFn){
 			console.log("connection error: " + err);
 		});
 };
+
 /* -----------------------------------Settings--------------------------------*/
+// Updates a user's information already in the user database
 exports.updateAccount = function(record, callbackFn){
 	mariadb.createConnection(configObj)
 		.then(conn => {
@@ -631,11 +633,10 @@ exports.updateAccount = function(record, callbackFn){
 			let pnum = record.pnum;
 			let email = record.email;
 			conn.query("UPDATE user SET username = (?), pwd = (?), pnum = (?) WHERE email = (?)", [username, pwd, pnum, email])
-			//conn.query("INSERT INTO user value (?, ?, ?, ?)", [username, pwd, pnum, email])
 				.then(res => {
 					console.log(res);
 					conn.end();
-					callbackFn(res);
+					callbackFn();
 				})
 			.catch(err => { 
 				console.log("query error: " + err);

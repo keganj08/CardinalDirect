@@ -37,7 +37,8 @@ function getUserEmail(){
 // Once the page is loaded, get the user's classes, meetings, assignments, and to-do list
 document.addEventListener('DOMContentLoaded', e => {
 	//Show the current date
-	document.getElementById("date-header").innerHTML = new Date(getCurrentDate() + "T12:00:00Z").toLocaleDateString();
+	const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+	document.getElementById("date-header").innerHTML = new Date(getCurrentDate() + "T12:00:00Z").toLocaleDateString(undefined, options);
 	
 	Promise.all([
 		// Get classes from database
@@ -94,19 +95,12 @@ document.addEventListener('DOMContentLoaded', e => {
 		const assignmentData = allResponses[2]; //Response from assignments fetch
 		const todoData = allResponses[3]; //Response from to do lists fetch
 		
-		// If there are event or assignment data to display, make the tables visible
-		// Display messages if there are no data
-		if(meetingData.length > 0){
-			document.querySelector("#eventlist").style.display = "block";
-		}
-		else{
+		// If there are no data to display, display a corresponding message
+		if(meetingData.length === 0){
 			// Display message saying there are no events
 			document.getElementById("event-messages").innerHTML = "No Events";
 		}
-		if(assignmentData.length > 0){
-			document.querySelector("#assignmentlist").style.display = "block";
-		}
-		else{
+		if(assignmentData.length === 0){
 			// Display message saying there are no assignments
 			document.getElementById("assignment-messages").innerHTML = "No Assignments Due";
 		}
@@ -115,13 +109,16 @@ document.addEventListener('DOMContentLoaded', e => {
 			document.getElementById("todo-messages").innerHTML = "Nothing To Do";
 		}
 		
-		// Handle class data
-		console.log(classData);
+		let currentDay = new Date(getCurrentDate() + "T12:00:00Z");
+		currentDay.setHours(0,0,0,0); // Clears out any time
 		// U - Sunday, M - Monday, T - Tuesday, W - Wednesday, R - Thursday, F - Friday, S - Saturday
 		let daysOfWeek = ['U', 'M', 'T', 'W', 'R', 'F', 'S'];
 		// Get Day of Week of given day
-		let selectDayOfWeek = daysOfWeek[new Date(getCurrentDate() + "T12:00:00Z").getDay()];	
+		let selectDayOfWeek = daysOfWeek[currentDay.getDay()];
+		// Get the associated with course id input of the assignment form
 		let assigFormCidSelect = document.querySelector("#cid");
+		
+		// Handle class data
 		let i=0;
 		for(i=0; i<classData.length; i++){
 			let rec = classData[i];
@@ -137,29 +134,34 @@ document.addEventListener('DOMContentLoaded', e => {
 				selectOption.innerHTML = simpleCid;
 				assigFormCidSelect.appendChild(selectOption);
 				
-				// Test if this course is being held on the given day
-				if(rec.dow.indexOf(selectDayOfWeek) !== -1){
-					// In case there are no other meetings, since we now have a record to put in the
-					// event table, make sure the table is visible and the message does not say "No Events"
-					document.querySelector("#eventlist").style.display = "block";
-					document.getElementById("event-messages").innerHTML = "";
-					
-					// Add the event's times to the events object in order to get back where the event
-					// falls in relation to other events chronologically
-					let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
-					
-					// Create a row in the event table at the chronological index for this event
-					addEventCard(insertIdx, "", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
+				// Get the start and end dates of the semester in which this class runs
+				let semStartDate = new Date(rec.startDate);
+				semStartDate.setHours(0,0,0,0); // Clears out any time
+				let semEndDate = new Date(rec.endDate);
+				semEndDate.setHours(0,0,0,0); // Clears out any time
+				
+				// Only include courses if the current day is within the semester
+				if((semStartDate.valueOf() <= currentDay.valueOf()) && (currentDay.valueOf() <= semEndDate.valueOf())){
+					// Test if this course is being held on the given day
+					if(rec.dow.indexOf(selectDayOfWeek) !== -1){
+						// In case there are no other meetings, since we now have a record to put in the
+						// event table, make sure the table is visible and the message does not say "No Events"
+						document.getElementById("event-messages").innerHTML = "";
+						
+						// Add the event's times to the events object in order to get back where the event
+						// falls in relation to other events chronologically
+						let insertIdx = events.addEventTimes(simpleCid, rec.startTime, rec.endTime);
+						
+						// Create a row in the event table at the chronological index for this event
+						addEventCard(insertIdx, "", simpleCid + " " + rec.name, rec.startTime, rec.endTime, rec.building, rec.roomNum, 'c');
+					}
 				}
 				
 			}
 		}
 		
 		// Handle meeting data	
-		console.log(meetingData);
 		meetingData.forEach(rec => {
-			console.log(rec);
-			
 			// Add the event's times to the events object in order to get back where the event
 			// falls in relation to other events chronologically
 			let insertIdx = events.addEventTimes("mid" + rec.mid, rec.start, rec.end);
@@ -169,10 +171,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		});
 						
 		// Handle assignment data
-		console.log(assignmentData);
-		assignmentData.forEach(rec => {
-			console.log(rec);
-			
+		assignmentData.forEach(rec => {			
 			// Add the assignment's due time to the assignments object in order to receive
 			// the chronological position of this assignment in relation to other assignments
 			let insertIdx = assignments.addDueTime("aid" + rec.aid, rec.dueTime);
@@ -182,12 +181,10 @@ document.addEventListener('DOMContentLoaded', e => {
 		});
 			
 		// Handle to-do list data
-		console.log(todoData);
 		if(todoData.length > 0){
 			document.querySelector("#todolist table").id = "tid" + todoData[0].tid;
 		}
 		todoData.forEach(rec => {
-			console.log(rec);
 			addToDoListItem(rec.description, rec.isComplete);
 		});
 		// Calculate the % completed for the progress bar

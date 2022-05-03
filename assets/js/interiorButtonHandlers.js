@@ -99,6 +99,34 @@ for (var i = 0; i < buttons ; i++) {
     });
   }
 
+//toggle explore buttons, update UI accordingly
+var boolToggle = false;
+document.getElementById("showExplore").onclick = function(){
+    if(boolToggle == false){
+      document.getElementById("forwardBtn").classList.replace("hidden", "visible");
+      document.getElementById("leftBtn").classList.replace("hidden", "visible");
+      document.getElementById("rightBtn").classList.replace("hidden", "visible");
+      document.getElementById("backwardBtn").classList.replace("hidden", "visible");
+      document.getElementById("up").classList.replace("hidden", "visible");
+      document.getElementById("down").classList.replace("hidden", "visible");
+      //disable route buttons - have to go back to entrance page to enter new route
+      document.getElementById("next").disabled = true;
+      document.getElementById("next").style.cssText += "opacity: .1";
+      document.getElementById("prev").disabled = true;
+      document.getElementById("prev").style.cssText += "opacity: .1";
+      boolToggle = true;
+      }
+    else{
+      document.getElementById("forwardBtn").classList.replace("visible", "hidden");
+      document.getElementById("leftBtn").classList.replace("visible", "hidden");
+      document.getElementById("rightBtn").classList.replace("visible", "hidden");
+      document.getElementById("backwardBtn").classList.replace("visible", "hidden");
+      document.getElementById("up").classList.replace("visible", "hidden");
+      document.getElementById("down").classList.replace("visible", "hidden");
+      boolToggle = false;
+      }   
+    }
+
 
 
 

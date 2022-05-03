@@ -3,20 +3,18 @@
 // Event Handler for Assignment "Add" Button
 document.querySelector("#assignment-add-btn").addEventListener('click', e => {
 	// Show new assignment form div
-	document.getElementById("newassignment").style.display = "block";
+	document.getElementById("newassignment").classList.remove("display-none");
 	// Hide add Button
-	e.target.style.display = "none";
+	e.target.parentNode.classList.add("display-none");
 	// Set id of new assignment form
 	document.querySelector("#newassignment form").id = "new";
 });
 
 // Event Handler for Assignment Form Submit
 document.querySelector("#newassignment form").addEventListener('submit', e => {
-	console.log("Submit Assignment Form");
-	e.preventDefault();
+	e.preventDefault(); // Prevents default form submit behavior
 	let formElem = e.target;
 	if(formElem.id === "new"){
-		console.log("Assignment Form Submit - New");
 		// save new assignment to database
 		let formData = new FormData(formElem);
 		let formDataObj = Object.fromEntries(formData);
@@ -28,8 +26,6 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 			"dueDate" : getCurrentDate(),
 			"mode" : 'a'
 		};
-		
-		console.log(requestObj);
 		
 		//Send request to server to add a new assignment to assignment database
 		fetch('http://127.0.0.1:3000/assignments', {
@@ -44,14 +40,15 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				return response.json();
 			})
 			.then(data => {
+				// Reset and clear out the form's contents
+				formElem.reset();
+				
 				// Hide new assignment form div
-				document.getElementById("newassignment").style.display = "none";
-				// Show the assignment card container
-				document.querySelector("#assignmentlist").style.display = "block";
+				document.getElementById("newassignment").classList.add("display-none");
 				// Make sure there is no message saying no assignments due
 				document.getElementById("assignment-messages").innerHTML = "";
 				// Show the assignment add button
-				document.querySelector("#assignment-add-btn").style.display = "block";
+				document.querySelector("#assignment-add-btn").parentNode.classList.remove("display-none");
 				
 				let id = "aid" + data.id.substring(0, data.id.length);
 				
@@ -66,7 +63,6 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 			});
 	}
 	else{
-		console.log("Assignment Form Submit - Update");
 		// update assignment in database
 		let formData = new FormData(formElem);
 		let formDataObj = Object.fromEntries(formData);
@@ -79,8 +75,6 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 			"dueDate" : getCurrentDate(),
 			"mode" : 'u'
 		};
-		
-		console.log(requestObj);
 		
 		//Send request to server to update an existing assignment in assignment database
 		fetch('http://127.0.0.1:3000/assignments', {
@@ -95,11 +89,13 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 				return response;
 			})
 			.then(data => {
-				console.log(data);
+				// Reset and clear out the form's contents
+				formElem.reset();
+				
 				// Hide new assignment form div
-				document.getElementById("newassignment").style.display = "none";
+				document.getElementById("newassignment").classList.add("display-none");
 				// Show the assignment add button
-				document.querySelector("#assignment-add-btn").style.display = "block";
+				document.querySelector("#assignment-add-btn").parentNode.classList.remove("display-none");
 				
 				// Get the new index of the card for this assignment (this will only be different
 				// if the due time changed
@@ -122,14 +118,13 @@ document.querySelector("#newassignment form").addEventListener('submit', e => {
 
 // Add assignment to the assignment container
 function addAssignmentCard(insertidx, aid, title, dueTime, cid){
-	// Retrieve the table from the DOM
+	// Retrieve the assignment card container from the DOM
 	let assigContainer = document.querySelector("#assignmentlist");
 	
 	// Create the assignment card
 	let assigCard = document.createElement("div");
 	assigCard.id = aid;
-	assigCard.classList.add("card");
-	assigCard.classList.add("card-width");
+	assigCard.classList.add("card", "card-width");
 	
 	// Create the assignment card head using the given title
 	let assigTitle = document.createElement("div");
@@ -147,12 +142,11 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 	// Event listener when click update and autofill assignment form
 	updateBtn.addEventListener('click', e => {
 		let thisAssigBody = e.target.parentNode;
-		console.log(thisAssigBody.children);
 		let thisAssigCard = thisAssigBody.parentNode;
 		// Show the new assignment form div
-		document.getElementById("newassignment").style.display = "block";
+		document.getElementById("newassignment").classList.remove("display-none");
 		// Hide the add assignment button 
-		document.getElementById("assignment-add-btn").style.display = "none";
+		document.getElementById("assignment-add-btn").parentNode.classList.add("display-none");
 		let formElem = document.querySelector("#newassignment form");
 		formElem.id = thisAssigCard.id;
 		
@@ -182,7 +176,6 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 	delBtn.classList.add('trash-icon');
 	// Event listener to delete assignment
 	delBtn.addEventListener('click', e => {
-		console.log("Delete Event - Click");
 		let thisAssigBody = e.target.parentNode;
 		let thisAssigCard = thisAssigBody.parentNode;
 		
@@ -200,15 +193,12 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 				return response.json();
 			})
 			.then(data => {
-				console.log(data.success);
 				// Remove the assignment from the assignment object
 				assignments.removeDueTime(thisAssigCard.id);
 				// Remove the corresponding card from the assignment card container
 				let assigContainer = document.getElementById("assignmentlist");
 				assigContainer.removeChild(thisAssigCard);
 				if(assigContainer.children.length === 0){ // the assignment card container is empty
-					// Hide the assignment table
-					assigContainer.style.display = "none";
 					// Show a message saying there are no assignments due
 					document.getElementById("assignment-messages").innerHTML = "No Assignments Due";
 				}
@@ -233,4 +223,4 @@ function addAssignmentCard(insertidx, aid, title, dueTime, cid){
 	else{ //Otherwise, add the assignment card at the specified index given by insertidx 
 		assigContainer.insertBefore(assigCard, assigContainer.children[insertidx]);
 	}
-};
+}

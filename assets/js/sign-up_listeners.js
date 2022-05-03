@@ -30,26 +30,3 @@ document.getElementById('sign-upForm').addEventListener('submit', e => {
 			console.log(error);
 		});
 });
-
-
-
-/*
-const formElem = document.querySelector('form');
-
-// submit handler
-
-formElem.addEventListener('submit', (e) => {
-  // on form submission, prevent default
-  e.preventDefault();
-
-  console.log(form.querySelector('input[name="field1"]'));
-  console.log(form.querySelector('input[name="field2"]'));
-
-  // construct a FormData object, which fires the formdata event
-  const formData = new FormData(formElem);
-  // formdata gets modified by the formdata event
-  console.log(formData.get('field1'));
-  console.log(formData.get('field2'));
-});
-
-*/

@@ -1,7 +1,8 @@
 body{
   background:#ef4048;
   font-family: Arial, sans-serif;
-
+  text-align: center;
+  margin-top: 20px;
 }
 /*Header at top*/
 h1{
@@ -39,19 +40,11 @@ a:hover{
   border: #ef4048;
 }
 /*logo*/
-.logo{
-  position: relative;
-  left: 50%;
-  margin-top:-60px;
-  margin-left: -200px;
+img{
+	height: auto;
+	width: min(75%, 300px);
 }
 
-/*bottom div containing logo*/
-.inside {
-      width:auto;
-      position: relative;
-      padding: 20px;  
-}
 
 #error-div{
 	display:none;
@@ -155,6 +148,6 @@ button{
 	padding: 10px;
 	border-radius: 8px; /*curves corners of buttons*/
 	position:absolute;
-   right:10px;
+   right:0px;
    top:5px;
 }
